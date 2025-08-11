@@ -9,9 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="First Commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/DBConnection.java" afterDir="false" />
+    <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/CustomerDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/CustomerDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +38,9 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,11 +59,27 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.CustomerDAOTest.testAddCustomer">
+    <configuration name="CustomerDAOTest.testAddCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pahana-edu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.CustomerDAOTest" />
+      <option name="METHOD_NAME" value="testAddCustomer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="PahanaEdu" />
       <method v="2">
@@ -159,6 +180,15 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.CustomerDAOTest.testAddCustomer" />
+      <item itemvalue="Tomcat Server.Tomcat9" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CustomerDAOTest.testAddCustomer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -168,7 +198,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
-      <workItem from="1754824817247" duration="10756000" />
+      <workItem from="1754824817247" duration="13924000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -177,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1754834057223</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="DbConnection Added">
+      <created>1754849618682</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1754849618682</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +222,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Commit" />
+    <MESSAGE value="DbConnection Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="DbConnection Added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
