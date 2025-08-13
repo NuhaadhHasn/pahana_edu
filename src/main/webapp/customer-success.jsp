@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1>Customer Added Successfully!</h1>
-<p><a href="add-customer.jsp">Add Another Customer</a></p>
-<p><a href="index.jsp">Back to Home</a></p>
+<p><a href="${pageContext.request.contextPath}/customer-form.jsp">Add Another Customer</a></p>
+<p><a href="${pageContext.request.contextPath}/index.jsp">Back to Home</a></p>
 </body>
 </html>

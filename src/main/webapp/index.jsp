@@ -7,6 +7,6 @@
 <body>
 <h1>Welcome to the Pahana Edu Billing System</h1>
 <br/>
-<p><a href="add-customer.jsp">Add a New Customer</a></p>
+<p><a href="${pageContext.request.contextPath}/login">Login to System</a></p>
 </body>
 </html>

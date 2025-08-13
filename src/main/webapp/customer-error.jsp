@@ -6,6 +6,6 @@
 <body>
 <h1>Error: Could Not Add Customer</h1>
 <p>There was a problem saving the customer details to the database. Please try again.</p>
-<p><a href="add-customer.jsp">Try Again</a></p>
+<p><a href="${pageContext.request.contextPath}/customer-form.jsp">Try Again</a></p>
 </body>
 </html>

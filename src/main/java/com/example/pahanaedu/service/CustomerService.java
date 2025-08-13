@@ -3,6 +3,8 @@ package com.example.pahanaedu.service;
 import com.example.pahanaedu.dao.CustomerDAO;
 import com.example.pahanaedu.model.Customer;
 
+import java.util.List;
+
 /**
  * Service layer for customer-related operations.
  * This class contains the business logic. The controller will call this class,
@@ -37,4 +39,49 @@ public class CustomerService {
         // For now, we keep it simple and just delegate to the DAO.
         return customerDAO.addCustomer(customer);
     }
+
+    /**
+     * Handles the business logic for retrieving all customers.
+     * @return A List of all Customer objects.
+     */
+    public List<Customer> getAllCustomers() {
+        // Business logic could be added here, such as filtering or sorting the list.
+        // For now, we simply pass the request to the DAO.
+        return customerDAO.getAllCustomers();
+    }
+
+    /**
+     * Handles the business logic for retrieving a single customer by their ID.
+     * @param id The ID of the customer to retrieve.
+     * @return The Customer object if found, otherwise null.
+     */
+    public Customer getCustomerById(int id) {
+        // Business logic could be added here, e.g., checking if the current user has permission to view this customer.
+        return customerDAO.getCustomerById(id);
+    }
+
+    /**
+     * Handles the business logic for updating an existing customer.
+     * @param customer The customer object with updated details.
+     * @return true if the update was successful, false otherwise.
+     */
+    public boolean updateCustomer(Customer customer) {
+        // Business logic and validation would go here. For example:
+        // if (customer.getFullName() == null || customer.getFullName().trim().isEmpty()) {
+        //     return false; // Name cannot be empty
+        // }
+        return customerDAO.updateCustomer(customer);
+    }
+
+    /**
+     * Handles the business logic for deleting a customer.
+     * @param id The ID of the customer to delete.
+     * @return true if the deletion was successful, false otherwise.
+     */
+    public boolean deleteCustomer(int id) {
+        // Business logic could be added here, such as checking if the customer
+        // has any unpaid bills before allowing deletion.
+        return customerDAO.deleteCustomer(id);
+    }
+
 }
