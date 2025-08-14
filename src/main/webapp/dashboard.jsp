@@ -17,6 +17,10 @@
 <ul>
     <li><a href="${pageContext.request.contextPath}/customer-form.jsp">Add New Customer</a></li>
     <li><a href="${pageContext.request.contextPath}/customers">View All Customers</a></li>
+    <hr> <%-- Add a separator for clarity --%>
+    <li><a href="${pageContext.request.contextPath}/item-form.jsp">Add New Item</a></li>
+    <%-- Add this new line --%>
+    <li><a href="${pageContext.request.contextPath}/items">View All Items</
     <%-- We will add more links here as we build more features --%>
 </ul>
 

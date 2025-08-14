@@ -9,28 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="Implement user authentication and session management">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LogoutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/UserDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/customer-form.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/customer-list.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/UserDAOTest.java" afterDir="false" />
+    <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/ItemDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ItemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/item-form.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/ItemDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-customer.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-success.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/CustomerDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/CustomerDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +78,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.CustomerDAOTest.testDeleteCustomer">
+  <component name="RunManager" selected="Tomcat Server.Tomcat9">
     <configuration name="CustomerDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
@@ -105,22 +94,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CustomerDAOTest.testAddCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pahana-edu" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.CustomerDAOTest" />
-      <option name="METHOD_NAME" value="testAddCustomer" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CustomerDAOTest.testDeleteCustomer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
@@ -132,6 +105,37 @@
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
       <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.CustomerDAOTest" />
       <option name="METHOD_NAME" value="testDeleteCustomer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pahana-edu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.ItemDAOTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ItemDAOTest.testDeleteItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pahana-edu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.ItemDAOTest" />
+      <option name="METHOD_NAME" value="testDeleteItem" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -256,16 +260,18 @@
     <list>
       <item itemvalue="JUnit.CustomerDAOTest" />
       <item itemvalue="JUnit.CustomerDAOTest.testDeleteCustomer" />
+      <item itemvalue="JUnit.ItemDAOTest" />
+      <item itemvalue="JUnit.ItemDAOTest.testDeleteItem" />
       <item itemvalue="JUnit.UserDAOTest.testValidateLogin" />
-      <item itemvalue="JUnit.CustomerDAOTest.testAddCustomer" />
       <item itemvalue="Tomcat Server.Tomcat9" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ItemDAOTest.testDeleteItem" />
+        <item itemvalue="JUnit.ItemDAOTest" />
         <item itemvalue="JUnit.CustomerDAOTest.testDeleteCustomer" />
         <item itemvalue="JUnit.CustomerDAOTest" />
         <item itemvalue="JUnit.UserDAOTest.testValidateLogin" />
-        <item itemvalue="JUnit.CustomerDAOTest.testAddCustomer" />
       </list>
     </recent_temporary>
   </component>
@@ -278,7 +284,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="14074000" />
+      <workItem from="1755010006532" duration="18006000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -308,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1755012018015</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implement full CRUD functionality for Customers">
+      <created>1755099897717</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1755099897717</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +332,8 @@
     <MESSAGE value="DbConnection Added" />
     <MESSAGE value="Add New Customer functionality" />
     <MESSAGE value="Implement user authentication and session management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement user authentication and session management" />
+    <MESSAGE value="Implement full CRUD functionality for Customers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement full CRUD functionality for Customers" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
