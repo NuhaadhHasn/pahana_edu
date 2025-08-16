@@ -62,6 +62,9 @@ public class CustomerController extends HttpServlet {
         action = (action == null) ? "list" : action; // Default to "list" if no action is specified
 
         switch (action) {
+            case "new":
+                showNewForm(request, response);
+                break;
             case "edit":
                 showEditForm(request, response);
                 break;
@@ -82,6 +85,11 @@ public class CustomerController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer-form.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Customer existingCustomer = customerService.getCustomerById(id);

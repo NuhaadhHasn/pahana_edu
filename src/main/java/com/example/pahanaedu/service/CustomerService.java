@@ -24,6 +24,7 @@ public class CustomerService {
      * Handles the business logic for adding a new customer.
      * For now, it just passes the request to the DAO. Later, this is where we would
      * add validation rules (e.g., checking if the account number is in a valid format).
+     *
      * @param customer The customer object to be added.
      * @return true if the customer was added successfully, false otherwise.
      */
@@ -42,6 +43,7 @@ public class CustomerService {
 
     /**
      * Handles the business logic for retrieving all customers.
+     *
      * @return A List of all Customer objects.
      */
     public List<Customer> getAllCustomers() {
@@ -52,6 +54,7 @@ public class CustomerService {
 
     /**
      * Handles the business logic for retrieving a single customer by their ID.
+     *
      * @param id The ID of the customer to retrieve.
      * @return The Customer object if found, otherwise null.
      */
@@ -62,6 +65,7 @@ public class CustomerService {
 
     /**
      * Handles the business logic for updating an existing customer.
+     *
      * @param customer The customer object with updated details.
      * @return true if the update was successful, false otherwise.
      */
@@ -75,6 +79,7 @@ public class CustomerService {
 
     /**
      * Handles the business logic for deleting a customer.
+     *
      * @param id The ID of the customer to delete.
      * @return true if the deletion was successful, false otherwise.
      */
@@ -84,4 +89,7 @@ public class CustomerService {
         return customerDAO.deleteCustomer(id);
     }
 
+    public Customer createCustomerForBilling(Customer customer) {
+        return customerDAO.addCustomerAndReturn(customer);
+    }
 }

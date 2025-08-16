@@ -56,18 +56,20 @@
 <h3>Available Actions:</h3>
 <ul>
     <%-- Customer Management --%>
-    <li><a href="${pageContext.request.contextPath}/customer-form.jsp">Add New Customer</a></li>
+    <li><a href="${pageContext.request.contextPath}/customers?action=new">Add New Customer</a></li>
     <li><a href="${pageContext.request.contextPath}/customers">View All Customers</a></li>
     <hr>
     <%-- Item Management --%>
-    <li><a href="${pageContext.request.contextPath}/item-form.jsp">Add New Item</a></li>
+    <li><a href="${pageContext.request.contextPath}/items?action=new">Add New Item</a></li>
     <li><a href="${pageContext.request.contextPath}/items">View All Items</a></li>
     <hr>
-    <%-- Billing --%>
-    <li><a href="${pageContext.request.contextPath}/billing_old">Create New Bill Old</a></li>
-    <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>
     <%-- User Management --%>
-    <li><a href="${pageContext.request.contextPath}/user-form.jsp">Add New User</a></li>
+    <li><a href="${pageContext.request.contextPath}/users?action=new">Add New User</a></li>
+    <li><a href="${pageContext.request.contextPath}/users">View All Users</a></li>
+    <hr>
+    <%-- Billing --%>
+    <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>
+    <li><a href="${pageContext.request.contextPath}/bill-history">View Bill History</a></li>
 </ul>
 
 <%-- This is the JavaScript that will call our API --%>

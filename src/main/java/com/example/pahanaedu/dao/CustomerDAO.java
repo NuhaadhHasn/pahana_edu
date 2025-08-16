@@ -1,6 +1,7 @@
 package com.example.pahanaedu.dao;
 
 import com.example.pahanaedu.model.Customer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -46,8 +47,45 @@ public class CustomerDAO {
         return rowUpdated;
     }
 
+    public Customer addCustomerAndReturn(Customer customer) {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            // We need to add the user_id to the insert statement
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO customers (account_number, full_name, address, phone_number, user_id) VALUES (?, ?, ?, ?, ?);",
+                    Statement.RETURN_GENERATED_KEYS)) {
+
+                preparedStatement.setString(1, customer.getAccountNumber());
+                preparedStatement.setString(2, customer.getFullName());
+                preparedStatement.setString(3, customer.getAddress());
+                preparedStatement.setString(4, customer.getPhoneNumber());
+
+                if (customer.getUserId() > 0) {
+                    preparedStatement.setInt(5, customer.getUserId());
+                } else {
+                    preparedStatement.setNull(5, java.sql.Types.INTEGER);
+                }
+
+                int affectedRows = preparedStatement.executeUpdate();
+                if (affectedRows > 0) {
+                    try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            customer.setCustomerId(generatedKeys.getInt(1));
+                            return customer;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * Retrieves a list of all customers from the database.
+     *
      * @return A List of Customer objects.
      */
     public List<Customer> getAllCustomers() {
@@ -88,6 +126,7 @@ public class CustomerDAO {
 
     /**
      * Retrieves a single customer from the database based on their ID.
+     *
      * @param id The ID of the customer to retrieve.
      * @return A Customer object, or null if not found.
      */
@@ -123,6 +162,7 @@ public class CustomerDAO {
 
     /**
      * Updates an existing customer's record in the database.
+     *
      * @param customer The Customer object containing the updated information.
      * @return true if the update was successful, false otherwise.
      */
@@ -153,6 +193,7 @@ public class CustomerDAO {
 
     /**
      * Deletes a customer from the database.
+     *
      * @param id The ID of the customer to delete.
      * @return true if the deletion was successful, false otherwise.
      */
@@ -178,6 +219,7 @@ public class CustomerDAO {
 
     /**
      * Counts the total number of customers in the database.
+     *
      * @return The total count of customers.
      */
     public int getCustomerCount() {

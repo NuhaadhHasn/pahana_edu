@@ -5,14 +5,45 @@
 <head>
     <title>View Bill</title>
     <style>
-        body { font-family: sans-serif; margin: 2em; }
-        .bill-container { border: 1px solid #000; padding: 2em; width: 600px; margin: 0 auto; }
-        .bill-header, .bill-footer { text-align: center; margin-bottom: 2em; }
-        .customer-info { margin-bottom: 2em; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
-        th, td { padding: 0.5em; text-align: left; }
-        .totals-table td { border-top: 1px solid #000; }
-        .text-right { text-align: right; }
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+        }
+
+        .bill-container {
+            border: 1px solid #000;
+            padding: 2em;
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .bill-header, .bill-footer {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .customer-info {
+            margin-bottom: 2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2em;
+        }
+
+        th, td {
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .totals-table td {
+            border-top: 1px solid #000;
+        }
+
+        .text-right {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -24,10 +55,11 @@
     </div>
 
     <div class="customer-info">
-        <strong>Bill To:</strong> <c:out value="${customer.fullName}" /><br>
-        <strong>Account No:</strong> <c:out value="${customer.accountNumber}" /><br>
-        <strong>Address:</strong> <c:out value="${customer.address}" /><br>
-        <strong>Date:</strong> <fmt:formatDate value="${bill.billDateAsDate}" type="both" dateStyle="long" timeStyle="short" />
+        <strong>Bill To:</strong> <c:out value="${customer.fullName}"/><br>
+        <strong>Account No:</strong> <c:out value="${customer.accountNumber}"/><br>
+        <strong>Address:</strong> <c:out value="${customer.address}"/><br>
+        <strong>Date:</strong> <fmt:formatDate value="${bill.billDateAsDate}" type="both" dateStyle="long"
+                                               timeStyle="short"/>
     </div>
 
     <table>
@@ -42,10 +74,12 @@
         <tbody>
         <c:forEach items="${bill.billItems}" var="billItem">
             <tr>
-                <td><c:out value="${billItem.itemName}" /></td>
-                <td class="text-right"><c:out value="${billItem.quantity}" /></td>
-                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase}" type="currency" currencySymbol="Rs." /></td>
-                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase * billItem.quantity}" type="currency" currencySymbol="Rs." /></td>
+                <td><c:out value="${billItem.itemName}"/></td>
+                <td class="text-right"><c:out value="${billItem.quantity}"/></td>
+                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase}" type="currency"
+                                                         currencySymbol="Rs."/></td>
+                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase * billItem.quantity}"
+                                                         type="currency" currencySymbol="Rs."/></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -54,21 +88,25 @@
     <table class="totals-table">
         <tr>
             <td>Subtotal</td>
-            <td class="text-right"><fmt:formatNumber value="${bill.subTotal}" type="currency" currencySymbol="Rs." /></td>
+            <td class="text-right"><fmt:formatNumber value="${bill.subTotal}" type="currency"
+                                                     currencySymbol="Rs."/></td>
         </tr>
         <c:if test="${bill.taxRateApplied > 0}">
             <tr>
-                <td>Tax (<fmt:formatNumber value="${bill.taxRateApplied}" type="percent" />)</td>
-                <td class="text-right"><fmt:formatNumber value="${bill.subTotal * bill.taxRateApplied}" type="currency" currencySymbol="Rs." /></td>
+                <td>Tax (<fmt:formatNumber value="${bill.taxRateApplied}" type="percent"/>)</td>
+                <td class="text-right"><fmt:formatNumber value="${bill.subTotal * bill.taxRateApplied}" type="currency"
+                                                         currencySymbol="Rs."/></td>
             </tr>
         </c:if>
         <tr>
             <td>Service Charge</td>
-            <td class="text-right"><fmt:formatNumber value="100.00" type="currency" currencySymbol="Rs." /></td>
+            <td class="text-right"><fmt:formatNumber value="${bill.serviceCharge}" type="currency"
+                                                     currencySymbol="Rs."/></td>
         </tr>
         <tr>
             <td><strong>Total Amount</strong></td>
-            <td class="text-right"><strong><fmt:formatNumber value="${bill.totalAmount}" type="currency" currencySymbol="Rs." /></strong></td>
+            <td class="text-right"><strong><fmt:formatNumber value="${bill.totalAmount}" type="currency"
+                                                             currencySymbol="Rs."/></strong></td>
         </tr>
     </table>
 

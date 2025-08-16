@@ -4,9 +4,11 @@ import com.example.pahanaedu.model.Bill;
 import com.example.pahanaedu.model.BillItem;
 import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.Item;
+import com.example.pahanaedu.model.User;
 import com.example.pahanaedu.service.BillingService;
 import com.example.pahanaedu.service.CustomerService;
 import com.example.pahanaedu.service.ItemService;
+import com.example.pahanaedu.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,12 +27,14 @@ public class BillingController extends HttpServlet {
     private CustomerService customerService;
     private ItemService itemService;
     private BillingService billingService;
+    private UserService userService;
 
     @Override
     public void init() {
         customerService = new CustomerService();
         itemService = new ItemService();
         billingService = new BillingService();
+        userService = new UserService();
     }
 
     /**
@@ -56,21 +60,54 @@ public class BillingController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // ... (The customer selection logic is the same) ...
-        String walkinCustomerName = request.getParameter("walkinCustomerName");
-        Customer selectedCustomer;
-        if (walkinCustomerName != null && !walkinCustomerName.trim().isEmpty()) {
-            selectedCustomer = new Customer();
-            selectedCustomer.setFullName(walkinCustomerName);
-            selectedCustomer.setAccountNumber(request.getParameter("walkinCustomerAccount"));
-            selectedCustomer.setAddress(request.getParameter("walkinCustomerAddress"));
+        String isWalkinParam = request.getParameter("isWalkin");
+        boolean isWalkin = (isWalkinParam != null && isWalkinParam.equals("on"));
+        Customer billCustomer = null;
+
+        if (isWalkin) {
+            // --- HANDLE NEW CUSTOMER CREATION ---
+            // 1. Create the new Customer object from the form
+            Customer newCustomer = new Customer();
+            newCustomer.setFullName(request.getParameter("walkinFullName"));
+            newCustomer.setAccountNumber(request.getParameter("walkinAccountNumber"));
+            newCustomer.setAddress(request.getParameter("walkinAddress"));
+            newCustomer.setPhoneNumber(request.getParameter("walkinPhone"));
+
+            // 2. Check if a login account should also be created
+            String createAccountParam = request.getParameter("createAccount");
+            if (createAccountParam != null && createAccountParam.equals("on")) {
+                User newUser = new User();
+                newUser.setUsername(request.getParameter("walkinUsername"));
+                newUser.setPassword(request.getParameter("walkinPassword"));
+                newUser.setFullName(newCustomer.getFullName());
+                newUser.setRole("CUSTOMER");
+
+                // Save the new user and get their ID
+                User createdUser = userService.addUser(newUser);
+                if (createdUser != null) {
+                    newCustomer.setUserId(createdUser.getUserId());
+                }
+            }
+
+            // 3. Save the new customer and get the final object back with its new ID
+            billCustomer = customerService.createCustomerForBilling(newCustomer);
+
         } else {
+            // --- HANDLE EXISTING CUSTOMER ---
             int customerId = Integer.parseInt(request.getParameter("customerId"));
-            selectedCustomer = customerService.getCustomerById(customerId);
+            billCustomer = customerService.getCustomerById(customerId);
         }
 
+        // If customer creation failed or wasn't found, stop here.
+        if (billCustomer == null) {
+            response.getWriter().println("<h1>Error: Could not find or create customer.</h1>");
+            return;
+        }
+
+
         // --- NEW TAX LOGIC ---
+        double taxRate = Double.parseDouble(request.getParameter("taxRate")) / 100.0;
         String applyTaxParam = request.getParameter("applyTax");
-        double taxRate = 0.0; // Default to 0 tax
         if (applyTaxParam != null && applyTaxParam.equals("on")) {
             // If the checkbox was checked, get the tax rate from the form
             taxRate = Double.parseDouble(request.getParameter("taxRate")) / 100.0; // Convert percentage to decimal
@@ -78,9 +115,7 @@ public class BillingController extends HttpServlet {
 
         double serviceCharge = Double.parseDouble(request.getParameter("serviceCharge"));
 
-        // ... (The item processing logic is the same) ...
         List<BillItem> itemsToBill = new ArrayList<>();
-        // ... (code to populate itemsToBill) ...
         String[] itemIds = request.getParameterValues("itemIds");
         String[] quantities = request.getParameterValues("quantities");
         if (itemIds != null && quantities != null) {
@@ -99,11 +134,22 @@ public class BillingController extends HttpServlet {
             }
         }
 
-        // Call the service with the new taxRate parameter
-        Bill finalBill = billingService.calculateBill(selectedCustomer, itemsToBill, taxRate, serviceCharge);
+        System.out.println("--- BillingController DEBUG ---");
+        System.out.println("Number of items being sent to service: " + itemsToBill.size());
+        for (BillItem item : itemsToBill) {
+            System.out.println("Item ID: " + item.getItemId() + ", Qty: " + item.getQuantity());
+        }
+        System.out.println("-----------------------------");
 
+        
+        Bill finalBill = billingService.calculateAndSaveBill(billCustomer, itemsToBill, taxRate, serviceCharge);
+
+        if (finalBill == null) {
+            response.getWriter().println("<h1>Error: Could not save the bill. Check server logs for details.</h1>");
+            return;
+        }
         request.setAttribute("bill", finalBill);
-        request.setAttribute("customer", selectedCustomer);
+        request.setAttribute("customer", billCustomer);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view-bill.jsp");
         dispatcher.forward(request, response);
     }

@@ -2,7 +2,10 @@ package com.example.pahanaedu.dao;
 
 import com.example.pahanaedu.model.User;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 public class UserDAOTest {
 
@@ -48,5 +51,58 @@ public class UserDAOTest {
         // Optional: Verify by trying to log in as the new user
         User createdUser = userDAO.validate("newstaff", "staffpass");
         assertNotNull("Should be able to validate the newly created user.", createdUser);
+    }
+
+    @Test
+    public void testGetAllUsers() {
+        UserDAO userDAO = new UserDAO();
+        List<User> users = userDAO.getAllUsers();
+        assertNotNull("User list should not be null.", users);
+        assertFalse("User list should not be empty.", users.isEmpty());
+    }
+
+    @Test
+    public void testGetUserById() {
+        UserDAO userDAO = new UserDAO();
+        // Assuming a user with ID 1 (admin) exists.
+        User user = userDAO.getUserById(1);
+        assertNotNull("User should not be null for a valid ID.", user);
+        assertEquals("The user ID should be 1.", 1, user.getUserId());
+    }
+
+    @Test
+    public void testUpdateUser() {
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.getUserById(2); // Get the 'staff' user
+        assertNotNull("Could not retrieve user to update.", user);
+
+        user.setFullName("Updated Staff Name");
+        boolean result = userDAO.updateUser(user);
+        assertTrue("User should be updated successfully.", result);
+
+        User updatedUser = userDAO.getUserById(2);
+        assertEquals("Full name should be updated.", "Updated Staff Name", updatedUser.getFullName());
+    }
+
+    @Test
+    public void testDeleteUser() {
+        UserDAO userDAO = new UserDAO();
+        // Add a temporary user to delete
+        User tempUser = new User();
+        tempUser.setUsername("todelete");
+        tempUser.setPassword("deletepass");
+        tempUser.setFullName("To Be Deleted");
+        tempUser.setRole("STAFF");
+        userDAO.addUser(tempUser);
+
+        // Now find and delete them
+        User userToDelete = userDAO.validate("todelete", "deletepass");
+        assertNotNull("Could not find temp user to delete", userToDelete);
+
+        boolean result = userDAO.deleteUser(userToDelete.getUserId());
+        assertTrue("User should be deleted successfully.", result);
+
+        User deletedUser = userDAO.getUserById(userToDelete.getUserId());
+        assertNull("Deleted user should not be found.", deletedUser);
     }
 }
