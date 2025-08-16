@@ -21,6 +21,7 @@ public class ItemDAO {
     private static final String SELECT_ITEM_BY_ID_SQL = "SELECT * FROM items WHERE item_id = ?;";
     private static final String UPDATE_ITEM_SQL = "UPDATE items SET item_name = ?, description = ?, price = ?, stock_quantity = ? WHERE item_id = ?;";
     private static final String DELETE_ITEM_SQL = "DELETE FROM items WHERE item_id = ?;";
+    private static final String SEARCH_ITEMS_BY_NAME_SQL = "SELECT * FROM items WHERE item_name LIKE ?;";
 
     /**
      * Adds a new item to the database.
@@ -171,5 +172,101 @@ public class ItemDAO {
             e.printStackTrace();
         }
         return rowDeleted;
+    }
+
+    /**
+     * Calculates the sum of the stock_quantity for all items.
+     * @return The total number of items in stock.
+     */
+    public int getTotalStockCount() {
+        int totalStock = 0;
+        String sql = "SELECT SUM(stock_quantity) FROM items;";
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+
+            if (rs.next()) {
+                totalStock = rs.getInt(1); // Get the sum from the first column
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totalStock;
+    }
+
+    /**
+     * Searches for items in the database with a name containing the search term.
+     * @param name The search term to look for in item names.
+     * @return A List of matching Item objects.
+     */
+    public List<Item> searchItemsByName(String name) {
+        List<Item> items = new ArrayList<>();
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return items; // Return empty list on connection failure
+        }
+
+        // The '%' are wildcards for the SQL LIKE clause, meaning "match any characters"
+        String searchTerm = "%" + name + "%";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_ITEMS_BY_NAME_SQL)) {
+            preparedStatement.setString(1, searchTerm);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Item item = new Item();
+                item.setItemId(rs.getInt("item_id"));
+                item.setItemName(rs.getString("item_name"));
+                item.setDescription(rs.getString("description"));
+                item.setPrice(rs.getDouble("price"));
+                item.setStockQuantity(rs.getInt("stock_quantity"));
+                items.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+
+    /**
+     * Checks if an item with the given name already exists in the database.
+     * This is used for validation to prevent duplicate item names.
+     * @param name The name of the item to check.
+     * @return true if an item with that name exists, false otherwise.
+     */
+    public boolean itemExists(String name) {
+        boolean exists = false;
+        String sql = "SELECT COUNT(*) FROM items WHERE item_name = ?;";
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return true; // Failsafe: assume it exists if DB connection fails
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                exists = rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exists;
     }
 }

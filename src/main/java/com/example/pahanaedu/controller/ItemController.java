@@ -93,12 +93,12 @@ public class ItemController extends HttpServlet {
 		newItem.setPrice(price);
 		newItem.setStockQuantity(stockQuantity);
 
-		boolean success = itemService.addItem(newItem);
+		String  errorMessage  = itemService.addItem(newItem);
 
-		if (success) {
+		if (errorMessage.isEmpty()) {
 			response.sendRedirect(request.getContextPath() + "/items");
 		} else {
-			request.setAttribute("errorMessage", "Failed to add item. Please check the data and try again.");
+			request.setAttribute("errorMessage", errorMessage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("item-form.jsp");
 			dispatcher.forward(request, response);
 		}

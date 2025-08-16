@@ -175,4 +175,32 @@ public class CustomerDAO {
         }
         return rowDeleted;
     }
+
+    /**
+     * Counts the total number of customers in the database.
+     * @return The total count of customers.
+     */
+    public int getCustomerCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM customers;";
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+
+            if (rs.next()) {
+                count = rs.getInt(1); // Get the count from the first column
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

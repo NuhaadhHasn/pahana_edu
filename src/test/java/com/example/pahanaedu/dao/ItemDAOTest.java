@@ -106,4 +106,23 @@ public class ItemDAOTest {
         Item item = itemDAO.getItemById(itemIdToDelete);
         assertNull("The item should no longer exist in the database.", item);
     }
+
+    /**
+     * TDD Test - Red Phase: test searching for items by name.
+     * This will fail as searchItemsByName() does not exist in the DAO.
+     */
+    @Test
+    public void testSearchItemsByName() {
+        ItemDAO itemDAO = new ItemDAO();
+        // We know from our sample data an item with "Java" in the name exists.
+        String searchTerm = "Java";
+
+        List<Item> foundItems = itemDAO.searchItemsByName(searchTerm);
+
+        assertNotNull("The list of found items should not be null.", foundItems);
+        assertFalse("The list should not be empty when a match exists.", foundItems.isEmpty());
+        // Check if the first found item actually contains the search term.
+        assertTrue("The item name should contain the search term.",
+                foundItems.get(0).getItemName().contains(searchTerm));
+    }
 }

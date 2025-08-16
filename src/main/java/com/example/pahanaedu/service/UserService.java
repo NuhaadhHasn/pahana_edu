@@ -37,4 +37,17 @@ public class UserService {
 
         return user;
     }
+
+    /**
+     * Handles the business logic for adding a new user.
+     * @param user The User object to be added.
+     * @return true if the user was successfully added, false otherwise.
+     */
+    public boolean addUser(User user) {
+        // Business logic and validation can be added here.
+        // For example, we could check if the username already exists before trying to insert.
+        // For now, we will rely on the database's UNIQUE constraint.
+        return userDAO.addUser(user);
+    }
+
 }

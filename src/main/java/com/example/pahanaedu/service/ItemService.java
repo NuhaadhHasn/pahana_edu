@@ -3,6 +3,7 @@ package com.example.pahanaedu.service;
 import com.example.pahanaedu.dao.ItemDAO;
 import com.example.pahanaedu.model.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Service layer for item-related business logic.
@@ -20,13 +21,20 @@ public class ItemService {
      * @param item The item object to add.
      * @return true if the item was added successfully, false otherwise.
      */
-    public boolean addItem(Item item) {
-        // Business logic and validation can be added here.
-        // For example: ensure the price is not negative and stock is not negative.
+    public String addItem(Item item) {
+        // --- Business Logic Validation ---
+        // Rule 1: Price and stock cannot be negative.
         if (item.getPrice() < 0 || item.getStockQuantity() < 0) {
-            return false; // Invalid data
+            return "Validation failed: Price or stock cannot be negative.";
         }
-        return itemDAO.addItem(item);
+        // Rule 2: Item name cannot already exist.
+        if (itemDAO.itemExists(item.getItemName())) {
+            return "Validation failed: An item with this name already exists.";
+        }
+
+        boolean success = itemDAO.addItem(item);
+
+        return success ? "" : "An unexpected error occurred in the database.";
     }
 
     /**
@@ -54,10 +62,21 @@ public class ItemService {
      * @return true if the update was successful, false otherwise.
      */
     public boolean updateItem(Item item) {
-        // We can reuse the same validation logic from our addItem method.
+        // Validation Rule 1: Price and stock cannot be negative.
         if (item.getPrice() < 0 || item.getStockQuantity() < 0) {
-            return false; // Invalid data
+            System.err.println("Validation failed: Price or stock cannot be negative.");
+            return false;
         }
+
+        // Validation Rule 2: Check for duplicate name, but allow the item to keep its own name.
+        Item existingItem = itemDAO.getItemById(item.getItemId());
+        // If the name was changed AND the new name already exists in the database...
+        if (!existingItem.getItemName().equals(item.getItemName()) && itemDAO.itemExists(item.getItemName())) {
+            System.err.println("Validation failed: Another item with this new name already exists.");
+            return false;
+        }
+
+        // If validation passes, proceed to update.
         return itemDAO.updateItem(item);
     }
 
@@ -70,6 +89,20 @@ public class ItemService {
         // Business logic could be added here, e.g., checking if the item is part of
         // an existing customer bill before allowing deletion.
         return itemDAO.deleteItem(id);
+    }
+
+    /**
+     * Handles the business logic for searching items by name.
+     * @param name The search term.
+     * @return A List of matching Item objects.
+     */
+    public List<Item> searchItemsByName(String name) {
+        // Business logic could be added here, such as logging the search query
+        // or handling empty search terms.
+        if (name == null || name.trim().isEmpty()) {
+            return new ArrayList<>(); // Return an empty list if search term is empty
+        }
+        return itemDAO.searchItemsByName(name);
     }
 
 }

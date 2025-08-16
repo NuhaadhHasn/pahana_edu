@@ -14,6 +14,7 @@ public class UserDAO {
 
     // SQL query to select a user by their username and password.
     private static final String VALIDATE_USER_SQL = "SELECT * FROM users WHERE username = ? AND password = ?;";
+    private static final String INSERT_USER_SQL = "INSERT INTO users (username, password, full_name, role) VALUES (?, ?, ?, ?);";
 
     /**
      * Validates a user's credentials against the database.
@@ -57,4 +58,34 @@ public class UserDAO {
 
         return user;
     }
+
+    /**
+     * Adds a new user to the database.
+     * @param user The User object to add.
+     * @return true if the user was added successfully, false otherwise.
+     */
+    public boolean addUser(User user) {
+        boolean rowInserted = false;
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFullName());
+            preparedStatement.setString(4, user.getRole());
+
+            rowInserted = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInserted;
+    }
+
 }

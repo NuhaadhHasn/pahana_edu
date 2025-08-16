@@ -24,4 +24,29 @@ public class UserDAOTest {
         User invalidUser = userDAO.validate("admin", "wrongpassword");
         assertNull("Null should be returned for incorrect credentials.", invalidUser);
     }
+
+    /**
+     * TDD Test - Red Phase: test adding a new user.
+     * This will fail because the addUser() method does not exist in the DAO.
+     */
+    @Test
+    public void testAddUser() {
+        // 1. Setup
+        UserDAO userDAO = new UserDAO();
+        User newUser = new User();
+        newUser.setUsername("newstaff");
+        newUser.setPassword("staffpass");
+        newUser.setFullName("New Staff Member");
+        newUser.setRole("STAFF");
+
+        // 2. Execution
+        boolean result = userDAO.addUser(newUser);
+
+        // 3. Assertion
+        assertTrue("The new user should be added successfully.", result);
+
+        // Optional: Verify by trying to log in as the new user
+        User createdUser = userDAO.validate("newstaff", "staffpass");
+        assertNotNull("Should be able to validate the newly created user.", createdUser);
+    }
 }
