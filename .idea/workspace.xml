@@ -10,29 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillHistoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/bill-history.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/BillingDAOTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/PromotionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/PromotionDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Promotion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/PromotionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/promotion-form.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/PromotionDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingControllerOld.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/CustomerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/create-bill-old.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/UserDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/UserDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/CustomerDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/CustomerDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +91,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat9">
-    <configuration name="BillingDAOTest.testGetAllBills" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CustomerDAOTest.testDeletePromotion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -113,14 +100,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.BillingDAOTest" />
-      <option name="METHOD_NAME" value="testGetAllBills" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.CustomerDAOTest" />
+      <option name="METHOD_NAME" value="testDeletePromotion" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BillingDAOTest.testSaveBill" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PromotionDAOTest.testDeletePromotion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -129,14 +116,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.BillingDAOTest" />
-      <option name="METHOD_NAME" value="testSaveBill" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
+      <option name="METHOD_NAME" value="testDeletePromotion" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemDAOTest.testDeleteItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PromotionDAOTest.testGetAllPromotions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -145,14 +132,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.ItemDAOTest" />
-      <option name="METHOD_NAME" value="testDeleteItem" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
+      <option name="METHOD_NAME" value="testGetAllPromotions" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItemDAOTest.testSearchItemsByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PromotionDAOTest.testGetPromotionById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -161,14 +148,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.ItemDAOTest" />
-      <option name="METHOD_NAME" value="testSearchItemsByName" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
+      <option name="METHOD_NAME" value="testGetPromotionById" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserDAOTest.testAddUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PromotionDAOTest.testUpdatePromotion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -177,8 +164,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.UserDAOTest" />
-      <option name="METHOD_NAME" value="testAddUser" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
+      <option name="METHOD_NAME" value="testUpdatePromotion" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -285,20 +272,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.BillingDAOTest.testGetAllBills" />
-      <item itemvalue="JUnit.BillingDAOTest.testSaveBill" />
-      <item itemvalue="JUnit.ItemDAOTest.testDeleteItem" />
-      <item itemvalue="JUnit.ItemDAOTest.testSearchItemsByName" />
-      <item itemvalue="JUnit.UserDAOTest.testAddUser" />
+      <item itemvalue="JUnit.CustomerDAOTest.testDeletePromotion" />
+      <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
+      <item itemvalue="JUnit.PromotionDAOTest.testGetAllPromotions" />
+      <item itemvalue="JUnit.PromotionDAOTest.testGetPromotionById" />
+      <item itemvalue="JUnit.PromotionDAOTest.testUpdatePromotion" />
       <item itemvalue="Tomcat Server.Tomcat9" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BillingDAOTest.testGetAllBills" />
-        <item itemvalue="JUnit.BillingDAOTest.testSaveBill" />
-        <item itemvalue="JUnit.UserDAOTest.testAddUser" />
-        <item itemvalue="JUnit.ItemDAOTest.testSearchItemsByName" />
-        <item itemvalue="JUnit.ItemDAOTest.testDeleteItem" />
+        <item itemvalue="JUnit.CustomerDAOTest.testDeletePromotion" />
+        <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
+        <item itemvalue="JUnit.PromotionDAOTest.testUpdatePromotion" />
+        <item itemvalue="JUnit.PromotionDAOTest.testGetPromotionById" />
+        <item itemvalue="JUnit.PromotionDAOTest.testGetAllPromotions" />
       </list>
     </recent_temporary>
   </component>
@@ -311,7 +298,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="55229000" />
+      <workItem from="1755010006532" duration="59652000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -362,7 +349,14 @@
       <option name="project" value="LOCAL" />
       <updated>1755337421545</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Resolved critical bug in bill generation data flow">
+      <created>1755379354037</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1755379354037</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +370,19 @@
     <MESSAGE value="Implement full CRUD functionality for Customers" />
     <MESSAGE value="Implement full CRUD functionality for Items" />
     <MESSAGE value="Implement server-side validation for business logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement server-side validation for business logic" />
+    <MESSAGE value="Resolved critical bug in bill generation data flow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Resolved critical bug in bill generation data flow" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/PromotionDAOTest.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

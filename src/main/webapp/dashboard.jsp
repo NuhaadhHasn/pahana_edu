@@ -70,6 +70,10 @@
     <%-- Billing --%>
     <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>
     <li><a href="${pageContext.request.contextPath}/bill-history">View Bill History</a></li>
+    <hr>
+    <%-- Promotions Management --%>
+    <li><a href="${pageContext.request.contextPath}/promotion-form.jsp">Add New Promotion</a></li>
+    <li><a href="${pageContext.request.contextPath}/promotions">View All Promotions</a></li>
 </ul>
 
 <%-- This is the JavaScript that will call our API --%>

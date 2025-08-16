@@ -2,8 +2,11 @@ package com.example.pahanaedu.dao;
 
 import com.example.pahanaedu.model.Customer;
 
+import com.example.pahanaedu.model.Promotion;
 import org.junit.Test;
+
 import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class CustomerDAOTest {
@@ -93,18 +96,18 @@ public class CustomerDAOTest {
      * This will fail as deleteCustomer() does not exist in the DAO.
      */
     @Test
-    public void testDeleteCustomer() {
-        CustomerDAO customerDAO = new CustomerDAO();
-        int customerIdToDelete = 1; // Assuming a customer with ID 1 exists.
+    public void testDeletePromotion() {
+        PromotionDAO promotionDAO = new PromotionDAO();
+        int promoIdToDelete = 8; // We will delete the promo with ID 1 from the sample data
 
         // Execute the delete operation
-        boolean result = customerDAO.deleteCustomer(customerIdToDelete);
+        boolean result = promotionDAO.deletePromotion(promoIdToDelete);
 
         // Assert that the deletion was reported as successful
-        assertTrue("The customer should be deleted successfully.", result);
+        assertTrue("The promotion should be deleted successfully.", result);
 
-        // Verify by trying to fetch the deleted customer, it should be null
-        Customer customer = customerDAO.getCustomerById(customerIdToDelete);
-        assertNull("The customer should no longer exist in the database.", customer);
+        // Verify by trying to fetch the deleted promotion; it should now be null
+        Promotion deletedPromo = promotionDAO.getPromotionById(promoIdToDelete);
+        assertNull("The promotion should no longer exist in the database.", deletedPromo);
     }
 }
