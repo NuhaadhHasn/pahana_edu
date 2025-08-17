@@ -18,5 +18,7 @@ public interface IUserService {
 
     boolean deleteUser(int id);
 
+    boolean changePassword(int userId, String newPassword);
+
     List<LoginHistory> getLoginHistory();
 }

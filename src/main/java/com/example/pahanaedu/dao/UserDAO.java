@@ -22,6 +22,7 @@ public class UserDAO {
     private static final String SELECT_USER_BY_ID_SQL = "SELECT * FROM users WHERE user_id = ?;";
     private static final String UPDATE_USER_SQL = "UPDATE users SET username = ?, full_name = ?, role = ? WHERE user_id = ?;";
     private static final String DELETE_USER_SQL = "DELETE FROM users WHERE user_id = ?;";
+    private static final String UPDATE_PASSWORD_SQL = "UPDATE users SET password = ? WHERE user_id = ?;";
 
     /**
      * Validates a user's credentials against the database.
@@ -163,6 +164,22 @@ public class UserDAO {
             preparedStatement.setInt(4, user.getUserId());
             rowUpdated = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
+    }
+
+    public boolean changePassword(int userId, String newPassword) {
+        boolean rowUpdated = false;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD_SQL)) {
+                preparedStatement.setString(1, newPassword);
+                preparedStatement.setInt(2, userId);
+                rowUpdated = preparedStatement.executeUpdate() > 0;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return rowUpdated;

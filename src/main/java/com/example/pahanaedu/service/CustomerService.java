@@ -98,4 +98,9 @@ public class CustomerService implements ICustomerService {
     public Customer createCustomerForBilling(Customer customer) {
         return customerDAO.addCustomerAndReturn(customer);
     }
+
+    @Override
+    public Customer getCustomerByUserId(int userId) {
+        return customerDAO.getCustomerByUserId(userId);
+    }
 }

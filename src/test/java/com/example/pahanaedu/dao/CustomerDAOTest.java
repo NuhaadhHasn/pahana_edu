@@ -110,4 +110,16 @@ public class CustomerDAOTest {
         Promotion deletedPromo = promotionDAO.getPromotionById(promoIdToDelete);
         assertNull("The promotion should no longer exist in the database.", deletedPromo);
     }
+
+    @Test
+    public void testGetCustomerByUserId() {
+        CustomerDAO customerDAO = new CustomerDAO();
+        // From our sample data, the user 'kamal' has user_id=3 and is linked to a customer record.
+        int userId = 3;
+
+        Customer customer = customerDAO.getCustomerByUserId(userId);
+
+        assertNotNull("Customer should be found for a valid user ID.", customer);
+        assertEquals("The user ID on the found customer should match.", userId, customer.getUserId());
+    }
 }

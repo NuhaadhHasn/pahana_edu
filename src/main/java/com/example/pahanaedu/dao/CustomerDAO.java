@@ -13,11 +13,12 @@ import java.sql.Statement;
 // Data Access Object for Customer-related database operations.
 public class CustomerDAO {
 
-    private static final String INSERT_CUSTOMER_SQL = "INSERT INTO customers (account_number, full_name, address, phone_number) VALUES (?, ?, ?, ?);";
+    private static final String INSERT_CUSTOMER_SQL = "INSERT INTO customers (account_number, full_name, address, phone_number, user_id) VALUES (?, ?, ?, ?, ?);";
     private static final String SELECT_ALL_CUSTOMERS_SQL = "SELECT * FROM customers;";
     private static final String SELECT_CUSTOMER_BY_ID_SQL = "SELECT * FROM customers WHERE customer_id = ?;";
     private static final String UPDATE_CUSTOMER_SQL = "UPDATE customers SET account_number = ?, full_name = ?, address = ?, phone_number = ? WHERE customer_id = ?;";
     private static final String DELETE_CUSTOMER_SQL = "DELETE FROM customers WHERE customer_id = ?;";
+    private static final String SELECT_CUSTOMER_BY_USER_ID_SQL = "SELECT * FROM customers WHERE user_id = ?;";
 
     // Corrected CustomerDAO.java
     public boolean addCustomer(Customer customer) {
@@ -39,6 +40,12 @@ public class CustomerDAO {
             preparedStatement.setString(3, customer.getAddress());
             preparedStatement.setString(4, customer.getPhoneNumber());
 
+            if (customer.getUserId() > 0) {
+                preparedStatement.setInt(5, customer.getUserId());
+            } else {
+                preparedStatement.setNull(5, java.sql.Types.INTEGER);
+            }
+            
             rowUpdated = preparedStatement.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -244,5 +251,32 @@ public class CustomerDAO {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public Customer getCustomerByUserId(int userId) {
+        Customer customer = null;
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CUSTOMER_BY_USER_ID_SQL)) {
+                preparedStatement.setInt(1, userId);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                if (rs.next()) {
+                    customer = new Customer();
+                    customer.setCustomerId(rs.getInt("customer_id"));
+                    customer.setAccountNumber(rs.getString("account_number"));
+                    customer.setFullName(rs.getString("full_name"));
+                    customer.setAddress(rs.getString("address"));
+                    customer.setPhoneNumber(rs.getString("phone_number"));
+                    customer.setUserId(rs.getInt("user_id"));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
     }
 }

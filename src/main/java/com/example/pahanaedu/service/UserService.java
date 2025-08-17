@@ -1,6 +1,7 @@
 package com.example.pahanaedu.service;
 
 import com.example.pahanaedu.dao.LoginHistoryDAO;
+import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.LoginHistory;
 import com.example.pahanaedu.dao.UserDAO;
 import com.example.pahanaedu.model.User;
@@ -15,10 +16,12 @@ public class UserService implements IUserService {
 
     private final UserDAO userDAO;
     private final LoginHistoryDAO loginHistoryDAO;
+    private final ICustomerService customerService;
 
     public UserService() {
         this.userDAO = new UserDAO();
         this.loginHistoryDAO = new LoginHistoryDAO();
+        this.customerService = ServiceFactory.getCustomerService();
     }
 
     @Override
@@ -38,6 +41,17 @@ public class UserService implements IUserService {
 
     @Override
     public boolean deleteUser(int id) {
+        // First, check if this user is also a customer
+        User userToDelete = userDAO.getUserById(id);
+        if (userToDelete != null && "CUSTOMER".equals(userToDelete.getRole())) {
+            // If they are a customer, we must delete the customer record first.
+            Customer customerToDelete = customerService.getCustomerByUserId(id);
+            if (customerToDelete != null) {
+                customerService.deleteCustomer(customerToDelete.getCustomerId());
+            }
+        }
+
+        // After the child record (customer) is deleted, we can safely delete the parent (user).
         return userDAO.deleteUser(id);
     }
 
@@ -85,5 +99,10 @@ public class UserService implements IUserService {
     @Override
     public List<LoginHistory> getLoginHistory() {
         return loginHistoryDAO.getAllLoginHistory();
+    }
+
+    @Override
+    public boolean changePassword(int userId, String newPassword) {
+        return userDAO.changePassword(userId, newPassword);
     }
 }

@@ -11,6 +11,8 @@ public interface ICustomerService {
 
     List<Customer> getAllCustomers();
 
+    Customer getCustomerByUserId(int userId);
+
     Customer getCustomerById(int id);
 
     boolean updateCustomer(Customer customer);
