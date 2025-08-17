@@ -37,14 +37,25 @@ public class LoginController extends HttpServlet {
 
         if (user != null) {
             // --- Login Successful ---
-            // Create a new session for the user (or get the existing one)
             HttpSession session = request.getSession();
-
-            // Store the user object in the session. This is how we "remember" they are logged in.
             session.setAttribute("user", user);
 
-            // Redirect to a main dashboard or home page after login
-            response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
+            // --- NEW ROLE-BASED REDIRECTION ---
+            String userRole = user.getRole();
+            if ("ADMIN".equals(userRole)) {
+                // If user is Admin or Staff, send them to the main admin dashboard
+                response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
+            } else if ("STAFF".equals(userRole)) {
+                // If user is a Customer, send them to their personal dashboard
+                response.sendRedirect(request.getContextPath() + "/staff-dashboard.jsp");
+            } else if ("CUSTOMER".equals(userRole)) {
+                // If user is a Customer, send them to their personal dashboard
+                response.sendRedirect(request.getContextPath() + "/customer-dashboard.jsp");
+            } else {
+                // Fallback for any other roles - maybe an error page or default page
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+            }
+
         } else {
             // --- Login Failed ---
             // Set an error message to display on the login page

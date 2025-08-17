@@ -13,6 +13,7 @@ public class BillingDAO {
     private static final String INSERT_BILL_SQL = "INSERT INTO bills (customer_id, bill_date, sub_total, discount_amount, total_amount, status, promo_id) VALUES (?, ?, ?, ?, ?, ?,?);";
     private static final String INSERT_BILL_ITEMS_SQL = "INSERT INTO bill_items (bill_id, item_id, quantity, price_at_purchase) VALUES (?, ?, ?, ?);";
     private static final String SELECT_ALL_BILLS_SQL = "SELECT * FROM v_bill_details ORDER BY bill_date DESC;";
+    private static final String SELECT_BILLS_BY_CUSTOMER_ID_SQL = "SELECT * FROM v_bill_details WHERE customer_id = ? ORDER BY bill_date DESC;";
 
     public boolean saveBill(Bill bill) {
         Connection connection = null;
@@ -135,4 +136,39 @@ public class BillingDAO {
         return bills;
     }
 
+    public List<Bill> getBillsByCustomerId(int customerId) {
+        List<Bill> bills = new ArrayList<>();
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance().getConnection();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return bills;
+        }
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BILLS_BY_CUSTOMER_ID_SQL)) {
+            preparedStatement.setInt(1, customerId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Bill bill = new Bill();
+                bill.setBillId(rs.getInt("bill_id"));
+                bill.setBillDate(rs.getTimestamp("bill_date").toLocalDateTime());
+                bill.setTotalAmount(rs.getDouble("bill_total"));
+                bill.setStatus(rs.getString("bill_status"));
+                bill.setCustomerId(rs.getInt("customer_id"));
+
+                Customer customer = new Customer();
+                customer.setFullName(rs.getString("customer_name"));
+                customer.setAccountNumber(rs.getString("account_number"));
+                bill.setCustomer(customer);
+
+                bills.add(bill);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bills;
+    }
 }

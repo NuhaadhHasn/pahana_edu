@@ -108,4 +108,9 @@ public class BillingService implements IBillingService {
             itemService.updateStock(billedItem.getItemId(), billedItem.getQuantity());
         }
     }
+
+    @Override
+    public List<Bill> getBillsByCustomerId(int customerId) {
+        return billingDAO.getBillsByCustomerId(customerId);
+    }
 }
