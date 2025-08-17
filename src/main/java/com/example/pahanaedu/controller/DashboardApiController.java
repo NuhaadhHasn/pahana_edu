@@ -1,5 +1,6 @@
 package com.example.pahanaedu.controller;
 
+import com.example.pahanaedu.model.DashboardData;
 import com.example.pahanaedu.service.DashboardService;
 import org.json.JSONObject; // Import the JSONObject class from the org.json library
 
@@ -30,10 +31,10 @@ public class DashboardApiController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 1. Get the statistics from the service layer.
-        Map<String, Integer> stats = dashboardService.getDashboardStatistics();
+        DashboardData dashboardData = dashboardService.getDashboardData();
 
         // 2. Convert the Map to a JSON object using the org.json library.
-        JSONObject jsonResponse = new JSONObject(stats);
+        JSONObject jsonResponse = new JSONObject(dashboardData);
 
         // 3. Set the response headers to indicate that we are sending JSON data.
         response.setContentType("application/json");

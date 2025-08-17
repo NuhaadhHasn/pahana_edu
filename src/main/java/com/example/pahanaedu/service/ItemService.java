@@ -118,4 +118,8 @@ public class ItemService implements IItemService {
         return itemDAO.searchItemsByName(name);
     }
 
+    public boolean updateStock(int itemId, int quantitySold) {
+        // Business logic could go here, e.g., ensuring quantitySold isn't negative.
+        return itemDAO.updateStock(itemId, quantitySold);
+    }
 }

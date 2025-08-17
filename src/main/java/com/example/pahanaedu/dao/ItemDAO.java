@@ -22,9 +22,11 @@ public class ItemDAO {
     private static final String UPDATE_ITEM_SQL = "UPDATE items SET item_name = ?, description = ?, price = ?, stock_quantity = ? WHERE item_id = ?;";
     private static final String DELETE_ITEM_SQL = "DELETE FROM items WHERE item_id = ?;";
     private static final String SEARCH_ITEMS_BY_NAME_SQL = "SELECT * FROM items WHERE item_name LIKE ?;";
+    private static final String UPDATE_STOCK_SQL = "UPDATE items SET stock_quantity = stock_quantity - ? WHERE item_id = ?;";
 
     /**
      * Adds a new item to the database.
+     *
      * @param item The Item object to add.
      * @return true if the item was added successfully, false otherwise.
      */
@@ -54,6 +56,7 @@ public class ItemDAO {
 
     /**
      * Retrieves a list of all items from the database.
+     *
      * @return A List of Item objects.
      */
     public List<Item> getAllItems() {
@@ -87,6 +90,7 @@ public class ItemDAO {
 
     /**
      * Retrieves a single item from the database based on its ID.
+     *
      * @param id The ID of the item to retrieve.
      * @return An Item object, or null if not found.
      */
@@ -121,6 +125,7 @@ public class ItemDAO {
 
     /**
      * Updates an existing item's record in the database.
+     *
      * @param item The Item object containing the updated information.
      * @return true if the update was successful, false otherwise.
      */
@@ -151,6 +156,7 @@ public class ItemDAO {
 
     /**
      * Deletes an item from the database.
+     *
      * @param id The ID of the item to delete.
      * @return true if the deletion was successful, false otherwise.
      */
@@ -176,6 +182,7 @@ public class ItemDAO {
 
     /**
      * Calculates the sum of the stock_quantity for all items.
+     *
      * @return The total number of items in stock.
      */
     public int getTotalStockCount() {
@@ -204,6 +211,7 @@ public class ItemDAO {
 
     /**
      * Searches for items in the database with a name containing the search term.
+     *
      * @param name The search term to look for in item names.
      * @return A List of matching Item objects.
      */
@@ -243,6 +251,7 @@ public class ItemDAO {
     /**
      * Checks if an item with the given name already exists in the database.
      * This is used for validation to prevent duplicate item names.
+     *
      * @param name The name of the item to check.
      * @return true if an item with that name exists, false otherwise.
      */
@@ -268,5 +277,21 @@ public class ItemDAO {
             e.printStackTrace();
         }
         return exists;
+    }
+
+    public boolean updateStock(int itemId, int quantitySold) {
+        boolean rowUpdated = false;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STOCK_SQL)) {
+                preparedStatement.setInt(1, quantitySold);
+                preparedStatement.setInt(2, itemId);
+                rowUpdated = preparedStatement.executeUpdate() > 0;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return rowUpdated;
     }
 }

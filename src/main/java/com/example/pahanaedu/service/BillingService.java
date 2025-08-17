@@ -5,6 +5,7 @@ import com.example.pahanaedu.model.Bill;
 import com.example.pahanaedu.model.BillItem;
 import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.Promotion;
+import com.example.pahanaedu.model.Item;
 import com.example.pahanaedu.util.ConfigLoader;
 import com.example.pahanaedu.strategy.DiscountStrategy;
 
@@ -15,10 +16,14 @@ public class BillingService implements IBillingService {
 
     // Add an instance of the new BillingDAO
     private final BillingDAO billingDAO;
+    private final ItemService itemService;
+    private final NotificationService notificationService;
 
     public BillingService() {
         // Initialize it in the constructor
         this.billingDAO = new BillingDAO();
+        this.itemService = new ItemService();
+        this.notificationService = new NotificationService();
     }
 
     @Override
@@ -57,9 +62,12 @@ public class BillingService implements IBillingService {
         boolean success = billingDAO.saveBill(finalBill);
 
         if (!success) {
-            // If saving fails, we should handle it. For now, we can return null.
+            System.err.println("CRITICAL: Failed to save bill to the database!");
             return null;
         }
+
+        updateInventory(itemsToBill);
+        checkStockLevelsAndCreateAlerts(itemsToBill);
 
         return finalBill;
     }
@@ -74,5 +82,30 @@ public class BillingService implements IBillingService {
         // Business logic could be added here, like fetching full customer details for each bill.
         // For now, we will pass the data directly from the DAO.
         return billingDAO.getAllBills();
+    }
+
+    private void checkStockLevelsAndCreateAlerts(List<BillItem> billedItems) {
+        final int LOW_STOCK_THRESHOLD = 10; // Define our low stock level
+
+        for (BillItem billedItem : billedItems) {
+            // Get the most up-to-date information for the item that was just sold
+            Item item = itemService.getItemById(billedItem.getItemId());
+
+            if (item != null && item.getStockQuantity() < LOW_STOCK_THRESHOLD) {
+                String message = String.format(
+                        "Stock Alert: Stock for item '%s' (ID: %d) is low. Only %d remaining.",
+                        item.getItemName(),
+                        item.getItemId(),
+                        item.getStockQuantity()
+                );
+                notificationService.createNotification(message);
+            }
+        }
+    }
+
+    private void updateInventory(List<BillItem> billedItems) {
+        for (BillItem billedItem : billedItems) {
+            itemService.updateStock(billedItem.getItemId(), billedItem.getQuantity());
+        }
     }
 }

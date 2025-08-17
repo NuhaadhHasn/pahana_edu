@@ -28,5 +28,8 @@ public class ServiceFactory {
         return new BillingService();
     }
 
+    public static INotificationService getNotificationService() {
+        return new NotificationService();
+    }
     // We can add more services here in the future.
 }
