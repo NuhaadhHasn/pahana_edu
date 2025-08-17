@@ -78,6 +78,7 @@
     <%-- User Management --%>
     <li><a href="${pageContext.request.contextPath}/users?action=new">Add New User</a></li>
     <li><a href="${pageContext.request.contextPath}/users">View All Users</a></li>
+    <li><a href="${pageContext.request.contextPath}/login-history">View Login History</a></li>
     <hr>
     <%-- Billing --%>
     <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>

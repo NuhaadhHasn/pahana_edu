@@ -1,5 +1,7 @@
 package com.example.pahanaedu.service;
 
+import com.example.pahanaedu.dao.LoginHistoryDAO;
+import com.example.pahanaedu.model.LoginHistory;
 import com.example.pahanaedu.dao.UserDAO;
 import com.example.pahanaedu.model.User;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class UserService implements IUserService {
 
     private final UserDAO userDAO;
+    private final LoginHistoryDAO loginHistoryDAO;
 
     public UserService() {
         this.userDAO = new UserDAO();
+        this.loginHistoryDAO = new LoginHistoryDAO();
     }
 
     @Override
@@ -47,15 +51,13 @@ public class UserService implements IUserService {
      */
     @Override
     public User loginUser(String username, String password) {
-        // Business logic can be added here.
-        // For example, we could log the login attempt before validating.
-        System.out.println("Attempting login for user: " + username);
-
         User user = userDAO.validate(username, password);
 
         if (user != null) {
+            loginHistoryDAO.logAttempt(user.getUserId(), "SUCCESS");
             System.out.println("Login successful for user: " + username);
         } else {
+            loginHistoryDAO.logAttempt(0, "FAILED");
             System.out.println("Login failed for user: " + username);
         }
 
@@ -80,4 +82,8 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public List<LoginHistory> getLoginHistory() {
+        return loginHistoryDAO.getAllLoginHistory();
+    }
 }

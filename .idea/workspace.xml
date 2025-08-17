@@ -10,22 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/NotificationApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/NotificationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/NotificationDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/DashboardData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Notification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/INotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/NotificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/NotificationDAOTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginHistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/LoginHistoryDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/LoginHistory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/LoginHistoryDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/DashboardApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/DashboardApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/ItemDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/ItemDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/DashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/DashboardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,6 +107,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LoginHistoryDAOTest.testLogAttempt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="pahana-edu" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.LoginHistoryDAOTest" />
+      <option name="METHOD_NAME" value="testLogAttempt" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="NotificationDAOTest.testAddNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
@@ -158,22 +166,6 @@
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
       <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
       <option name="METHOD_NAME" value="testDeletePromotion" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PromotionDAOTest.testUpdatePromotion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="pahana-edu" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.pahanaedu.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
-      <option name="METHOD_NAME" value="testUpdatePromotion" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -281,19 +273,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.CustomerDAOTest.testDeletePromotion" />
+      <item itemvalue="JUnit.LoginHistoryDAOTest.testLogAttempt" />
       <item itemvalue="JUnit.NotificationDAOTest.testAddNotification" />
       <item itemvalue="JUnit.NotificationDAOTest.testGetAllNotifications" />
       <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
-      <item itemvalue="JUnit.PromotionDAOTest.testUpdatePromotion" />
       <item itemvalue="Tomcat Server.Tomcat9" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LoginHistoryDAOTest.testLogAttempt" />
         <item itemvalue="JUnit.NotificationDAOTest.testGetAllNotifications" />
         <item itemvalue="JUnit.NotificationDAOTest.testAddNotification" />
         <item itemvalue="JUnit.CustomerDAOTest.testDeletePromotion" />
         <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
-        <item itemvalue="JUnit.PromotionDAOTest.testUpdatePromotion" />
       </list>
     </recent_temporary>
   </component>
@@ -306,7 +298,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="69769000" />
+      <workItem from="1755010006532" duration="70821000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -385,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1755415894610</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Implement low-stock alerts and notification history">
+      <created>1755420547480</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1755420547481</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +402,8 @@
     <MESSAGE value="Implement full CRUD functionality for Promotions" />
     <MESSAGE value="Implement Promotions feature with LSP" />
     <MESSAGE value="Implement DIP and Factory Pattern for all services" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement DIP and Factory Pattern for all services" />
+    <MESSAGE value="Implement low-stock alerts and notification history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement low-stock alerts and notification history" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

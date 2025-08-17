@@ -1,5 +1,6 @@
 package com.example.pahanaedu.service;
 
+import com.example.pahanaedu.model.LoginHistory;
 import com.example.pahanaedu.model.User;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface IUserService {
     boolean updateUser(User user);
 
     boolean deleteUser(int id);
+
+    List<LoginHistory> getLoginHistory();
 }
