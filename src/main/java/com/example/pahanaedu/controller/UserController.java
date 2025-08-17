@@ -1,7 +1,8 @@
 package com.example.pahanaedu.controller;
 
 import com.example.pahanaedu.model.User;
-import com.example.pahanaedu.service.UserService;
+import com.example.pahanaedu.service.IUserService;
+import com.example.pahanaedu.service.ServiceFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,11 +19,12 @@ import java.util.List;
 @WebServlet("/users")
 public class UserController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private UserService userService;
+    private IUserService userService;
 
     @Override
     public void init() {
-        userService = new UserService();
+
+        userService = ServiceFactory.getUserService();
     }
 
     /**

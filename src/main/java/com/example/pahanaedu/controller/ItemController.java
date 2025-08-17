@@ -1,7 +1,8 @@
 package com.example.pahanaedu.controller;
 
 import com.example.pahanaedu.model.Item;
-import com.example.pahanaedu.service.ItemService;
+import com.example.pahanaedu.service.IItemService;
+import com.example.pahanaedu.service.ServiceFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,11 +19,11 @@ import java.util.List;
 @WebServlet("/items") // We will use this base URL for all item actions
 public class ItemController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private ItemService itemService;
+    private IItemService itemService;
 
     @Override
     public void init() {
-        itemService = new ItemService();
+        itemService = ServiceFactory.getItemService();
     }
 
     /**

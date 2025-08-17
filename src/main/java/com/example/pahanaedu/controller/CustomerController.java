@@ -1,7 +1,8 @@
 package com.example.pahanaedu.controller;
 
 import com.example.pahanaedu.model.Customer;
-import com.example.pahanaedu.service.CustomerService;
+import com.example.pahanaedu.service.ICustomerService;
+import com.example.pahanaedu.service.ServiceFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,13 +21,13 @@ import java.util.List;
 @WebServlet("/customers") // Maps this servlet to the URL: http://.../pahana-edu/customer-add
 public class CustomerController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private CustomerService customerService;
+    private ICustomerService customerService;
 
     // The init() method is called by the server once when the servlet is first loaded.
     // It's a great place to initialize our service.
     @Override
     public void init() {
-        customerService = new CustomerService();
+        customerService = ServiceFactory.getCustomerService();
     }
 
     /**
@@ -89,7 +90,7 @@ public class CustomerController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer-form.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Customer existingCustomer = customerService.getCustomerById(id);

@@ -6,10 +6,11 @@ import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.Item;
 import com.example.pahanaedu.model.User;
 import com.example.pahanaedu.model.Promotion;
-import com.example.pahanaedu.service.BillingService;
-import com.example.pahanaedu.service.CustomerService;
-import com.example.pahanaedu.service.ItemService;
-import com.example.pahanaedu.service.UserService;
+import com.example.pahanaedu.service.IBillingService;
+import com.example.pahanaedu.service.ICustomerService;
+import com.example.pahanaedu.service.IItemService;
+import com.example.pahanaedu.service.IUserService;
+import com.example.pahanaedu.service.ServiceFactory;
 import com.example.pahanaedu.service.PromotionService;
 
 import javax.servlet.RequestDispatcher;
@@ -26,18 +27,18 @@ import java.util.List;
 public class BillingController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private CustomerService customerService;
-    private ItemService itemService;
-    private BillingService billingService;
-    private UserService userService;
+    private ICustomerService customerService;
+    private IItemService itemService;
+    private IBillingService billingService;
+    private IUserService userService;
     private PromotionService promotionService;
 
     @Override
     public void init() {
-        customerService = new CustomerService();
-        itemService = new ItemService();
-        billingService = new BillingService();
-        userService = new UserService();
+        customerService = ServiceFactory.getCustomerService();
+        itemService = ServiceFactory.getItemService();
+        billingService = ServiceFactory.getBillingService();
+        userService = ServiceFactory.getUserService();
         promotionService = new PromotionService();
     }
 
@@ -145,7 +146,7 @@ public class BillingController extends HttpServlet {
                 }
             }
         }
-        
+
         Bill finalBill = billingService.calculateAndSaveBill(billCustomer, itemsToBill, taxRate, serviceCharge, selectedPromotion);
         if (finalBill == null) {
             response.getWriter().println("<h1>Error: Could not save the bill. Check server logs for details.</h1>");

@@ -5,10 +5,11 @@ import com.example.pahanaedu.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Service layer for item-related business logic.
  */
-public class ItemService {
+public class ItemService implements IItemService {
 
     private final ItemDAO itemDAO;
 
@@ -18,9 +19,11 @@ public class ItemService {
 
     /**
      * Handles the business logic for adding a new item.
+     *
      * @param item The item object to add.
      * @return true if the item was added successfully, false otherwise.
      */
+    @Override
     public String addItem(Item item) {
         // --- Business Logic Validation ---
         // Rule 1: Price and stock cannot be negative.
@@ -39,8 +42,10 @@ public class ItemService {
 
     /**
      * Handles the business logic for retrieving all items.
+     *
      * @return A List of all Item objects.
      */
+    @Override
     public List<Item> getAllItems() {
         // Business logic could be added here, such as sorting the items by name.
         return itemDAO.getAllItems();
@@ -48,9 +53,11 @@ public class ItemService {
 
     /**
      * Handles the business logic for retrieving a single item by its ID.
+     *
      * @param id The ID of the item to retrieve.
      * @return The Item object if found, otherwise null.
      */
+    @Override
     public Item getItemById(int id) {
         // Business logic could be added here.
         return itemDAO.getItemById(id);
@@ -58,9 +65,11 @@ public class ItemService {
 
     /**
      * Handles the business logic for updating an existing item.
+     *
      * @param item The item object with updated details.
      * @return true if the update was successful, false otherwise.
      */
+    @Override
     public boolean updateItem(Item item) {
         // Validation Rule 1: Price and stock cannot be negative.
         if (item.getPrice() < 0 || item.getStockQuantity() < 0) {
@@ -82,9 +91,11 @@ public class ItemService {
 
     /**
      * Handles the business logic for deleting an item.
+     *
      * @param id The ID of the item to delete.
      * @return true if the deletion was successful, false otherwise.
      */
+    @Override
     public boolean deleteItem(int id) {
         // Business logic could be added here, e.g., checking if the item is part of
         // an existing customer bill before allowing deletion.
@@ -93,9 +104,11 @@ public class ItemService {
 
     /**
      * Handles the business logic for searching items by name.
+     *
      * @param name The search term.
      * @return A List of matching Item objects.
      */
+    @Override
     public List<Item> searchItemsByName(String name) {
         // Business logic could be added here, such as logging the search query
         // or handling empty search terms.

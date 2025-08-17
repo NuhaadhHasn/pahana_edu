@@ -10,7 +10,7 @@ import java.util.List;
  * This class contains the business logic. The controller will call this class,
  * and this class will call the DAO. This follows the Single Responsibility Principle.
  */
-public class CustomerService {
+public class CustomerService implements ICustomerService {
 
     private final CustomerDAO customerDAO;
 
@@ -28,6 +28,7 @@ public class CustomerService {
      * @param customer The customer object to be added.
      * @return true if the customer was added successfully, false otherwise.
      */
+    @Override
     public boolean addCustomer(Customer customer) {
         // --- Business Logic would go here ---
         // For example:
@@ -46,6 +47,7 @@ public class CustomerService {
      *
      * @return A List of all Customer objects.
      */
+    @Override
     public List<Customer> getAllCustomers() {
         // Business logic could be added here, such as filtering or sorting the list.
         // For now, we simply pass the request to the DAO.
@@ -58,6 +60,7 @@ public class CustomerService {
      * @param id The ID of the customer to retrieve.
      * @return The Customer object if found, otherwise null.
      */
+    @Override
     public Customer getCustomerById(int id) {
         // Business logic could be added here, e.g., checking if the current user has permission to view this customer.
         return customerDAO.getCustomerById(id);
@@ -69,6 +72,7 @@ public class CustomerService {
      * @param customer The customer object with updated details.
      * @return true if the update was successful, false otherwise.
      */
+    @Override
     public boolean updateCustomer(Customer customer) {
         // Business logic and validation would go here. For example:
         // if (customer.getFullName() == null || customer.getFullName().trim().isEmpty()) {
@@ -83,12 +87,14 @@ public class CustomerService {
      * @param id The ID of the customer to delete.
      * @return true if the deletion was successful, false otherwise.
      */
+    @Override
     public boolean deleteCustomer(int id) {
         // Business logic could be added here, such as checking if the customer
         // has any unpaid bills before allowing deletion.
         return customerDAO.deleteCustomer(id);
     }
 
+    @Override
     public Customer createCustomerForBilling(Customer customer) {
         return customerDAO.addCustomerAndReturn(customer);
     }

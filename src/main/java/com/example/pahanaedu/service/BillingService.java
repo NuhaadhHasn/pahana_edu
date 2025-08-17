@@ -11,7 +11,7 @@ import com.example.pahanaedu.strategy.DiscountStrategy;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class BillingService {
+public class BillingService implements IBillingService {
 
     // Add an instance of the new BillingDAO
     private final BillingDAO billingDAO;
@@ -21,6 +21,7 @@ public class BillingService {
         this.billingDAO = new BillingDAO();
     }
 
+    @Override
     public Bill calculateAndSaveBill(Customer customer, List<BillItem> itemsToBill, double taxRate, double serviceCharge, DiscountStrategy discountStrategy) {
 
         double subTotal = 0.0;
@@ -40,7 +41,7 @@ public class BillingService {
         if (discountStrategy instanceof Promotion) {
             finalBill.setPromoId(((Promotion) discountStrategy).getPromoId());
         }
-        
+
         finalBill.setCustomerId(customer.getCustomerId());
         finalBill.setBillDate(LocalDateTime.now());
         finalBill.setSubTotal(subTotal);
@@ -68,6 +69,7 @@ public class BillingService {
      *
      * @return A List of all Bill objects.
      */
+    @Override
     public List<Bill> getAllBills() {
         // Business logic could be added here, like fetching full customer details for each bill.
         // For now, we will pass the data directly from the DAO.
