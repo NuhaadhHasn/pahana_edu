@@ -5,10 +5,12 @@ import com.example.pahanaedu.model.BillItem;
 import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.Item;
 import com.example.pahanaedu.model.User;
+import com.example.pahanaedu.model.Promotion;
 import com.example.pahanaedu.service.BillingService;
 import com.example.pahanaedu.service.CustomerService;
 import com.example.pahanaedu.service.ItemService;
 import com.example.pahanaedu.service.UserService;
+import com.example.pahanaedu.service.PromotionService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +30,7 @@ public class BillingController extends HttpServlet {
     private ItemService itemService;
     private BillingService billingService;
     private UserService userService;
+    private PromotionService promotionService;
 
     @Override
     public void init() {
@@ -35,6 +38,7 @@ public class BillingController extends HttpServlet {
         itemService = new ItemService();
         billingService = new BillingService();
         userService = new UserService();
+        promotionService = new PromotionService();
     }
 
     /**
@@ -46,9 +50,11 @@ public class BillingController extends HttpServlet {
         List<Customer> customers = customerService.getAllCustomers();
         // Fetch all available items for the user to choose from.
         List<Item> items = itemService.getAllItems();
+        List<Promotion> promotions = promotionService.getAllPromotions();
 
         request.setAttribute("customers", customers);
         request.setAttribute("items", items);
+        request.setAttribute("promotions", promotions);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("create-bill.jsp");
         dispatcher.forward(request, response);
@@ -104,6 +110,12 @@ public class BillingController extends HttpServlet {
             return;
         }
 
+        String promoIdStr = request.getParameter("promoId");
+        Promotion selectedPromotion = null; // Default to no promotion
+        if (promoIdStr != null && !promoIdStr.equals("0")) {
+            int promoId = Integer.parseInt(promoIdStr);
+            selectedPromotion = promotionService.getPromotionById(promoId);
+        }
 
         // --- NEW TAX LOGIC ---
         double taxRate = Double.parseDouble(request.getParameter("taxRate")) / 100.0;
@@ -133,17 +145,8 @@ public class BillingController extends HttpServlet {
                 }
             }
         }
-
-        System.out.println("--- BillingController DEBUG ---");
-        System.out.println("Number of items being sent to service: " + itemsToBill.size());
-        for (BillItem item : itemsToBill) {
-            System.out.println("Item ID: " + item.getItemId() + ", Qty: " + item.getQuantity());
-        }
-        System.out.println("-----------------------------");
-
         
-        Bill finalBill = billingService.calculateAndSaveBill(billCustomer, itemsToBill, taxRate, serviceCharge);
-
+        Bill finalBill = billingService.calculateAndSaveBill(billCustomer, itemsToBill, taxRate, serviceCharge, selectedPromotion);
         if (finalBill == null) {
             response.getWriter().println("<h1>Error: Could not save the bill. Check server logs for details.</h1>");
             return;

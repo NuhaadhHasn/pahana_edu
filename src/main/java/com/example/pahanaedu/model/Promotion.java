@@ -1,8 +1,10 @@
 package com.example.pahanaedu.model;
 
+import com.example.pahanaedu.strategy.DiscountStrategy;
+
 import java.time.LocalDate;
 
-public class Promotion {
+public class Promotion implements DiscountStrategy {
     private int promoId;
     private String promoCode;
     private double discountPercentage;
@@ -56,5 +58,21 @@ public class Promotion {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    /**
+     * This is the concrete implementation of the applyDiscount method.
+     * It calculates the discount amount based on this promotion's percentage.
+     *
+     * @param subtotal The bill's subtotal before discount.
+     * @return The calculated discount amount in currency.
+     */
+    @Override
+    public double applyDiscount(double subtotal) {
+        // Only apply discount if the promotion is active
+        if (this.isActive()) {
+            return subtotal * (this.getDiscountPercentage() / 100.0);
+        }
+        return 0; // Return zero discount if not active
     }
 }

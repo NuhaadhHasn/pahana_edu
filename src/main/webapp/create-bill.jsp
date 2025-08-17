@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>Create New Bill</title>
@@ -159,6 +161,7 @@
             </div>
         </div>
 
+
         <div class="current-bill">
             <h3>Current Bill</h3>
             <table id="bill-items-table">
@@ -175,9 +178,25 @@
             </table>
             <div class="totals">
                 Subtotal: <span id="subtotal">Rs. 0.00</span><br>
+                Discount: - <span id="discount-display">Rs. 0.00</span><br>
                 Tax: <span id="tax-amount">Rs. 0.00</span><br>
                 Service Charge: <span id="service-charge-display">Rs. 0.00</span><br>
                 <strong>Grand Total: <span id="grand-total">Rs. 0.00</span></strong>
+            </div>
+
+            <div class="form-group">
+                <label for="promoId">Select Promotion (Optional):</label>
+                <select id="promoId" name="promoId" onchange="updateTotals()">
+                    <option value="0">-- No Promotion --</option>
+                    <c:forEach items="${promotions}" var="promo">
+                        <%-- We only show active promotions --%>
+                        <c:if test="${promo.active}">
+                            <option value="${promo.promoId}">${promo.promoCode} (<fmt:formatNumber
+                                    value="${promo.discountPercentage / 100}" type="percent"/>)
+                            </option>
+                        </c:if>
+                    </c:forEach>
+                </select>
             </div>
 
             <div class="form-group">
@@ -294,14 +313,28 @@
         currentBillItems.forEach(entry => {
             currentSubtotal += entry.item.price * entry.quantity;
         });
+
+        const promoSelect = document.getElementById('promoId');
+        const selectedOption = promoSelect.options[promoSelect.selectedIndex];
+        let discountAmount = 0;
+        if (selectedOption.value !== "0") {
+            // We can get the percentage from the text content of the option
+            const promoText = selectedOption.text; // e.g., "SAVE10 (10%)"
+            const percentage = parseFloat(promoText.substring(promoText.indexOf('(') + 1, promoText.indexOf('%')));
+            if (!isNaN(percentage)) {
+                discountAmount = currentSubtotal * (percentage / 100.0);
+            }
+        }
+
         const taxRate = parseFloat(document.getElementById('tax-rate').value) / 100.0;
         let taxAmount = !isNaN(taxRate) ? currentSubtotal * taxRate : 0;
         let serviceCharge = parseFloat(document.getElementById('service-charge-input').value) || 0;
-        const grandTotal = currentSubtotal + taxAmount + serviceCharge;
+        const grandTotal = currentSubtotal - discountAmount + taxAmount + serviceCharge;
 
         // THE FIX IS HERE: Escaping the dollar signs
         document.getElementById('subtotal').textContent = `Rs. \${currentSubtotal.toFixed(2)}`;
         document.getElementById('tax-amount').textContent = `Rs. \${taxAmount.toFixed(2)}`;
+        document.getElementById('discount-display').textContent = `Rs. \${discountAmount.toFixed(2)}`;
         document.getElementById('service-charge-display').textContent = `Rs. \${serviceCharge.toFixed(2)}`;
         document.getElementById('grand-total').textContent = `Rs. \${grandTotal.toFixed(2)}`;
     }

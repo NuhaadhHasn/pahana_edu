@@ -91,6 +91,13 @@
             <td class="text-right"><fmt:formatNumber value="${bill.subTotal}" type="currency"
                                                      currencySymbol="Rs."/></td>
         </tr>
+        <c:if test="${bill.discountAmount > 0}">
+            <tr>
+                <td>Discount</td>
+                <td class="text-right">- <fmt:formatNumber value="${bill.discountAmount}" type="currency"
+                                                           currencySymbol="Rs."/></td>
+            </tr>
+        </c:if>
         <c:if test="${bill.taxRateApplied > 0}">
             <tr>
                 <td>Tax (<fmt:formatNumber value="${bill.taxRateApplied}" type="percent"/>)</td>

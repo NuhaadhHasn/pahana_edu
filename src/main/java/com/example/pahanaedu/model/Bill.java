@@ -18,6 +18,7 @@ public class Bill {
     private double taxRateApplied;
     private Customer customer;
     private double serviceCharge;
+    private int promoId;
 
     // --- Getters and Setters for all fields ---
 
@@ -109,6 +110,14 @@ public class Bill {
         this.serviceCharge = serviceCharge;
     }
 
+    public int getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(int promoId) {
+        this.promoId = promoId;
+    }
+
     /**
      * Helper method to convert the modern LocalDateTime to the legacy java.util.Date
      * required by the JSTL fmt tag.
@@ -121,4 +130,5 @@ public class Bill {
         }
         return java.sql.Timestamp.valueOf(this.billDate);
     }
+
 }

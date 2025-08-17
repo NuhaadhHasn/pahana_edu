@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class BillingDAO {
 
-    private static final String INSERT_BILL_SQL = "INSERT INTO bills (customer_id, bill_date, sub_total, discount_amount, total_amount, status) VALUES (?, ?, ?, ?, ?, ?);";
+    private static final String INSERT_BILL_SQL = "INSERT INTO bills (customer_id, bill_date, sub_total, discount_amount, total_amount, status, promo_id) VALUES (?, ?, ?, ?, ?, ?,?);";
     private static final String INSERT_BILL_ITEMS_SQL = "INSERT INTO bill_items (bill_id, item_id, quantity, price_at_purchase) VALUES (?, ?, ?, ?);";
     private static final String SELECT_ALL_BILLS_SQL = "SELECT * FROM v_bill_details ORDER BY bill_date DESC;";
 
@@ -33,6 +33,12 @@ public class BillingDAO {
                 billStmt.setDouble(4, bill.getDiscountAmount());
                 billStmt.setDouble(5, bill.getTotalAmount());
                 billStmt.setString(6, bill.getStatus());
+
+                if (bill.getPromoId() > 0) {
+                    billStmt.setInt(7, bill.getPromoId());
+                } else {
+                    billStmt.setNull(7, java.sql.Types.INTEGER);
+                }
 
                 int affectedRows = billStmt.executeUpdate();
 
