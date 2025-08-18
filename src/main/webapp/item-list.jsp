@@ -4,10 +4,25 @@
 <head>
     <title>Item List</title>
     <style>
-        body { font-family: sans-serif; margin: 2em; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
-        th { background-color: #f2f2f2; }
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -31,11 +46,12 @@
     <tbody>
     <c:forEach items="${itemList}" var="item">
         <tr>
-            <td><c:out value="${item.itemId}" /></td>
-            <td><c:out value="${item.itemName}" /></td>
-            <td><c:out value="${item.description}" /></td>
-            <td><c:out value="${String.format('%.2f', item.price)}" /></td> <%-- Format price to 2 decimal places --%>
-            <td><c:out value="${item.stockQuantity}" /></td>
+            <td><c:out value="${item.itemId}"/></td>
+            <td><c:out value="${item.itemName}"/></td>
+            <td><c:out value="${item.description}"/></td>
+            <td><c:out value="${String.format('%.2f', item.price)}"/></td>
+                <%-- Format price to 2 decimal places --%>
+            <td><c:out value="${item.stockQuantity}"/></td>
             <td>
                 <a href="${pageContext.request.contextPath}/items?action=edit&id=${item.itemId}">Edit</a>
                 &nbsp;|&nbsp;
@@ -48,7 +64,14 @@
 </table>
 
 <br>
-<p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a></p>
+<p>
+    <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
+        <a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a>
+    </c:if>
+    <c:if test="${sessionScope.user.role != 'CUSTOMER'}">
+        <a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a>
+    </c:if>
+</p>
 
 </body>
 </html>

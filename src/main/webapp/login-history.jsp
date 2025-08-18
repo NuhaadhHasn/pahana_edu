@@ -28,7 +28,14 @@
 </head>
 <body>
 <h1>Login Attempt History</h1>
-<p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a></p>
+<p>
+    <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
+        <a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a>
+    </c:if>
+    <c:if test="${sessionScope.user.role != 'CUSTOMER'}">
+        <a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a>
+    </c:if>
+</p>
 <br>
 <table>
     <thead>

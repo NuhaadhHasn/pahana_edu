@@ -75,18 +75,24 @@
     <li><a href="${pageContext.request.contextPath}/items?action=new">Add New Item</a></li>
     <li><a href="${pageContext.request.contextPath}/items">View All Items</a></li>
     <hr>
-    <%-- User Management --%>
-    <li><a href="${pageContext.request.contextPath}/users?action=new">Add New User</a></li>
-    <li><a href="${pageContext.request.contextPath}/users">View All Users</a></li>
-    <li><a href="${pageContext.request.contextPath}/login-history">View Login History</a></li>
-    <hr>
     <%-- Billing --%>
     <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>
     <li><a href="${pageContext.request.contextPath}/bill-history">View Bill History</a></li>
     <hr>
-    <%-- Promotions Management --%>
-    <li><a href="${pageContext.request.contextPath}/promotion-form.jsp">Add New Promotion</a></li>
-    <li><a href="${pageContext.request.contextPath}/promotions">View All Promotions</a></li>
+
+    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+        <hr>
+        <%-- User Management --%>
+        <li><a href="${pageContext.request.contextPath}/users?action=new">Add New User</a></li>
+        <li><a href="${pageContext.request.contextPath}/users">View All Users</a></li>
+        <li><a href="${pageContext.request.contextPath}/login-history">View Login History</a></li>
+        <hr>
+        <%-- Promotions Management --%>
+        <li><a href="${pageContext.request.contextPath}/promotions?action=new">Add New Promotion</a></li>
+        <li><a href="${pageContext.request.contextPath}/promotions">View All Promotions</a></li>
+        <%-- Reporting --%>
+        <li><a href="${pageContext.request.contextPath}/reports">View Business Reports</a></li>
+    </c:if>
 </ul>
 
 <%-- This is the JavaScript that will call our API --%>

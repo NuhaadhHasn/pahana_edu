@@ -119,11 +119,14 @@ public class BillingController extends HttpServlet {
         }
 
         // --- NEW TAX LOGIC ---
-        double taxRate = Double.parseDouble(request.getParameter("taxRate")) / 100.0;
-        String applyTaxParam = request.getParameter("applyTax");
-        if (applyTaxParam != null && applyTaxParam.equals("on")) {
-            // If the checkbox was checked, get the tax rate from the form
-            taxRate = Double.parseDouble(request.getParameter("taxRate")) / 100.0; // Convert percentage to decimal
+        double taxRate = 0.0; // Default to zero tax
+        String taxRateParam = request.getParameter("taxRate");
+        if (taxRateParam != null && !taxRateParam.isEmpty()) {
+            double taxPercentage = Double.parseDouble(taxRateParam);
+            if (taxPercentage > 0) {
+                // Convert the user's input (e.g., 10) into a decimal for calculation (e.g., 0.10)
+                taxRate = taxPercentage / 100.0;
+            }
         }
 
         double serviceCharge = Double.parseDouble(request.getParameter("serviceCharge"));

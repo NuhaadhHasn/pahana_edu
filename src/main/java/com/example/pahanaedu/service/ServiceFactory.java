@@ -31,5 +31,12 @@ public class ServiceFactory {
     public static INotificationService getNotificationService() {
         return new NotificationService();
     }
-    // We can add more services here in the future.
+
+    public static IPaymentService getPaymentService() {
+        return new PaymentService();
+    }
+
+    public static IReportingService getReportingService() {
+        return new ReportingService();
+    }
 }

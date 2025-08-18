@@ -10,15 +10,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/MyBillsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/staff-dashboard.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillDetailsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerPaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/MakePaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/PaymentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ReportsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ViewBillDetailsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ViewItemsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/PaymentDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/ReportingDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IPaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IReportingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ReportingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/bill-details (Delete i guess).jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/reports.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/PaymentDAOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IBillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IBillingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/BillingDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/BillingDAOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +186,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PromotionDAOTest.testDeletePromotion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PaymentDAOTest.testRecordPayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="pahana-edu" />
       <extension name="coverage">
         <pattern>
@@ -164,8 +195,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.pahanaedu.dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PromotionDAOTest" />
-      <option name="METHOD_NAME" value="testDeletePromotion" />
+      <option name="MAIN_CLASS_NAME" value="com.example.pahanaedu.dao.PaymentDAOTest" />
+      <option name="METHOD_NAME" value="testRecordPayment" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -276,16 +307,16 @@
       <item itemvalue="JUnit.LoginHistoryDAOTest.testLogAttempt" />
       <item itemvalue="JUnit.NotificationDAOTest.testAddNotification" />
       <item itemvalue="JUnit.NotificationDAOTest.testGetAllNotifications" />
-      <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
+      <item itemvalue="JUnit.PaymentDAOTest.testRecordPayment" />
       <item itemvalue="Tomcat Server.Tomcat9" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PaymentDAOTest.testRecordPayment" />
         <item itemvalue="JUnit.LoginHistoryDAOTest.testLogAttempt" />
         <item itemvalue="JUnit.NotificationDAOTest.testGetAllNotifications" />
         <item itemvalue="JUnit.NotificationDAOTest.testAddNotification" />
         <item itemvalue="JUnit.CustomerDAOTest.testDeletePromotion" />
-        <item itemvalue="JUnit.PromotionDAOTest.testDeletePromotion" />
       </list>
     </recent_temporary>
   </component>
@@ -298,7 +329,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="77306000" />
+      <workItem from="1755010006532" duration="100919000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -398,7 +429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1755426573466</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Implement Customer Portal with &quot;My Bills&quot; history">
+      <created>1755427910737</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1755427910737</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +457,8 @@
     <MESSAGE value="Implement low-stock alerts and notification history" />
     <MESSAGE value="Implement login history logging and viewing" />
     <MESSAGE value="Bug Fixes in User Management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug Fixes in User Management" />
+    <MESSAGE value="Implement Customer Portal with &quot;My Bills&quot; history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement Customer Portal with &quot;My Bills&quot; history" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

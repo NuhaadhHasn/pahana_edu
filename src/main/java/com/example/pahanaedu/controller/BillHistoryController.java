@@ -30,9 +30,33 @@ public class BillHistoryController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        action = (action == null) ? "list" : action;
+
+        switch (action) {
+            case "showPaymentForm":
+                showPaymentForm(request, response);
+                break;
+            case "list":
+            default:
+                listBillHistory(request, response);
+                break;
+        }
+    }
+
+    private void listBillHistory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Bill> billList = billingService.getAllBills();
         request.setAttribute("billList", billList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("bill-history.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    // --- ADD THIS NEW METHOD ---
+    private void showPaymentForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int billId = Integer.parseInt(request.getParameter("id"));
+        Bill bill = billingService.getBillById(billId); // We need a getBillById method!
+        request.setAttribute("bill", bill);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("record-payment.jsp");
         dispatcher.forward(request, response);
     }
 }

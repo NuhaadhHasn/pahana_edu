@@ -56,7 +56,7 @@
                 <td><fmt:formatNumber value="${bill.totalAmount}" type="currency" currencySymbol="Rs."/></td>
                 <td><c:out value="${bill.status}"/></td>
                 <td>
-                    <a href="#">View Details</a> <%-- Can be implemented later --%>
+                    <a href="${pageContext.request.contextPath}/view-bill-details?id=${bill.billId}">View Details</a>
                 </td>
             </tr>
         </c:forEach>

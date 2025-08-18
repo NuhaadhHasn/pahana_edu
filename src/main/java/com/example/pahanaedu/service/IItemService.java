@@ -16,4 +16,6 @@ public interface IItemService {
     boolean deleteItem(int id);
 
     List<Item> searchItemsByName(String name);
+
+    boolean updateStock(int itemId, int quantitySold);
 }

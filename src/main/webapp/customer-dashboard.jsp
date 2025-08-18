@@ -20,8 +20,8 @@
 <h3>Available Actions:</h3>
 <ul>
     <li><a href="${pageContext.request.contextPath}/my-bills">View My Bill History</a></li>
-    <li>View Available Items (Coming Soon)</li>
-    <li>Make a Payment (Coming Soon)</li>
+    <li><a href="${pageContext.request.contextPath}/view-items">View Available Items</a></li>
+    <li><a href="${pageContext.request.contextPath}/make-payment">Make a Payment</a></li>
 </ul>
 
 </body>

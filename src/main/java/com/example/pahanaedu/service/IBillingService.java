@@ -13,4 +13,8 @@ public interface IBillingService {
     List<Bill> getAllBills();
 
     List<Bill> getBillsByCustomerId(int customerId);
+
+    boolean updateBillStatus(int billId, String newStatus);
+
+    Bill getBillById(int billId);
 }

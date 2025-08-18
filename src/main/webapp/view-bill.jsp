@@ -123,9 +123,21 @@
 </div>
 
 <div style="text-align: center; margin-top: 2em;">
-    <p><a href="${pageContext.request.contextPath}/billing">Create Another Bill</a></p>
-    <p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a></p>
+    <%-- JSTL 'choose' is like a switch-case for JSPs --%>
+    <c:choose>
+        <%-- Case 1: If the user is an ADMIN or STAFF --%>
+        <c:when test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'STAFF'}">
+            <p><a href="${pageContext.request.contextPath}/billing">Create Another Bill</a></p>
+            <p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Main Dashboard</a></p>
+        </c:when>
+        <%-- Case 2: If the user is a CUSTOMER --%>
+        <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
+            <p><a href="${pageContext.request.contextPath}/my-bills">Back to My Bill History</a></p>
+            <%--            <p><a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a></p>--%>
+        </c:when>
+    </c:choose>
 </div>
+
 
 </body>
 </html>

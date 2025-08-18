@@ -64,4 +64,13 @@ public class BillingDAOTest {
         // Assuming we just saved a bill in the previous test, the list shouldn't be empty.
         assertFalse("The list of bills should not be empty.", allBills.isEmpty());
     }
+    
+    @Test
+    public void testGetBillById() {
+        BillingDAO billingDAO = new BillingDAO();
+        // Assuming bill with ID 2 exists from our test setup / sql script
+        Bill bill = billingDAO.getBillById(2);
+        assertNotNull("Bill should not be null for a valid ID.", bill);
+        assertEquals("The bill ID should be 2.", 2, bill.getBillId());
+    }
 }

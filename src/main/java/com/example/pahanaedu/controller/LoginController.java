@@ -42,12 +42,9 @@ public class LoginController extends HttpServlet {
 
             // --- NEW ROLE-BASED REDIRECTION ---
             String userRole = user.getRole();
-            if ("ADMIN".equals(userRole)) {
+            if ("ADMIN".equals(userRole) || "STAFF".equals(userRole)) {
                 // If user is Admin or Staff, send them to the main admin dashboard
                 response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
-            } else if ("STAFF".equals(userRole)) {
-                // If user is a Customer, send them to their personal dashboard
-                response.sendRedirect(request.getContextPath() + "/staff-dashboard.jsp");
             } else if ("CUSTOMER".equals(userRole)) {
                 // If user is a Customer, send them to their personal dashboard
                 response.sendRedirect(request.getContextPath() + "/customer-dashboard.jsp");

@@ -6,6 +6,7 @@ import com.example.pahanaedu.model.BillItem;
 import com.example.pahanaedu.model.Customer;
 import com.example.pahanaedu.model.Promotion;
 import com.example.pahanaedu.model.Item;
+import com.example.pahanaedu.service.ICustomerService;
 import com.example.pahanaedu.util.ConfigLoader;
 import com.example.pahanaedu.strategy.DiscountStrategy;
 
@@ -16,14 +17,16 @@ public class BillingService implements IBillingService {
 
     // Add an instance of the new BillingDAO
     private final BillingDAO billingDAO;
-    private final ItemService itemService;
-    private final NotificationService notificationService;
+    private final IItemService itemService;
+    private final INotificationService notificationService;
+    private final ICustomerService customerService;
 
     public BillingService() {
         // Initialize it in the constructor
         this.billingDAO = new BillingDAO();
-        this.itemService = new ItemService();
-        this.notificationService = new NotificationService();
+        this.itemService = ServiceFactory.getItemService();
+        this.notificationService = ServiceFactory.getNotificationService();
+        this.customerService = ServiceFactory.getCustomerService();
     }
 
     @Override
@@ -112,5 +115,28 @@ public class BillingService implements IBillingService {
     @Override
     public List<Bill> getBillsByCustomerId(int customerId) {
         return billingDAO.getBillsByCustomerId(customerId);
+    }
+
+    @Override
+    public boolean updateBillStatus(int billId, String newStatus) {
+        return billingDAO.updateBillStatus(billId, newStatus);
+    }
+
+    @Override
+    public Bill getBillById(int billId) {
+        // Step 1: Get the main bill details
+        Bill bill = billingDAO.getBillById(billId);
+
+        if (bill != null) {
+            // Step 2: Get the customer details for the bill
+            Customer customer = customerService.getCustomerById(bill.getCustomerId());
+            bill.setCustomer(customer);
+
+            // Step 3: Get the list of items for that bill
+            List<BillItem> billItems = billingDAO.getBillItemsByBillId(billId);
+            bill.setBillItems(billItems);
+        }
+
+        return bill;
     }
 }
