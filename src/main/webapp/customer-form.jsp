@@ -1,50 +1,53 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <%-- The title will change depending on whether we are adding or editing --%>
-    <title>${not empty customer ? 'Edit Customer' : 'Add New Customer'}</title>
-    <style>
-        body { font-family: sans-serif; margin: 2em; }
-        .form-group { margin-bottom: 1em; }
-        label { display: block; margin-bottom: 0.25em; }
-        input { padding: 0.5em; width: 300px; }
-        button { padding: 0.5em 1em; }
-    </style>
-</head>
-<body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<p><a href="${pageContext.request.contextPath}/customers">Back to Customer List</a></p>
+<%-- Page specific title and back link --%>
+<div class="main-content">
 
-<h1>${not empty customer ? 'Edit Customer' : 'Add New Customer'}</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+            <div class="mb-4">
+                <a href="${pageContext.request.contextPath}/customers" class="btn btn-sm btn-outline-info mb-2">
+                    <i class="bi bi-arrow-left"></i> Back to Customer List
+                </a>
+                <h1 class="mb-0">${not empty customer ? 'Edit Customer' : 'Add New Customer'}</h1>
+            </div>
 
-<form action="${pageContext.request.contextPath}/customers" method="post">
+            <form action="${pageContext.request.contextPath}/customers" method="post">
 
-    <%-- This is the clever part. If we are editing, we include hidden fields --%>
-    <c:if test="${not empty customer}">
-        <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="customerId" value="<c:out value='${customer.customerId}' />" />
-    </c:if>
+                <%-- Hidden fields for the update action --%>
+                <c:if test="${not empty customer}">
+                    <input type="hidden" name="action" value="update"/>
+                    <input type="hidden" name="customerId" value="<c:out value='${customer.customerId}' />"/>
+                </c:if>
 
-    <div class="form-group">
-        <label for="accountNumber">Account Number:</label>
-        <input type="text" id="accountNumber" name="accountNumber" value="<c:out value='${customer.accountNumber}' />" required>
+                <%-- Form fields with Bootstrap styling --%>
+                <div class="mb-3">
+                    <label for="accountNumber" class="form-label">Account Number:</label>
+                    <input type="text" class="form-control" id="accountNumber" name="accountNumber"
+                           value="<c:out value='${customer.accountNumber}' />" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name:</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName"
+                           value="<c:out value='${customer.fullName}' />" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address"
+                           value="<c:out value='${customer.address}' />">
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number:</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                           value="<c:out value='${customer.phoneNumber}' />">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle-fill me-2"></i> ${not empty customer ? 'Update Customer' : 'Add Customer'}
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" value="<c:out value='${customer.fullName}' />" required>
-    </div>
-    <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" value="<c:out value='${customer.address}' />">
-    </div>
-    <div class="form-group">
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" value="<c:out value='${customer.phoneNumber}' />">
-    </div>
+</div>
 
-    <button type="submit">${not empty customer ? 'Update Customer' : 'Add Customer'}</button>
-</form>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

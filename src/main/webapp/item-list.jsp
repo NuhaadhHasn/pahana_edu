@@ -1,77 +1,87 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Item List</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+<div class="main-content">
+    <%-- Page Header --%>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+            <h1 class="mb-0">Item Management</h1>
+        </div>
+        <a href="${pageContext.request.contextPath}/items?action=new" class="btn btn-primary">
+            <i class="bi bi-plus-circle-fill me-2"></i>Add New Item
+        </a>
+    </div>
+
+    <%-- Item Table --%>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Stock</th>
+                <th class="text-end">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${itemList}" var="item">
+                <tr>
+                    <td><c:out value="${item.itemId}"/></td>
+                    <td><c:out value="${item.itemName}"/></td>
+                    <td><c:out value="${item.description}"/></td>
+                    <td class="text-end"><fmt:formatNumber value="${item.price}" type="currency"
+                                                           currencySymbol="Rs."/></td>
+                    <td class="text-end"><c:out value="${item.stockQuantity}"/></td>
+                    <td class="text-end">
+                        <a href="${pageContext.request.contextPath}/items?action=edit&id=${item.itemId}"
+                           class="btn btn-sm btn-outline-primary">Edit</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                onclick="showDeleteConfirmation('${pageContext.request.contextPath}/items?action=delete&id=${item.itemId}')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%-- Confirmation Modal for Deleting Items --%>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this item? This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a id="confirmDeleteButton" class="btn btn-danger">Yes, Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let confirmDeleteModal = null;
+    const confirmDeleteModalElement = document.getElementById('confirmDeleteModal');
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+
+    function showDeleteConfirmation(deleteUrl) {
+        if (confirmDeleteModal === null) {
+            confirmDeleteModal = new bootstrap.Modal(confirmDeleteModalElement);
         }
+        confirmDeleteButton.href = deleteUrl;
+        confirmDeleteModal.show();
+    }
+</script>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.5em;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-
-<h1>Pahana Edu - Item Master List</h1>
-
-<p><a href="${pageContext.request.contextPath}/item-form.jsp">Add New Item</a></p>
-<br>
-
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Item Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Stock Quantity</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${itemList}" var="item">
-        <tr>
-            <td><c:out value="${item.itemId}"/></td>
-            <td><c:out value="${item.itemName}"/></td>
-            <td><c:out value="${item.description}"/></td>
-            <td><c:out value="${String.format('%.2f', item.price)}"/></td>
-                <%-- Format price to 2 decimal places --%>
-            <td><c:out value="${item.stockQuantity}"/></td>
-            <td>
-                <a href="${pageContext.request.contextPath}/items?action=edit&id=${item.itemId}">Edit</a>
-                &nbsp;|&nbsp;
-                <a href="${pageContext.request.contextPath}/items?action=delete&id=${item.itemId}"
-                   onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-
-<br>
-<p>
-    <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
-        <a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a>
-    </c:if>
-    <c:if test="${sessionScope.user.role != 'CUSTOMER'}">
-        <a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a>
-    </c:if>
-</p>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

@@ -1,28 +1,26 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>My Dashboard</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
-    </style>
-</head>
-<body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<h1>Welcome, <c:out value="${sessionScope.user.fullName}"/>!</h1>
-<p>This is your personal dashboard.</p>
-<p><a href="${pageContext.request.contextPath}/logout">Logout</a></p>
-<hr>
+<div class="main-content">
+    <%-- Page Header --%>
+    <div class="mb-4">
+        <h1 class="mb-0">My Dashboard</h1>
+        <p class="text-muted">Welcome to your personal customer portal, <c:out
+                value="${sessionScope.user.fullName}"/>!</p>
+    </div>
 
-<h3>Available Actions:</h3>
-<ul>
-    <li><a href="${pageContext.request.contextPath}/my-bills">View My Bill History</a></li>
-    <li><a href="${pageContext.request.contextPath}/view-items">View Available Items</a></li>
-    <li><a href="${pageContext.request.contextPath}/make-payment">Make a Payment</a></li>
-</ul>
+    <%-- Available Actions --%>
+    <h2 class="h4">Available Actions</h2>
+    <div class="list-group">
+        <a href="${pageContext.request.contextPath}/my-bills" class="list-group-item list-group-item-action">
+            <i class="bi bi-receipt me-2"></i>View My Bill History
+        </a>
+        <a href="${pageContext.request.contextPath}/items?action=view" class="list-group-item list-group-item-action">
+            <i class="bi bi-book me-2"></i>View Available Items
+        </a>
+        <a href="${pageContext.request.contextPath}/make-payment" class="list-group-item list-group-item-action">
+            <i class="bi bi-credit-card me-2"></i>Make a Payment
+        </a>
+    </div>
+</div>
 
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

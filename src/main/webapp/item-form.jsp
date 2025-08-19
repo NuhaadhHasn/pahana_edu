@@ -1,53 +1,59 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>${not empty item ? 'Edit Item' : 'Add New Item'}</title>
-    <style>
-        body { font-family: sans-serif; margin: 2em; }
-        .form-group { margin-bottom: 1em; }
-        label { display: block; margin-bottom: 0.25em; }
-        input, textarea { padding: 0.5em; width: 300px; box-sizing: border-box; }
-        button { padding: 0.5em 1em; }
-        .error-message { color: red; }
-    </style>
-</head>
-<body>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<p><a href="${pageContext.request.contextPath}/items">Back to Item List</a></p>
+<div class="main-content">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
 
-<h1>${not empty item ? 'Edit Item' : 'Add New Item'}</h1>
+            <%-- Page Header --%>
+            <div class="mb-4">
+                <a href="${pageContext.request.contextPath}/items" class="btn btn-sm btn-outline-info mb-2">
+                    <i class="bi bi-arrow-left"></i> Back to Item List
+                </a>
+                <h1 class="mb-0">${not empty item ? 'Edit Item' : 'Add New Item'}</h1>
+            </div>
 
-<c:if test="${not empty errorMessage}">
-    <p class="error-message">${errorMessage}</p>
-</c:if>
+            <%-- Display Error Messages --%>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger">
+                    <c:out value="${errorMessage}"/>
+                </div>
+            </c:if>
 
-<form action="${pageContext.request.contextPath}/items" method="post">
+            <%-- The Form --%>
+            <form action="${pageContext.request.contextPath}/items" method="post">
+                <c:if test="${not empty item}">
+                    <input type="hidden" name="action" value="update"/>
+                    <input type="hidden" name="itemId" value="<c:out value='${item.itemId}' />"/>
+                </c:if>
 
-    <c:if test="${not empty item}">
-        <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="itemId" value="<c:out value='${item.itemId}' />" />
-    </c:if>
+                <div class="mb-3">
+                    <label for="itemName" class="form-label">Item Name (Book Title):</label>
+                    <input type="text" class="form-control" id="itemName" name="itemName"
+                           value="<c:out value='${item.itemName}' />" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"><c:out
+                            value='${item.description}'/></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price:</label>
+                    <input type="number" class="form-control" id="price" name="price"
+                           value="<c:out value='${item.price}' />" step="0.01" min="0" required>
+                </div>
+                <div class="mb-3">
+                    <label for="stockQuantity" class="form-label">Stock Quantity:</label>
+                    <input type="number" class="form-control" id="stockQuantity" name="stockQuantity"
+                           value="<c:out value='${item.stockQuantity}' />" min="0" required>
+                </div>
 
-    <div class="form-group">
-        <label for="itemName">Item Name (Book Title):</label>
-        <input type="text" id="itemName" name="itemName" value="<c:out value='${item.itemName}' />" required>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle-fill me-2"></i> ${not empty item ? 'Update Item' : 'Add Item'}
+                </button>
+            </form>
+
+        </div>
     </div>
-    <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="3"><c:out value='${item.description}' /></textarea>
-    </div>
-    <div class="form-group">
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" value="<c:out value='${item.price}' />" step="0.01" min="0" required>
-    </div>
-    <div class="form-group">
-        <label for="stockQuantity">Stock Quantity:</label>
-        <input type="number" id="stockQuantity" name="stockQuantity" value="<c:out value='${item.stockQuantity}' />" min="0" required>
-    </div>
+</div>
 
-    <button type="submit">${not empty item ? 'Update Item' : 'Add Item'}</button>
-</form>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

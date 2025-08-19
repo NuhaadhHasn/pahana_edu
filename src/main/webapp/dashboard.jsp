@@ -1,170 +1,185 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Dashboard</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        .stats-container {
-            display: flex;
-            gap: 2em;
-            margin-bottom: 2em;
-        }
-
-        .stat-card {
-            border: 1px solid #ccc;
-            padding: 1em;
-            text-align: center;
-            width: 200px;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #555;
-        }
-    </style>
-</head>
-<body>
-
-<%-- We can greet the user by name using the user object from the session --%>
-<h1>Welcome, <c:out value="${sessionScope.user.fullName}"/>!</h1>
-
-<p><a href="${pageContext.request.contextPath}/logout">Logout</a></p>
-<hr>
-
-<h2>System Overview</h2>
-<div class="stats-container">
-    <div class="stat-card">
-        <%-- These will be populated by our JavaScript --%>
-        <div id="customer-count" class="stat-number">...</div>
-        <div class="stat-label">Total Customers</div>
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Admin & Staff Dashboard</h1>
     </div>
-    <div class="stat-card">
-        <div id="total-stock" class="stat-number">...</div>
-        <div class="stat-label">Total Items in Stock</div>
+
+    <%-- System Overview Section --%>
+    <h2 class="h4">System Overview</h2>
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card text-center stat-card h-100">
+                <div class="card-body">
+                    <div id="customer-count" class="stat-number">...</div>
+                    <div class="text-muted">Total Customers</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center stat-card h-100">
+                <div class="card-body">
+                    <div id="total-stock" class="stat-number">...</div>
+                    <div class="text-muted">Total Items in Stock</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Notifications Section - now styled with Bootstrap Alerts --%>
+    <div id="notifications-container" class="mb-4">
+        <h2 class="h4">
+            Notifications
+            <a href="${pageContext.request.contextPath}/notifications" class="btn btn-sm btn-outline-info ms-2">View
+                All</a>
+        </h2>
+        <div id="notifications-list">
+            <%-- Alerts will be added here by JavaScript --%>
+        </div>
+    </div>
+
+    <%-- Available Actions Section --%>
+    <h2 class="h4">Available Actions</h2>
+    <div class="list-group">
+        <%-- Management Links --%>
+        <a href="${pageContext.request.contextPath}/customers" class="list-group-item list-group-item-action"><i
+                class="bi bi-people-fill me-2"></i>Customer Management</a>
+        <a href="${pageContext.request.contextPath}/items" class="list-group-item list-group-item-action"><i
+                class="bi bi-book-fill me-2"></i>Item Management</a>
+
+        <%-- Admin-Only Management Links --%>
+        <c:if test="${sessionScope.user.role == 'ADMIN'}">
+            <a href="${pageContext.request.contextPath}/users" class="list-group-item list-group-item-action"><i
+                    class="bi bi-person-badge-fill me-2"></i>User Management</a>
+            <a href="${pageContext.request.contextPath}/promotions" class="list-group-item list-group-item-action"><i
+                    class="bi bi-tag-fill me-2"></i>Promotion Management</a>
+        </c:if>
+
+        <%-- Operational Links --%>
+        <a href="${pageContext.request.contextPath}/billing" class="list-group-item list-group-item-action"><i
+                class="bi bi-receipt-cutoff me-2"></i>Create New Bill</a>
+        <a href="${pageContext.request.contextPath}/bill-history" class="list-group-item list-group-item-action"><i
+                class="bi bi-clock-history me-2"></i>View Bill History</a>
+
+        <%-- Admin-Only Operational Links --%>
+        <c:if test="${sessionScope.user.role == 'ADMIN'}">
+            <a href="${pageContext.request.contextPath}/login-history" class="list-group-item list-group-item-action"><i
+                    class="bi bi-shield-lock-fill me-2"></i>View Login History</a>
+            <a href="${pageContext.request.contextPath}/reports" class="list-group-item list-group-item-action"><i
+                    class="bi bi-bar-chart-line-fill me-2"></i>View Business Reports</a>
+        </c:if>
+    </div>
+</div> <%-- Closes the .main-content div --%>
+<div class="modal fade" id="confirmDismissModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm Dismissal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="confirmModalBody">
+                <%-- The question will be placed here by JavaScript --%>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDismissButton">Yes, Dismiss</button>
+            </div>
+        </div>
     </div>
 </div>
-
-<div id="notifications-container" style="margin-bottom: 2em;">
-    <h3>
-        Notifications
-        <%-- Add this link --%>
-        <a href="${pageContext.request.contextPath}/notifications"
-           style="font-size: 0.7em; font-weight: normal; margin-left: 1em;">(View All)</a>
-    </h3>
-    <ul id="notifications-list">
-        <%-- Alerts will be added here by JavaScript --%>
-    </ul>
-</div>
-
-<h3>Available Actions:</h3>
-<ul>
-    <%-- Customer Management --%>
-    <li><a href="${pageContext.request.contextPath}/customers?action=new">Add New Customer</a></li>
-    <li><a href="${pageContext.request.contextPath}/customers">View All Customers</a></li>
-    <hr>
-    <%-- Item Management --%>
-    <li><a href="${pageContext.request.contextPath}/items?action=new">Add New Item</a></li>
-    <li><a href="${pageContext.request.contextPath}/items">View All Items</a></li>
-    <hr>
-    <%-- Billing --%>
-    <li><a href="${pageContext.request.contextPath}/billing">Create New Bill</a></li>
-    <li><a href="${pageContext.request.contextPath}/bill-history">View Bill History</a></li>
-    <hr>
-
-    <c:if test="${sessionScope.user.role == 'ADMIN'}">
-        <hr>
-        <%-- User Management --%>
-        <li><a href="${pageContext.request.contextPath}/users?action=new">Add New User</a></li>
-        <li><a href="${pageContext.request.contextPath}/users">View All Users</a></li>
-        <li><a href="${pageContext.request.contextPath}/login-history">View Login History</a></li>
-        <hr>
-        <%-- Promotions Management --%>
-        <li><a href="${pageContext.request.contextPath}/promotions?action=new">Add New Promotion</a></li>
-        <li><a href="${pageContext.request.contextPath}/promotions">View All Promotions</a></li>
-        <%-- Reporting --%>
-        <li><a href="${pageContext.request.contextPath}/reports">View Business Reports</a></li>
-    </c:if>
-</ul>
-
-<%-- This is the JavaScript that will call our API --%>
 <script>
-    // This function will be called by the "Dismiss" link
-    function dismissNotification(notificationId, listItemElement) {
+    let confirmModal = null;
+    const confirmModalElement = document.getElementById('confirmDismissModal');
+    const confirmModalBody = document.getElementById('confirmModalBody');
+    const confirmDismissButton = document.getElementById('confirmDismissButton');
 
-        // --- THE FIX IS HERE ---
-        // We create a URLSearchParams object to safely build the request body.
-        // This is the professional way to send form data in a POST request.
+    // This function shows the confirmation modal
+    function showDismissConfirmation(notificationId, notificationMessage, alertElement) {
+        // Set the question text inside the modal
+        if (confirmModal === null) {
+            confirmModal = new bootstrap.Modal(confirmModalElement);
+        }
+        confirmModalBody.textContent = 'Are you sure you want to dismiss the notification: "' + notificationMessage + '"?';
+
+        // This is important: we attach an event listener to the "Confirm" button
+        // that will only run ONCE.
+        confirmDismissButton.onclick = () => {
+            dismissNotification(notificationId, alertElement);
+            confirmModal.hide(); // Hide the modal after confirming
+        };
+
+        // Show the modal to the user
+        confirmModal.show();
+    }
+
+    function dismissNotification(notificationId, alertElement) {
+        console.log(`Attempting to dismiss notification ID: ${notificationId}`);
+
         const formData = new URLSearchParams();
-        formData.append('id', notificationId); // Add the 'id' parameter and its value
+        formData.append('id', notificationId);
 
         fetch(`${pageContext.request.contextPath}/api/notifications/mark-as-read`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formData // Use the new formData object as the body
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData
         })
             .then(response => {
+                console.log('Server response status:', response.status);
                 if (response.ok) {
-                    listItemElement.remove();
+                    console.log('Success! Removing alert element from UI.');
+                    alertElement.remove();
                 } else {
                     alert('Could not dismiss notification. Server returned an error.');
                 }
             })
-            .catch(error => console.error('Error dismissing notification:', error));
+            .catch(error => {
+                console.error('Network error while dismissing notification:', error);
+                alert('A network error occurred. Could not dismiss notification.');
+            });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
         fetch('${pageContext.request.contextPath}/api/dashboard-stats')
             .then(response => response.json())
             .then(data => {
-                // Update Statistics
                 const stats = data.statistics;
                 document.getElementById('customer-count').textContent = stats.customerCount;
                 document.getElementById('total-stock').textContent = stats.totalStock;
 
-                // Update Notifications
                 const notifications = data.notifications;
                 const notificationList = document.getElementById('notifications-list');
                 notificationList.innerHTML = '';
 
                 if (notifications && notifications.length > 0) {
                     notifications.forEach(notification => {
-                        const li = document.createElement('li');
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = 'alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center';
+                        alertDiv.setAttribute('role', 'alert');
 
-                        // THE FIX: We create the text part and the link part separately
-                        const messageText = document.createTextNode(notification.message + ' '); // Create text node
+                        const messageSpan = document.createElement('span');
 
-                        const dismissLink = document.createElement('a');
-                        dismissLink.href = "#";
-                        dismissLink.textContent = "[Dismiss]";
-                        dismissLink.onclick = function () {
-                            dismissNotification(notification.notificationId, li);
-                            return false; // Prevent page from jumping
-                        };
+                        // --- THE FINAL FIX IS HERE ---
+                        // I am no longer using a template literal to avoid the JSP conflict.
+                        // This concatenates the string safely.
+                        messageSpan.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i> ' + notification.message;
 
-                        // Append both parts to the list item
-                        li.appendChild(messageText);
-                        li.appendChild(dismissLink);
+                        const dismissButton = document.createElement('button');
+                        dismissButton.type = 'button';
+                        dismissButton.className = 'btn-close';
+                        dismissButton.setAttribute('aria-label', 'Close');
+                        // We pass 'alertDiv' so the dismiss function knows which element to remove
+                        dismissButton.onclick = () => showDismissConfirmation(notification.notificationId, notification.message, alertDiv);
 
-                        notificationList.appendChild(li);
+                        alertDiv.appendChild(messageSpan);
+                        alertDiv.appendChild(dismissButton);
+                        notificationList.appendChild(alertDiv);
                     });
                 } else {
-                    notificationList.innerHTML = '<li>No new notifications.</li>';
+                    notificationList.innerHTML = '<p class="text-muted">No new notifications.</p>';
                 }
             })
             .catch(error => console.error('Error fetching dashboard data:', error));
     });
 </script>
 
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

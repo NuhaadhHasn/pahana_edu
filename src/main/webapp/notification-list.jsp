@@ -1,69 +1,43 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-    <title>Notification History</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+<div class="main-content">
+    <%-- Page Header --%>
+    <div class="mb-4">
+        <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        <h1 class="mb-0">Notification History</h1>
+    </div>
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.5em;
-            text-align: left;
-        }
+    <%-- Notification Table --%>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Date / Time</th>
+                <th>Message</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${notificationList}" var="notification">
+                <tr class="${notification.read ? 'text-muted' : ''}">
+                    <td><fmt:formatDate value="${notification.createdAtAsDate}" type="both" dateStyle="medium"
+                                        timeStyle="short"/></td>
+                    <td><c:out value="${notification.message}"/></td>
+                    <td>
+                        <c:if test="${notification.read}">
+                            <span class="badge bg-secondary">Read</span>
+                        </c:if>
+                        <c:if test="${!notification.read}">
+                            <span class="badge bg-warning text-dark">Unread</span>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .read-true {
-            color: #888;
-        }
-
-        /* Style for read messages */
-    </style>
-</head>
-<body>
-
-<h1>Notification History</h1>
-<p>
-    <c:if test="${sessionScope.user.role == 'CUSTOMER'}">
-        <a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a>
-    </c:if>
-    <c:if test="${sessionScope.user.role != 'CUSTOMER'}">
-        <a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a>
-    </c:if>
-</p>
-<br>
-
-<table>
-    <thead>
-    <tr>
-        <th>Date / Time</th>
-        <th>Message</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${notificationList}" var="notification">
-        <%-- Apply a CSS class if the message has been read --%>
-        <tr class="read-${notification.read}">
-            <td><fmt:formatDate value="${notification.createdAtAsDate}" type="both" dateStyle="medium"
-                                timeStyle="short"/></td>
-            <td><c:out value="${notification.message}"/></td>
-            <td>${notification.read ? 'Read' : 'Unread'}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

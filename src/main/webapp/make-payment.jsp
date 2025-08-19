@@ -1,83 +1,70 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- THE FIX: These two lines are the missing imports --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-    <title>Make a Payment</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        .payment-container {
-            max-width: 400px;
-            border: 1px solid #ccc;
-            padding: 2em;
-        }
+<div class="main-content">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
 
-        .form-group {
-            margin-bottom: 1em;
-        }
+            <%-- Page Header --%>
+            <div class="mb-4">
+                <%-- Role-aware back link --%>
+                <c:choose>
+                    <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
+                        <a href="${pageContext.request.contextPath}/customer-dashboard.jsp"
+                           class="btn btn-sm btn-outline-info mb-2">
+                            <i class="bi bi-arrow-left"></i> Back to My Dashboard
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/dashboard.jsp"
+                           class="btn btn-sm btn-outline-info mb-2">
+                            <i class="bi bi-arrow-left"></i> Back to Dashboard
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+                <h1 class="mb-0">Make a Payment</h1>
+                <p class="text-muted">This is a UI simulation. No real payment will be processed.</p>
+            </div>
 
-        label {
-            display: block;
-            margin-bottom: 0.25em;
-            font-weight: bold;
-        }
-
-        input, select {
-            padding: 0.5em;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 0.5em 1em;
-        }
-    </style>
-</head>
-<body>
-<p><a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a></p>
-
-<div class="payment-container">
-    <h2>Make an Online Payment</h2>
-    <p><em>This is a UI simulation. No real payment will be processed.</em></p>
-    <form action="${pageContext.request.contextPath}/customer-make-payment" method="post">
-        <div class="form-group">
-            <label for="billId">Select Bill to Pay:</label>
-            <select id="billId" name="billId" onchange="updatePaymentAmount()" required>
-                <option value="">-- Select an Unpaid Bill --</option>
-                <c:forEach items="${unpaidBills}" var="bill">
-                    <option value="${bill.billId}" data-amount="${bill.totalAmount}">
-                        Bill #${bill.billId} - Rs.<fmt:formatNumber value="${bill.totalAmount}" type="number"
-                                                                    minFractionDigits="2" maxFractionDigits="2"/>
-                    </option>
-                </c:forEach>
-            </select>
+            <div class="card card-body">
+                <form action="${pageContext.request.contextPath}/customer-make-payment" method="post">
+                    <div class="mb-3">
+                        <label for="billId" class="form-label">Select Bill to Pay:</label>
+                        <select class="form-select" id="billId" name="billId" onchange="updatePaymentAmount()" required>
+                            <option value="">-- Select an Unpaid Bill --</option>
+                            <c:forEach items="${unpaidBills}" var="bill">
+                                <option value="${bill.billId}" data-amount="${bill.totalAmount}">
+                                    Bill #${bill.billId} - <fmt:formatNumber value="${bill.totalAmount}" type="currency"
+                                                                             currencySymbol="Rs."/>
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount (Rs.):</label>
+                        <input type="text" class="form-control" id="amount" name="amount" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Payment Method:</label>
+                        <select class="form-select" id="paymentMethod" name="paymentMethod"
+                                onchange="togglePaymentFields()">
+                            <option value="CREDIT_CARD">Credit Card</option>
+                            <option value="BANK_TRANSFER">Bank Transfer</option>
+                            <option value="CASH">Cash (Pay In-Store)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="cardRefNumberField">
+                        <label for="cardNumber" class="form-label">Card/Reference Number:</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-credit-card-2-front-fill me-2"></i>Submit
+                        Payment
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="amount">Amount (Rs.):</label>
-            <input type="text" id="amount" name="amount" readonly>
-        </div>
-
-        <div class="form-group">
-            <label for="paymentMethod">Payment Method:</label>
-            <select id="paymentMethod" name="paymentMethod" onchange="togglePaymentFields()">
-                <option value="CREDIT_CARD">Credit Card</option>
-                <option value="BANK_TRANSFER">Bank Transfer</option>
-                <option value="CASH">Cash (Pay In-Store)</option>
-            </select>
-        </div>
-        <div class="form-group" id="cardRefNumberField">
-            <label for="cardNumber">Card/Reference Number:</label>
-            <input type="text" id="cardNumber" name="cardNumber">
-        </div>
-
-        <button type="submit">Submit Payment</button>
-    </form>
+    </div>
 </div>
+
 
 <script>
     function updatePaymentAmount() {
@@ -101,5 +88,5 @@
 
     togglePaymentFields()
 </script>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

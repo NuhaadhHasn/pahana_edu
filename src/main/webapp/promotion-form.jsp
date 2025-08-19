@@ -1,78 +1,60 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>${not empty promotion ? 'Edit Promotion' : 'Add New Promotion'}</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        .form-group {
-            margin-bottom: 1em;
-        }
+<div class="main-content">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
 
-        label {
-            display: block;
-            margin-bottom: 0.25em;
-            font-weight: bold;
-        }
+            <%-- Page Header --%>
+            <div class="mb-4">
+                <a href="${pageContext.request.contextPath}/promotions" class="btn btn-sm btn-outline-info mb-2">
+                    <i class="bi bi-arrow-left"></i> Back to Promotion List
+                </a>
+                <h1 class="mb-0">${not empty promotion ? 'Edit Promotion' : 'Add New Promotion'}</h1>
+            </div>
 
-        input {
-            padding: 0.5em;
-            width: 300px;
-            box-sizing: border-box;
-        }
+            <%-- The Form --%>
+            <form action="${pageContext.request.contextPath}/promotions" method="post">
+                <c:if test="${not empty promotion}">
+                    <input type="hidden" name="action" value="update"/>
+                    <input type="hidden" name="promoId" value="<c:out value='${promotion.promoId}' />"/>
+                </c:if>
 
-        input[type="checkbox"] {
-            width: auto;
-        }
+                <div class="mb-3">
+                    <label for="promoCode" class="form-label">Promo Code:</label>
+                    <input type="text" class="form-control" id="promoCode" name="promoCode"
+                           value="<c:out value='${promotion.promoCode}' />" required>
+                </div>
+                <div class="mb-3">
+                    <label for="discountPercentage" class="form-label">Discount (%):</label>
+                    <input type="number" class="form-control" id="discountPercentage" name="discountPercentage"
+                           value="<c:out value='${promotion.discountPercentage}' />" step="0.1" min="0" max="100"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="startDate" class="form-label">Start Date (Optional):</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate"
+                           value="<c:out value='${promotion.startDate}' />">
+                </div>
+                <div class="mb-3">
+                    <label for="endDate" class="form-label">End Date (Optional):</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate"
+                           value="<c:out value='${promotion.endDate}' />">
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="isActive"
+                           name="isActive" ${ (empty promotion or promotion.active) ? 'checked' : '' }>
+                    <label class="form-check-label" for="isActive">
+                        Is Active
+                    </label>
+                </div>
 
-        button {
-            padding: 0.5em 1em;
-        }
-    </style>
-</head>
-<body>
-<p><a href="${pageContext.request.contextPath}/promotions">Back to Promotion List</a></p>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle-fill me-2"></i> ${not empty promotion ? 'Update Promotion' : 'Add Promotion'}
+                </button>
+            </form>
 
-<h1>${not empty promotion ? 'Edit Promotion' : 'Add New Promotion'}</h1>
-
-<form action="${pageContext.request.contextPath}/promotions" method="post">
-
-    <%-- If we are editing, include hidden fields for the action and the ID --%>
-    <c:if test="${not empty promotion}">
-        <input type="hidden" name="action" value="update"/>
-        <input type="hidden" name="promoId" value="<c:out value='${promotion.promoId}' />"/>
-    </c:if>
-
-    <div class="form-group">
-        <label for="promoCode">Promo Code:</label>
-        <input type="text" id="promoCode" name="promoCode" value="<c:out value='${promotion.promoCode}' />" required>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="discountPercentage">Discount (%):</label>
-        <input type="number" id="discountPercentage" name="discountPercentage"
-               value="<c:out value='${promotion.discountPercentage}' />" step="0.1" min="0" max="100" required>
-    </div>
-    <div class="form-group">
-        <label for="startDate">Start Date (Optional):</label>
-        <input type="date" id="startDate" name="startDate" value="<c:out value='${promotion.startDate}' />">
-    </div>
-    <div class="form-group">
-        <label for="endDate">End Date (Optional):</label>
-        <input type="date" id="endDate" name="endDate" value="<c:out value='${promotion.endDate}' />">
-    </div>
-    <div class="form-group">
-        <%-- JSTL logic to correctly check the box if the promotion is active --%>
-        <input type="checkbox" id="isActive"
-               name="isActive" ${ (empty promotion or promotion.active) ? 'checked' : '' }>
-        <label for="isActive" style="display: inline-block;">Is Active</label>
-    </div>
+</div>
 
-    <button type="submit">${not empty promotion ? 'Update Promotion' : 'Add Promotion'}</button>
-</form>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

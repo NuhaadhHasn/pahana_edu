@@ -43,6 +43,8 @@ public class BillingDAO {
                     billStmt.setNull(7, java.sql.Types.INTEGER);
                 }
 
+                billStmt.setDouble(8, bill.getTaxRateApplied());
+                billStmt.setDouble(9, bill.getServiceCharge());
                 int affectedRows = billStmt.executeUpdate();
 
                 if (affectedRows == 0) {

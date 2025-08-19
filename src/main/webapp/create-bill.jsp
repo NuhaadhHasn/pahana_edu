@@ -1,223 +1,187 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<html>
-<head>
-    <title>Create New Bill</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<style>
+    .new-card {
+        background: rgba(30, 30, 45, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
 
-        .billing-container {
-            display: flex;
-            gap: 2em;
-            align-items: flex-start;
-        }
+    .new-card h2 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 0.5rem;
+    }
 
-        .item-selection, .current-bill {
-            flex: 1;
-        }
+    .new-card h2:first-child {
+        margin-top: 0; /* Fix for the extra space */
+    }
 
-        .form-group {
-            margin-bottom: 1em;
-        }
+    .new-card ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 0.25em;
-            font-weight: bold;
-        }
+    .new-card li {
+        padding-left: 1.5em;
+        text-indent: -1.5em;
+        margin-bottom: 0.5em;
+    }
 
-        select, input {
-            padding: 0.5em;
-            width: 100%;
-            box-sizing: border-box;
-        }
+</style>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1em;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.5em;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .totals {
-            text-align: right;
-            font-size: 1.1em;
-            margin-top: 1em;
-        }
-
-        #item-list-container {
-            border: 1px solid #ccc;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .result-item {
-            padding: 0.5em;
-            cursor: pointer;
-        }
-
-        .result-item:hover {
-            background-color: #f0f0f0;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .remove-btn {
-            color: red;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: 0.8em;
-        }
-    </style>
-</head>
-
-<body>
-<h1>Create New Bill</h1>
-<p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Dashboard</a></p>
-
-<form id="billing-form" action="${pageContext.request.contextPath}/billing" method="post">
-    <div class="billing-container">
-        <div class="item-selection">
-            <%-- Customer selection with toggle --%>
-            <div class="form-group">
-                <input type="checkbox" id="walkin-toggle" name="isWalkin" onchange="toggleCustomerInput()">
-                <label for="walkin-toggle" style="display: inline-block;">Bill to a Walk-in Customer</label>
-            </div>
-
-            <div id="existing-customer-group">
-                <div class="form-group">
-                    <label for="customerId">Select Existing Customer:</label>
-                    <select id="customerId" name="customerId">
-                        <c:forEach items="${customers}" var="customer">
-                            <option value="${customer.customerId}">${customer.fullName} (${customer.accountNumber})
-                            </option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-
-            <div id="walkin-customer-group" style="display: none;">
-                <div class="form-group">
-                    <label for="walkinFullName">Customer Full Name:</label>
-                    <input type="text" id="walkinFullName" name="walkinFullName">
-                </div>
-                <div class="form-group">
-                    <label for="walkinAccountNumber">Account Number:</label>
-                    <input type="text" id="walkinAccountNumber" name="walkinAccountNumber">
-                </div>
-                <div class="form-group">
-                    <label for="walkinAddress">Address:</label>
-                    <input type="text" id="walkinAddress" name="walkinAddress">
-                </div>
-                <div class="form-group">
-                    <label for="walkinPhone">Phone Number:</label>
-                    <input type="text" id="walkinPhone" name="walkinPhone">
-                </div>
-                <div class="form-group">
-                    <input type="checkbox" id="create-account-toggle" name="createAccount"
-                           onchange="toggleCreateAccount()">
-                    <label for="create-account-toggle" style="display: inline-block;">Create Login Account for this
-                        Customer</label>
-                </div>
-                <div id="create-account-fields" style="display: none;">
-                    <div class="form-group">
-                        <label for="walkinUsername">Username:</label>
-                        <input type="text" id="walkinUsername" name="walkinUsername">
-                    </div>
-                    <div class="form-group">
-                        <label for="walkinPassword">Password:</label>
-                        <input type="password" id="walkinPassword" name="walkinPassword">
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="item-search">Filter Books:</label>
-                <input type="text" id="item-search" placeholder="Type to filter the list below...">
-                <div id="item-list-container">
-                    <c:forEach items="${items}" var="item">
-                        <div class="result-item" data-item-id="${item.itemId}" data-item-name="${item.itemName}"
-                             data-item-price="${item.price}" onclick="addItemToBill(this)">
-                                ${item.itemName} - Rs. ${String.format('%.2f', item.price)}
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="current-bill">
-            <h3>Current Bill</h3>
-            <table id="bill-items-table">
-                <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th class="text-right">Qty</th>
-                    <th class="text-right">Price</th>
-                    <th class="text-right">Total</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <div class="totals">
-                Subtotal: <span id="subtotal">Rs. 0.00</span><br>
-                Discount: - <span id="discount-display">Rs. 0.00</span><br>
-                Tax: <span id="tax-amount">Rs. 0.00</span><br>
-                Service Charge: <span id="service-charge-display">Rs. 0.00</span><br>
-                <strong>Grand Total: <span id="grand-total">Rs. 0.00</span></strong>
-            </div>
-
-            <div class="form-group">
-                <label for="promoId">Select Promotion (Optional):</label>
-                <select id="promoId" name="promoId" onchange="updateTotals()">
-                    <option value="0">-- No Promotion --</option>
-                    <c:forEach items="${promotions}" var="promo">
-                        <%-- We only show active promotions --%>
-                        <c:if test="${promo.active}">
-                            <option value="${promo.promoId}">${promo.promoCode} (<fmt:formatNumber
-                                    value="${promo.discountPercentage / 100}" type="percent"/>)
-                            </option>
-                        </c:if>
-                    </c:forEach>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <%--                <input type="checkbox" id="apply-tax" name="applyTax" onchange="updateTotals()">--%>
-                <label style="display: inline-block;">Apply Tax</label>
-                <input type="number" id="tax-rate" name="taxRate" value="5" step="0.1"
-                       style="width: 80px; display: inline-block; " oninput="updateTotals()">
-                <label for="tax-rate" id="tax-rate-label" style="display: inline-block;">%</label>
-            </div>
-
-            <div class="form-group">
-                <label for="service-charge-input">Service Charge (Rs.):</label>
-                <input type="number" id="service-charge-input" name="serviceCharge" value="0.00" step="0.01" min="0"
-                       oninput="updateTotals()">
-            </div>
-            <br>
-            <button type="submit">Generate Final Bill</button>
-        </div>
+<div class="main-content">
+    <div class="mb-4">
+        <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        <h1 class="mb-0">Create New Bill</h1>
     </div>
-    <div id="form-submission-data" style="display: none;"></div>
-</form>
+
+    <form id="billing-form" action="${pageContext.request.contextPath}/billing" method="post">
+        <div class="row g-4">
+            <%-- Left Column: Customer and Item Selection --%>
+            <div class="col-lg-5">
+                <div class="new-card">
+                    <%-- Customer selection with toggle --%>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" id="walkin-toggle" name="isWalkin"
+                               onchange="toggleCustomerInput()">
+                        <label class="form-check-label" for="walkin-toggle">New / Walk-in Customer</label>
+                    </div>
+
+                    <div id="existing-customer-group" class="mb-3">
+                        <label for="customerId" class="form-label">Select Existing Customer:</label>
+                        <select class="form-select" id="customerId" name="customerId">
+                            <c:forEach items="${customers}" var="customer">
+                                <option value="${customer.customerId}">${customer.fullName}
+                                    (${customer.accountNumber})
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+                    <div id="walkin-customer-group" style="display: none;">
+                        <div class="mb-3"><label for="walkinFullName" class="form-label">Customer Full
+                            Name:</label><input type="text" class="form-control" id="walkinFullName"
+                                                name="walkinFullName"></div>
+                        <div class="mb-3"><label for="walkinAccountNumber" class="form-label">Account
+                            Number:</label><input type="text" class="form-control" id="walkinAccountNumber"
+                                                  name="walkinAccountNumber"></div>
+                        <div class="mb-3"><label for="walkinAddress" class="form-label">Address:</label><input
+                                type="text" class="form-control" id="walkinAddress" name="walkinAddress"></div>
+                        <div class="mb-3"><label for="walkinPhone" class="form-label">Phone Number:</label><input
+                                type="text" class="form-control" id="walkinPhone" name="walkinPhone"></div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="create-account-toggle"
+                                   name="createAccount" onchange="toggleCreateAccount()">
+                            <label class="form-check-label" for="create-account-toggle">Create Login Account</label>
+                        </div>
+                        <div id="create-account-fields" style="display: none;">
+                            <div class="mb-3"><label for="walkinUsername" class="form-label">Username:</label><input
+                                    type="text" class="form-control" id="walkinUsername" name="walkinUsername"></div>
+                            <div class="mb-3"><label for="walkinPassword" class="form-label">Password:</label><input
+                                    type="password" class="form-control" id="walkinPassword" name="walkinPassword">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="item-search" class="form-label">Filter Books:</label>
+                        <input type="text" class="form-control" id="item-search" placeholder="Type to filter list...">
+                        <div id="item-list-container" class="list-group mt-2"
+                             style="max-height: 200px; overflow-y: auto;">
+                            <c:forEach items="${items}" var="item">
+                                <a href="#" class="list-group-item list-group-item-action" data-item-id="${item.itemId}"
+                                   data-item-name="${item.itemName}" data-item-price="${item.price}"
+                                   onclick="addItemToBill(this); return false;">
+                                        ${item.itemName} - <fmt:formatNumber value="${item.price}" type="currency"
+                                                                             currencySymbol="Rs."/>
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%-- Right Column: Current Bill and Totals --%>
+            <div class="col-lg-7">
+                <div class="new-card">
+                    <h3 class="card-title">Current Bill</h3>
+                    <table id="bill-items-table" class="table align-middle">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-end">Qty</th>
+                            <th class="text-end">Price</th>
+                            <th class="text-end">Total</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody><%-- Populated by JS --%></tbody>
+                    </table>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="promoId" class="form-label">Select Promotion (Optional):</label>
+                        <select class="form-select" id="promoId" name="promoId" onchange="updateTotals()">
+                            <option value="0">-- No Promotion --</option>
+                            <c:forEach items="${promotions}" var="promo"><c:if test="${promo.active}">
+                                <option value="${promo.promoId}">${promo.promoCode} (<fmt:formatNumber
+                                        value="${promo.discountPercentage / 100}" type="percent"/>)
+                                </option>
+                            </c:if></c:forEach>
+                        </select>
+                    </div>
+                    <div class="row g-2 align-items-center mb-3">
+                        <div class="col-auto"><label for="tax-rate" class="col-form-label">Apply Tax:</label></div>
+                        <div class="col"><input type="number" class="form-control" id="tax-rate" name="taxRate"
+                                                value="5" step="0.1" oninput="updateTotals()"></div>
+                        <div class="col-auto"><span class="form-text">%</span></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="service-charge-input" class="form-label">Service Charge (Rs.):</label>
+                        <input type="number" class="form-control" id="service-charge-input" name="serviceCharge"
+                               value="0.00" step="0.01" min="0" oninput="updateTotals()">
+                    </div>
+                    <div class="totals-table-container" style="max-width: 400px; margin-left: auto;">
+                        <table class="table table-sm">
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td class="text-end" id="subtotal">Rs. 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Discount:</td>
+                                <td class="text-end" id="discount-display">- Rs. 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Tax:</td>
+                                <td class="text-end" id="tax-amount">Rs. 0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Service Charge:</td>
+                                <td class="text-end" id="service-charge-display">Rs. 0.00</td>
+                            </tr>
+                            <tr class="fs-5">
+                                <td><strong>Grand Total:</strong></td>
+                                <td class="text-end"><strong id="grand-total">Rs. 0.00</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-receipt-cutoff me-2"></i>Generate
+                            Final Bill
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="form-submission-data" style="display: none;"></div>
+    </form>
+</div>
+
 <script>
     // --- STATE & DOM REFERENCES ---
     const currentBillItems = new Map();
@@ -389,5 +353,5 @@
     toggleCustomerInput();
     toggleCreateAccount();
 </script>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

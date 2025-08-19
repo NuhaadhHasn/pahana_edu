@@ -1,0 +1,80 @@
+/* /css/style.css */
+
+/* --- Base Setup & Background --- */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    /* This sets up our background image */
+    background-image: url('../images/background.jpg'); /* Relative path to the image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; /* Prevents the background from scrolling */
+    color: var(--bs-light); /* Set default text color to light */
+}
+
+/* A container for our main content with a semi-transparent background */
+.main-content {
+    background: rgba(28, 30, 39, 0.8); /* Dark, semi-transparent background */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/* --- Component Styling --- */
+
+/* Tables */
+.table {
+    --bs-table-bg: rgba(255, 255, 255, 0.05); /* Make tables slightly transparent */
+    --bs-table-border-color: rgba(255, 255, 255, 0.15);
+    --bs-table-color: var(--bs-light);
+}
+
+/* Form Elements */
+.form-control, .form-select {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: var(--bs-light) !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Cards (used on dashboard) */
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* List group for dashboard links */
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.list-group-item-action:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Custom Navbar */
+.navbar {
+    background: rgba(10, 10, 20, 0.7) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.full-height-container {
+    min-height: calc(100vh - 120px); /* Full viewport height minus navbar/padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

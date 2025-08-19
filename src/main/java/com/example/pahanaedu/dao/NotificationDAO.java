@@ -13,7 +13,7 @@ import java.util.List;
 public class NotificationDAO {
 
     private static final String INSERT_NOTIFICATION_SQL = "INSERT INTO notifications (message) VALUES (?);";
-    private static final String SELECT_UNREAD_NOTIFICATIONS_SQL = "SELECT * FROM notifications WHERE is_read = FALSE ORDER BY created_at DESC;";
+    private static final String SELECT_UNREAD_NOTIFICATIONS_SQL = "SELECT * FROM notifications WHERE is_read = FALSE ORDER BY created_at DESC LIMIT 5;";
     private static final String MARK_NOTIFICATION_AS_READ_SQL = "UPDATE notifications SET is_read = TRUE WHERE notification_id = ?;";
     private static final String SELECT_ALL_NOTIFICATIONS_SQL = "SELECT * FROM notifications ORDER BY created_at DESC;";
 

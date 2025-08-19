@@ -1,143 +1,152 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%-- Import formatting library for dates/numbers --%>
-<html>
-<head>
-    <title>View Bill</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        .bill-container {
-            border: 1px solid #000;
-            padding: 2em;
-            width: 600px;
-            margin: 0 auto;
-        }
+<style>
+    .invoice-card {
+        background: rgba(30, 30, 45, 0.85); /* Darker, less transparent glass */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
 
-        .bill-header, .bill-footer {
-            text-align: center;
-            margin-bottom: 2em;
-        }
+    .invoice-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 1.5rem;
+    }
 
-        .customer-info {
-            margin-bottom: 2em;
-        }
+    .invoice-header h2 {
+        font-weight: 300; /* Lighter font weight for a modern look */
+        letter-spacing: 2px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2em;
-        }
+    .table > :not(caption) > * > * {
+        /* Override Bootstrap's default table padding for a cleaner look */
+        padding: 0.75rem 0.5rem;
+        border-bottom-width: 1px;
+    }
 
-        th, td {
-            padding: 0.5em;
-            text-align: left;
-        }
+    .totals-table td {
+        border: none;
+    }
 
-        .totals-table td {
-            border-top: 1px solid #000;
-        }
+    .totals-table tr:last-child {
+        font-size: 1.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+</style>
 
-        .text-right {
-            text-align: right;
-        }
-    </style>
-</head>
-<body>
+<div class="main-content">
+    <div class="row justify-content-center">
 
-<div class="bill-container">
-    <div class="bill-header">
-        <h2>Pahana Edu Bookshop</h2>
-        <p>Official Bill / Invoice</p>
-    </div>
+        <%-- Role-based "Back" Links --%>
+        <c:choose>
+            <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
+                <a href="${pageContext.request.contextPath}/my-bills" class="btn btn-sm btn-outline-info mb-3">
+                    <i class="bi bi-arrow-left"></i> Back to My Bill History
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/bill-history" class="btn btn-sm btn-outline-info mb-3">
+                    <i class="bi bi-arrow-left"></i> Back to Bill History
+                </a>
+            </c:otherwise>
+        </c:choose>
 
-    <div class="customer-info">
-        <strong>Bill To:</strong> <c:out value="${customer.fullName}"/><br>
-        <strong>Account No:</strong> <c:out value="${customer.accountNumber}"/><br>
-        <strong>Address:</strong> <c:out value="${customer.address}"/><br>
-        <strong>Date:</strong> <fmt:formatDate value="${bill.billDateAsDate}" type="both" dateStyle="long"
-                                               timeStyle="short"/>
-    </div>
+        <%-- The Bill Itself - styled to look like an invoice on a glass panel --%>
+        <div class="invoice-card">
+            <div class="invoice-header text-center mb-4">
+                <h2 class="mb-0 text-white-50">PAHANA EDU BOOKSHOP</h2>
+                <p class="text-muted">Official Bill / Invoice</p>
+            </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Item Description</th>
-            <th class="text-right">Quantity</th>
-            <th class="text-right">Unit Price</th>
-            <th class="text-right">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${bill.billItems}" var="billItem">
-            <tr>
-                <td><c:out value="${billItem.itemName}"/></td>
-                <td class="text-right"><c:out value="${billItem.quantity}"/></td>
-                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase}" type="currency"
-                                                         currencySymbol="Rs."/></td>
-                <td class="text-right"><fmt:formatNumber value="${billItem.priceAtPurchase * billItem.quantity}"
-                                                         type="currency" currencySymbol="Rs."/></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <strong>Bill To:</strong> <c:out value="${customer.fullName}"/><br>
+                    <strong>Account No:</strong> <c:out value="${customer.accountNumber}"/><br>
+                    <strong>Address:</strong> <c:out value="${customer.address}"/>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <strong>Bill ID:</strong> #${bill.billId}<br>
+                    <strong>Date:</strong> <fmt:formatDate value="${bill.billDateAsDate}" type="both"
+                                                           dateStyle="long" timeStyle="short"/>
+                </div>
+            </div>
 
-    <table class="totals-table">
-        <tr>
-            <td>Subtotal</td>
-            <td class="text-right"><fmt:formatNumber value="${bill.subTotal}" type="currency"
-                                                     currencySymbol="Rs."/></td>
-        </tr>
-        <c:if test="${bill.discountAmount > 0}">
-            <tr>
-                <td>Discount</td>
-                <td class="text-right">- <fmt:formatNumber value="${bill.discountAmount}" type="currency"
-                                                           currencySymbol="Rs."/></td>
-            </tr>
-        </c:if>
-        <c:if test="${bill.taxRateApplied > 0}">
-            <tr>
-                <td>Tax (<fmt:formatNumber value="${bill.taxRateApplied}" type="percent"/>)</td>
-                <td class="text-right"><fmt:formatNumber value="${bill.subTotal * bill.taxRateApplied}" type="currency"
-                                                         currencySymbol="Rs."/></td>
-            </tr>
-        </c:if>
-        <tr>
-            <td>Service Charge</td>
-            <td class="text-right"><fmt:formatNumber value="${bill.serviceCharge}" type="currency"
-                                                     currencySymbol="Rs."/></td>
-        </tr>
-        <tr>
-            <td><strong>Total Amount</strong></td>
-            <td class="text-right"><strong><fmt:formatNumber value="${bill.totalAmount}" type="currency"
-                                                             currencySymbol="Rs."/></strong></td>
-        </tr>
-    </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Item Description</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-end">Unit Price</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${bill.billItems}" var="item">
+                        <tr>
+                            <td><c:out value="${item.itemName}"/></td>
+                            <td class="text-center"><c:out value="${item.quantity}"/></td>
+                            <td class="text-end"><fmt:formatNumber value="${item.priceAtPurchase}" type="currency"
+                                                                   currencySymbol="Rs."/></td>
+                            <td class="text-end"><fmt:formatNumber value="${item.priceAtPurchase * item.quantity}"
+                                                                   type="currency" currencySymbol="Rs."/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
 
-    <div class="bill-footer">
-        <p>Thank you for your business!</p>
+            <div class="row justify-content-end">
+                <div class="col-md-5">
+                    <table class="table totals-table">
+                        <tbody>
+                        <tr>
+                            <td><strong>Subtotal</strong></td>
+                            <td class="text-end"><fmt:formatNumber value="${bill.subTotal}" type="currency"
+                                                                   currencySymbol="Rs."/></td>
+                        </tr>
+                        <c:if test="${bill.discountAmount > 0}">
+                            <tr>
+                                <td>Discount</td>
+                                <td class="text-end">- <fmt:formatNumber value="${bill.discountAmount}"
+                                                                         type="currency" currencySymbol="Rs."/></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${bill.taxRateApplied > 0}">
+                            <tr>
+                                <td>Tax (<fmt:formatNumber value="${bill.taxRateApplied}" type="percent"/>)</td>
+                                <td class="text-end">+ <fmt:formatNumber
+                                        value="${bill.subTotal * bill.taxRateApplied}" type="currency"
+                                        currencySymbol="Rs."/></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${bill.serviceCharge > 0}">
+                            <tr>
+                                <td>Service Charge</td>
+                                <td class="text-end">+ <fmt:formatNumber value="${bill.serviceCharge}"
+                                                                         type="currency" currencySymbol="Rs."/></td>
+                            </tr>
+                        </c:if>
+                        <tr class="fs-5">
+                            <td><strong>Total Amount</strong></td>
+                            <td class="text-end"><strong><fmt:formatNumber value="${bill.totalAmount}"
+                                                                           type="currency"
+                                                                           currencySymbol="Rs."/></strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">Thank you for your business!</p>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 2em;">
-    <%-- JSTL 'choose' is like a switch-case for JSPs --%>
-    <c:choose>
-        <%-- Case 1: If the user is an ADMIN or STAFF --%>
-        <c:when test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'STAFF'}">
-            <p><a href="${pageContext.request.contextPath}/billing">Create Another Bill</a></p>
-            <p><a href="${pageContext.request.contextPath}/dashboard.jsp">Back to Main Dashboard</a></p>
-        </c:when>
-        <%-- Case 2: If the user is a CUSTOMER --%>
-        <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
-            <p><a href="${pageContext.request.contextPath}/my-bills">Back to My Bill History</a></p>
-            <%--            <p><a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a></p>--%>
-        </c:when>
-    </c:choose>
-</div>
-
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

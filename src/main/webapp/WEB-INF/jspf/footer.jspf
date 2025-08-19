@@ -1,0 +1,10 @@
+<%-- /WEB-INF/jspf/footer.jspf --%>
+<%-- This file closes the main container and body, and links to the Bootstrap JavaScript bundle. --%>
+
+</main> <%-- Closes the <main class="container"> from header.jspf --%>
+
+</div> <%-- Closes the <div class="container main-content"> --%>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

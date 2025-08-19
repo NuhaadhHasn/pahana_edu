@@ -1,41 +1,42 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-  <title>Pahana Edu - Login</title>
-  <style>
-    body { font-family: sans-serif; margin: 2em; }
-    .login-container { width: 300px; margin: 0 auto; padding: 2em; border: 1px solid #ccc; }
-    .form-group { margin-bottom: 1em; }
-    label { display: block; margin-bottom: 0.25em; }
-    input { padding: 0.5em; width: 100%; box-sizing: border-box; }
-    button { padding: 0.5em 1em; width: 100%; }
-    .error-message { color: red; margin-bottom: 1em; }
-  </style>
-</head>
-<body>
+<%-- /webapp/login.jsp --%>
+<%-- Note: We now include the standard header --%>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="login-container">
-  <h2>System Login</h2>
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-6 col-lg-4">
+        <%-- We use the 'main-content' class from our style.css to get the glass effect --%>
+        <div class="main-content shadow-lg">
+            <div class="text-center mb-4">
+                <i class="bi bi-book-half" style="font-size: 3rem;"></i>
+                <h1 class="h3">System Login</h1>
+            </div>
 
-  <%-- Check if an error message was passed from the servlet --%>
-  <c:if test="${not empty errorMessage}">
-    <p class="error-message">${errorMessage}</p>
-  </c:if>
+            <c:if test="${not empty errorMessage}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <c:out value="${errorMessage}"/>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
-  <%-- The form submits to our LoginController which is mapped to "/login" --%>
-  <form action="${pageContext.request.contextPath}/login" method="post">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+            <form action="${pageContext.request.contextPath}/login" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                           required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                           required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-  </form>
 </div>
 
-</body>
-</html>
+<%-- Include the standard footer --%>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

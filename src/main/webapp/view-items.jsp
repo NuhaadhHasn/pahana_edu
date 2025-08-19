@@ -1,56 +1,49 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-    <title>Available Books</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 2em;
-        }
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+<div class="main-content">
+    <%-- Page Header --%>
+    <div class="mb-4">
+        <c:choose>
+            <%-- If the user is a CUSTOMER, link to their dashboard --%>
+            <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
+                <a href="${pageContext.request.contextPath}/customer-dashboard.jsp"
+                   class="btn btn-sm btn-outline-info mb-2">
+                    <i class="bi bi-arrow-left"></i> Back to My Dashboard
+                </a>
+            </c:when>
+            <%-- Otherwise (if Admin/Staff), link to the main dashboard --%>
+            <c:otherwise>
+                <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
+                    <i class="bi bi-arrow-left"></i> Back to Dashboard
+                </a>
+            </c:otherwise>
+        </c:choose>
+        <h1 class="mb-0">Available Items</h1>
+        <p class="text-muted">Browse our current collection of books.</p>
+    </div>
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.5em;
-            text-align: left;
-        }
+    <%-- Item Table --%>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th class="text-end">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${itemList}" var="item">
+                <tr>
+                    <td><strong><c:out value="${item.itemName}"/></strong></td>
+                    <td><c:out value="${item.description}"/></td>
+                    <td class="text-end"><fmt:formatNumber value="${item.price}" type="currency"
+                                                           currencySymbol="Rs."/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-
-<h1>Available Books at Pahana Edu</h1>
-<p><a href="${pageContext.request.contextPath}/customer-dashboard.jsp">Back to My Dashboard</a></p>
-<br>
-
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th style="text-align: right;">Price</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${itemList}" var="item">
-        <tr>
-            <td><c:out value="${item.itemName}"/></td>
-            <td><c:out value="${item.description}"/></td>
-            <td style="text-align: right;"><fmt:formatNumber value="${item.price}" type="currency"
-                                                             currencySymbol="Rs."/></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-
-</body>
-</html>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

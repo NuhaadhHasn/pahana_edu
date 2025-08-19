@@ -10,46 +10,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/CustomerPaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/MakePaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ReportsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ViewBillDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/ViewItemsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/PaymentDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/ReportingDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/model/Payment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IPaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IReportingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/PaymentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ReportingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/bill-details (Delete i guess).jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/reports.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/PaymentDAOTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jspf/footer.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jspf/header.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/help.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/images/background.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/BillingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/BillingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IBillingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IBillingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/IItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/service/ServiceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/NotificationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/NotificationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-user-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/bill-details (Delete i guess).jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/bill-history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/bill-history.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-error.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-success.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-user-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/item-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/item-form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/promotion-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/promotion-form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/reports.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/reports.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/staff-dashboard.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/BillingDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/pahanaedu/dao/BillingDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +60,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Jspx File" />
         <option value="Jsp File" />
       </list>
     </option>
@@ -86,7 +86,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="31ButHvVnzvzKayMOjUBJtpgsnK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -117,6 +117,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nuhaa\Desktop\Degree SE\AP-20\Assignment\PahanaEdu\src\main\webapp" />
+      <recent name="C:\Users\nuhaa\Desktop\Degree SE\AP-20\Assignment\PahanaEdu\src\main\webapp\WEB-INF\images" />
+      <recent name="C:\Users\nuhaa\Desktop\Degree SE\AP-20\Assignment\PahanaEdu\src\main\webapp\WEB-INF\jspf" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.pahanaedu.controller" />
     </key>
@@ -329,7 +334,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="100919000" />
+      <workItem from="1755010006532" duration="140938000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -436,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1755427910737</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Implement advanced business reporting page&#10;Bug Fixes And Improvements">
+      <created>1755512272286</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1755512272286</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -458,7 +470,8 @@
     <MESSAGE value="Implement login history logging and viewing" />
     <MESSAGE value="Bug Fixes in User Management" />
     <MESSAGE value="Implement Customer Portal with &quot;My Bills&quot; history" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement Customer Portal with &quot;My Bills&quot; history" />
+    <MESSAGE value="Implement advanced business reporting page&#10;Bug Fixes And Improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement advanced business reporting page&#10;Bug Fixes And Improvements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
