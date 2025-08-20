@@ -53,6 +53,7 @@ public class UserController extends HttpServlet {
         String action = request.getParameter("action");
         action = (action == null) ? "list" : action;
         switch (action) {
+            // This switch is OPEN to adding new cases...
             case "new": // <-- ADD THIS NEW CASE
                 showNewForm(request, response);
                 break;
@@ -62,6 +63,7 @@ public class UserController extends HttpServlet {
             case "delete":
                 deleteUser(request, response);
                 break;
+            // ...but the original listUsers logic is CLOSED to modification.
             default:
                 listUsers(request, response);
                 break;
@@ -158,7 +160,7 @@ public class UserController extends HttpServlet {
         if (newPassword != null && !newPassword.isEmpty()) {
             userService.changePassword(userId, newPassword);
         }
-        
+
         // --- NEW LOGIC: If the user is a customer, also update their customer record ---
         if ("CUSTOMER".equals(role)) {
             Customer customer = customerService.getCustomerByUserId(userId);
