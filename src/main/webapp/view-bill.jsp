@@ -40,6 +40,7 @@
 <div class="main-content">
     <div class="row justify-content-center">
 
+        <div class="mb-4">
         <%-- Role-based "Back" Links --%>
         <c:choose>
             <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
@@ -53,6 +54,7 @@
                 </a>
             </c:otherwise>
         </c:choose>
+        </div>
 
         <%-- The Bill Itself - styled to look like an invoice on a glass panel --%>
         <div class="invoice-card">
