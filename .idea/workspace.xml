@@ -10,45 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9db9a3cb-3850-4e8d-a56b-853bf7daddfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jspf/footer.jspf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jspf/header.jspf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/help.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/images/background.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/BillingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/NotificationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/dao/NotificationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/pahanaedu/filter/AuthFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add-user-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/bill-details (Delete i guess).jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/bill-history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/bill-history.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/create-bill.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-error.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/customer-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/customer-success.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-user-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/item-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/item-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/item-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login-history.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/make-payment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/my-bills.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/notification-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/promotion-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/promotion-form.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/promotion-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/record-payment.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/reports.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/reports.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/staff-dashboard.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-bill.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view-items.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,11 +66,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/nuhaa/Desktop/Degree SE/AP-20/Assignment/PahanaEdu",
+    "last_opened_file_path": "C:/Users/nuhaa/Downloads/Pahana-Edu-bookshop-master/Pahana-Edu-bookshop-master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -334,7 +298,7 @@
       <option name="presentableId" value="Default" />
       <updated>1754824814941</updated>
       <workItem from="1754824817247" duration="17401000" />
-      <workItem from="1755010006532" duration="140938000" />
+      <workItem from="1755010006532" duration="145629000" />
     </task>
     <task id="LOCAL-00001" summary="First Commit">
       <created>1754834057223</created>
@@ -448,11 +412,29 @@
       <option name="project" value="LOCAL" />
       <updated>1755512272286</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="UI Refinement with Bootstrap">
+      <created>1755609555428</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1755609555428</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
@@ -471,7 +453,8 @@
     <MESSAGE value="Bug Fixes in User Management" />
     <MESSAGE value="Implement Customer Portal with &quot;My Bills&quot; history" />
     <MESSAGE value="Implement advanced business reporting page&#10;Bug Fixes And Improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement advanced business reporting page&#10;Bug Fixes And Improvements" />
+    <MESSAGE value="UI Refinement with Bootstrap" />
+    <option name="LAST_COMMIT_MESSAGE" value="UI Refinement with Bootstrap" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
