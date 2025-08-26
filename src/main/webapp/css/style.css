@@ -78,3 +78,85 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+/*.notification-dropdown {*/
+/*    width: 380px; !* Give the dropdown a fixed, wider width *!*/
+/*    height: 400px;*/
+/*    max-height: 400px; !* Allow scrolling for long lists *!*/
+/*    overflow-y: auto;*/
+/*}*/
+/* --- Notification Dropdown Styling --- */
+.notification-dropdown {
+    width: 400px; /* pick a width you like */
+    max-height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden; /* no horizontal scrollbar */
+    box-sizing: border-box;
+}
+
+/* (Optional if you still use it) */
+.notification-list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Each list item */
+.notification-item {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* The clickable row you render inside each <li> */
+.notification-item .dropdown-item {
+    display: flex; /* horizontal layout: text | button */
+    align-items: flex-start; /* top-align multi-line text */
+    justify-content: space-between;
+    gap: .5rem; /* space between text and button */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* The TEXT container (this is your <div class="me-3">) */
+.notification-item .dropdown-item .me-3 {
+    flex: 1 1 auto; /* take remaining space */
+    min-width: 0; /* CRUCIAL for wrapping in flex */
+    max-width: 100%;
+}
+
+/* Title + message */
+.notification-item .fw-bold {
+    display: block;
+    margin-bottom: .125rem;
+}
+
+.notification-item .text-break {
+    display: block;
+    white-space: normal; /* allow wrapping */
+    overflow-wrap: anywhere; /* wrap very long tokens */
+    word-break: break-word; /* fallback */
+    font-size: 0.9rem;
+}
+
+/* Keep the button visible on the right, no wrapping */
+.notification-item .btn {
+    flex: 0 0 auto; /* do not shrink, do not grow */
+    align-self: flex-start; /* align with top of text block */
+}
+
+/* Optional smaller muted text size (if you use it) */
+.notification-item .text-muted {
+    font-size: 0.75rem;
+}
+
+.notification-list-container .notification-item {
+    margin-bottom: 0.25rem;
+}
+
+.notification-item .me-3 {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}

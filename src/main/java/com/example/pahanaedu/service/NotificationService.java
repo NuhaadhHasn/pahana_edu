@@ -39,6 +39,11 @@ public class NotificationService implements INotificationService {
     }
 
     @Override
+    public boolean markAllAsRead() {
+        return notificationDAO.markAllAsRead();
+    }
+
+    @Override
     public List<Notification> getAllNotifications() {
         return notificationDAO.getAllNotifications();
     }

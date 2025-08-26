@@ -12,4 +12,6 @@ public interface INotificationService {
     List<Notification> getAllNotifications();
 
     boolean markAsRead(int notificationId);
+
+    boolean markAllAsRead();
 }

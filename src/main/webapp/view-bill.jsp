@@ -41,19 +41,19 @@
     <div class="row justify-content-center">
 
         <div class="mb-4">
-        <%-- Role-based "Back" Links --%>
-        <c:choose>
-            <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
-                <a href="${pageContext.request.contextPath}/my-bills" class="btn btn-sm btn-outline-info mb-3">
-                    <i class="bi bi-arrow-left"></i> Back to My Bill History
-                </a>
-            </c:when>
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/bill-history" class="btn btn-sm btn-outline-info mb-3">
-                    <i class="bi bi-arrow-left"></i> Back to Bill History
-                </a>
-            </c:otherwise>
-        </c:choose>
+            <%-- Role-based "Back" Links --%>
+            <c:choose>
+                <c:when test="${sessionScope.user.role == 'CUSTOMER'}">
+                    <a href="${pageContext.request.contextPath}/my-bills" class="btn btn-sm btn-outline-info mb-3">
+                        <i class="bi bi-arrow-left"></i> Back to My Bill History
+                    </a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/bill-history" class="btn btn-sm btn-outline-info mb-3">
+                        <i class="bi bi-arrow-left"></i> Back to Bill History
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <%-- The Bill Itself - styled to look like an invoice on a glass panel --%>
@@ -152,3 +152,4 @@
 </div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/notification.jspf" %>

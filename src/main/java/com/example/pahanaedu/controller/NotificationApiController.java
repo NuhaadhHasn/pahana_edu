@@ -22,10 +22,9 @@ public class NotificationApiController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("--- NOTIFICATION API: doPost method started ---"); // DEBUG
 
         String idParam = request.getParameter("id"); // Get the raw parameter
-        System.out.println("Received 'id' parameter from request: " + idParam); // DEBUG
+        String pathInfo = request.getPathInfo();
 
         if (idParam == null || idParam.trim().isEmpty()) {
             System.err.println("ERROR: 'id' parameter is null or empty."); // DEBUG
@@ -52,4 +51,6 @@ public class NotificationApiController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid notification ID format.");
         }
     }
+
+
 }

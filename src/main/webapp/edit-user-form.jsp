@@ -74,7 +74,7 @@
                 }
 
                 document.getElementById('role').addEventListener('change', toggleCustomerFields);
-                
+
                 // Run on page load to set the initial state
                 toggleCustomerFields();
             </script>
@@ -83,3 +83,4 @@
 </div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/notification.jspf" %>

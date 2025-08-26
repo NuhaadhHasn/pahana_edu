@@ -13,9 +13,10 @@ import java.util.List;
 public class NotificationDAO {
 
     private static final String INSERT_NOTIFICATION_SQL = "INSERT INTO notifications (message) VALUES (?);";
-    private static final String SELECT_UNREAD_NOTIFICATIONS_SQL = "SELECT * FROM notifications WHERE is_read = FALSE ORDER BY created_at DESC LIMIT 5;";
+    private static final String SELECT_UNREAD_NOTIFICATIONS_SQL = "SELECT * FROM notifications WHERE is_read = FALSE ORDER BY created_at DESC;";
     private static final String MARK_NOTIFICATION_AS_READ_SQL = "UPDATE notifications SET is_read = TRUE WHERE notification_id = ?;";
     private static final String SELECT_ALL_NOTIFICATIONS_SQL = "SELECT * FROM notifications ORDER BY created_at DESC;";
+    private static final String MARK_ALL_AS_READ_SQL = "UPDATE notifications SET is_read = TRUE WHERE is_read = FALSE;";
 
     public boolean addNotification(Notification notification) {
         boolean rowInserted = false;
@@ -68,6 +69,27 @@ public class NotificationDAO {
             e.printStackTrace();
         }
         return rowUpdated;
+    }
+
+    /**
+     * Marks all unread notifications as read in the database.
+     *
+     * @return true if any rows were updated, false otherwise.
+     */
+    public boolean markAllAsRead() {
+        boolean rowsUpdated = false;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(MARK_ALL_AS_READ_SQL)) {
+                // This query doesn't need any parameters.
+                // executeUpdate() returns the number of rows affected.
+                rowsUpdated = preparedStatement.executeUpdate() > 0;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return rowsUpdated;
     }
 
     public List<Notification> getAllNotifications() {

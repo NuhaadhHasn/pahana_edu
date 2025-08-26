@@ -27,16 +27,16 @@
     </div>
 
     <%-- Notifications Section - now styled with Bootstrap Alerts --%>
-    <div id="notifications-container" class="mb-4">
-        <h2 class="h4">
-            Notifications
-            <a href="${pageContext.request.contextPath}/notifications" class="btn btn-sm btn-outline-info ms-2">View
-                All</a>
-        </h2>
-        <div id="notifications-list">
-            <%-- Alerts will be added here by JavaScript --%>
-        </div>
-    </div>
+    <%--    <div id="notifications-container" class="mb-4">--%>
+    <%--        <h2 class="h4">--%>
+    <%--            Notifications--%>
+    <%--            <a href="${pageContext.request.contextPath}/notifications" class="btn btn-sm btn-outline-info ms-2">View--%>
+    <%--                All</a>--%>
+    <%--        </h2>--%>
+    <%--        <div id="notifications-list">--%>
+    <%--            &lt;%&ndash; Alerts will be added here by JavaScript &ndash;%&gt;--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
 
     <%-- Available Actions Section --%>
     <h2 class="h4">Available Actions</h2>
@@ -69,75 +69,9 @@
                     class="bi bi-bar-chart-line-fill me-2"></i>View Business Reports</a>
         </c:if>
     </div>
-</div> <%-- Closes the .main-content div --%>
-<div class="modal fade" id="confirmDismissModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Confirm Dismissal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="confirmModalBody">
-                <%-- The question will be placed here by JavaScript --%>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDismissButton">Yes, Dismiss</button>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
-    let confirmModal = null;
-    const confirmModalElement = document.getElementById('confirmDismissModal');
-    const confirmModalBody = document.getElementById('confirmModalBody');
-    const confirmDismissButton = document.getElementById('confirmDismissButton');
-
-    // This function shows the confirmation modal
-    function showDismissConfirmation(notificationId, notificationMessage, alertElement) {
-        // Set the question text inside the modal
-        if (confirmModal === null) {
-            confirmModal = new bootstrap.Modal(confirmModalElement);
-        }
-        confirmModalBody.textContent = 'Are you sure you want to dismiss the notification: "' + notificationMessage + '"?';
-
-        // This is important: we attach an event listener to the "Confirm" button
-        // that will only run ONCE.
-        confirmDismissButton.onclick = () => {
-            dismissNotification(notificationId, alertElement);
-            confirmModal.hide(); // Hide the modal after confirming
-        };
-
-        // Show the modal to the user
-        confirmModal.show();
-    }
-
-    function dismissNotification(notificationId, alertElement) {
-        console.log(`Attempting to dismiss notification ID: ${notificationId}`);
-
-        const formData = new URLSearchParams();
-        formData.append('id', notificationId);
-
-        fetch(`${pageContext.request.contextPath}/api/notifications/mark-as-read`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: formData
-        })
-            .then(response => {
-                console.log('Server response status:', response.status);
-                if (response.ok) {
-                    console.log('Success! Removing alert element from UI.');
-                    alertElement.remove();
-                } else {
-                    alert('Could not dismiss notification. Server returned an error.');
-                }
-            })
-            .catch(error => {
-                console.error('Network error while dismissing notification:', error);
-                alert('A network error occurred. Could not dismiss notification.');
-            });
-    }
-
+    // This script is now ONLY for the dashboard statistics cards
     document.addEventListener('DOMContentLoaded', function () {
         fetch('${pageContext.request.contextPath}/api/dashboard-stats')
             .then(response => response.json())
@@ -145,41 +79,9 @@
                 const stats = data.statistics;
                 document.getElementById('customer-count').textContent = stats.customerCount;
                 document.getElementById('total-stock').textContent = stats.totalStock;
-
-                const notifications = data.notifications;
-                const notificationList = document.getElementById('notifications-list');
-                notificationList.innerHTML = '';
-
-                if (notifications && notifications.length > 0) {
-                    notifications.forEach(notification => {
-                        const alertDiv = document.createElement('div');
-                        alertDiv.className = 'alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center';
-                        alertDiv.setAttribute('role', 'alert');
-
-                        const messageSpan = document.createElement('span');
-
-                        // --- THE FINAL FIX IS HERE ---
-                        // I am no longer using a template literal to avoid the JSP conflict.
-                        // This concatenates the string safely.
-                        messageSpan.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i> ' + notification.message;
-
-                        const dismissButton = document.createElement('button');
-                        dismissButton.type = 'button';
-                        dismissButton.className = 'btn-close';
-                        dismissButton.setAttribute('aria-label', 'Close');
-                        // We pass 'alertDiv' so the dismiss function knows which element to remove
-                        dismissButton.onclick = () => showDismissConfirmation(notification.notificationId, notification.message, alertDiv);
-
-                        alertDiv.appendChild(messageSpan);
-                        alertDiv.appendChild(dismissButton);
-                        notificationList.appendChild(alertDiv);
-                    });
-                } else {
-                    notificationList.innerHTML = '<p class="text-muted">No new notifications.</p>';
-                }
             })
-            .catch(error => console.error('Error fetching dashboard data:', error));
+            .catch(error => console.error('Error fetching dashboard stats:', error));
     });
 </script>
-
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
+<%@ include file="/WEB-INF/jspf/notification.jspf" %>
