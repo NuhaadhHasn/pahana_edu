@@ -54,10 +54,14 @@
                     </a>
                 </c:otherwise>
             </c:choose>
+
+            <button class="btn btn-sm btn-outline-info mb-3" onclick="window.print();">
+                <i class="bi bi-printer-fill me-2"></i>Print Invoice
+            </button>
         </div>
 
         <%-- The Bill Itself - styled to look like an invoice on a glass panel --%>
-        <div class="invoice-card">
+        <div class="invoice-card" id="printable-invoice">
             <div class="invoice-header text-center mb-4">
                 <h2 class="mb-0 text-white-50">PAHANA EDU BOOKSHOP</h2>
                 <p class="text-muted">Official Bill / Invoice</p>

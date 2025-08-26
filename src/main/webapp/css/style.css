@@ -160,3 +160,90 @@ body {
     overflow-wrap: break-word;
     white-space: normal;
 }
+
+@media print {
+    /* Hide everything by default */
+    .container, .row, .col-lg-10, .col-xl-8 {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    body .main-content, body .row, body .col-lg-10, body .col-xl-8 {
+        visibility: visible;
+    }
+
+    /* Make links look like plain text when printed */
+    a {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+
+    /* Make only the printable-invoice and its contents visible */
+    #printable-invoice, #printable-invoice * {
+        visibility: visible;
+        color: #000000 !important;
+    }
+
+    /* Position the invoice for printing */
+    #printable-invoice {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100% !important;
+        margin: 0;
+        padding: 40px !important; /* Add some padding to the content */
+        /*border: 2px solid #dee2e6 !important;*/
+        box-shadow: none !important;
+        background: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* --- NEW STYLING FOR A MORE PROFESSIONAL PRINT --- */
+    /* Force a modern, clean system font instead of the browser default */
+    body, #printable-invoice {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+        font-size: 11pt !important;
+    }
+
+    #printable-invoice .table thead tr {
+        border-bottom: 2px solid #dee2e6 !important;
+    }
+
+    /* Add a border below the main items table */
+    #printable-invoice .table tbody {
+        border-bottom: 2px solid #dee2e6 !important;
+    }
+
+    #printable-invoice .table thead {
+        background-color: #f2f2f2 !important;
+    }
+
+    .totals-table tr {
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+    .totals-table tr:last-child {
+        border-bottom: none !important;
+        border-top: 2px solid #dee2e6 !important;
+        font-size: 1.25rem;
+    }
+
+    /* Remove the dark theme from the table header */
+    .table-dark {
+        --bs-table-bg: #f2f2f2; /* Light grey background */
+        --bs-table-color: #000;
+        --bs-table-border-color: #dee2e6;
+    }
+
+    #printable-invoice .table, #printable-invoice .table th, #printable-invoice .table td {
+        border-color: #dee2e6 !important; /* A light grey for borders */
+    }
+
+}
