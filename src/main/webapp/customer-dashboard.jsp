@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page Header --%>
     <div class="mb-4">
         <h1 class="mb-0">My Dashboard</h1>

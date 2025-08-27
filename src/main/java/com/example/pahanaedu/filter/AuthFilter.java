@@ -20,7 +20,7 @@ public class AuthFilter implements Filter {
 
     // Define which paths are accessible to which roles
 
-    private static final List<String> PUBLIC_PATHS = Arrays.asList("/login", "/logout", "/help.jsp");
+    private static final List<String> PUBLIC_PATHS = Arrays.asList("/login", "/logout", "/help.jsp", "/profile");
     private static final List<String> ADMIN_PATHS = Arrays.asList("/users", "/promotions", "/login-history", "/reports", "/view-bill-details");
     private static final List<String> STAFF_PATHS = Arrays.asList("/customers", "/items", "/billing", "/bill-history", "/record-payment");
     private static final List<String> CUSTOMER_PATHS = Arrays.asList("/customer-dashboard.jsp", "/my-bills", "/view-items", "/make-payment", "/view-bill-details", "/customer-make-payment", "/items");

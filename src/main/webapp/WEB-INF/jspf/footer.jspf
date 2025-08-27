@@ -6,6 +6,81 @@
 </div> <%-- Closes the <div class="container main-content"> --%>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
 
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            // Add a small delay to make the animation feel smoother after the loader
+            setTimeout(() => {
+                mainContent.classList.add('is-visible');
+            }, 100);
+        }
+
+        fetch('${pageContext.request.contextPath}/api/dashboard-stats')
+            .then(response => response.json())
+            .then(data => {
+                const stats = data.statistics;
+                document.getElementById('customer-count').textContent = stats.customerCount;
+                document.getElementById('total-stock').textContent = stats.totalStock;
+            })
+            .catch(error => console.error('Error fetching dashboard stats:', error));
+    });
+
+    window.addEventListener('load', function () {
+        // Add a small delay to prevent flickering on fast connections
+        setTimeout(() => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+        }, 100); // 200ms delay
+    });
+
+    // --- Scroll Animation Logic ---
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if (animatedElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: stop observing the element once it's visible
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+
+
+    // // --- ADD THIS NEW BLOCK FOR RIPPLE EFFECT ---
+    // const buttons = document.querySelectorAll('.btn');
+    // buttons.forEach(button => {
+    //     button.addEventListener('click', function (e) {
+    //         // Get the click position relative to the button
+    //         const rect = this.getBoundingClientRect();
+    //         const x = e.clientX - rect.left;
+    //         const y = e.clientY - rect.top;
+    //
+    //         // Create the ripple element
+    //         const ripple = document.createElement('span');
+    //         ripple.classList.add('ripple');
+    //         ripple.style.left = x + 'px';
+    //         ripple.style.top = y + 'px';
+    //
+    //         // Add it to the button, then remove it after the animation
+    //         this.appendChild(ripple);
+    //         setTimeout(() => {
+    //             ripple.remove();
+    //         }, 600); // Duration matches the CSS animation
+    //     });
+    // });
+</script>
 </body>
 </html>

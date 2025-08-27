@@ -23,6 +23,7 @@ public class UserDAO {
     private static final String UPDATE_USER_SQL = "UPDATE users SET username = ?, full_name = ?, role = ? WHERE user_id = ?;";
     private static final String DELETE_USER_SQL = "DELETE FROM users WHERE user_id = ?;";
     private static final String UPDATE_PASSWORD_SQL = "UPDATE users SET password = ? WHERE user_id = ?;";
+    private static final String VERIFY_PASSWORD_SQL = "SELECT user_id FROM users WHERE user_id = ? AND password = ?;";
 
     /**
      * Validates a user's credentials against the database.
@@ -201,5 +202,27 @@ public class UserDAO {
             e.printStackTrace();
         }
         return rowDeleted;
+    }
+
+    public boolean verifyPassword(int userId, String password) {
+        boolean passwordMatches = false;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(VERIFY_PASSWORD_SQL)) {
+                preparedStatement.setInt(1, userId);
+                preparedStatement.setString(2, password);
+
+                // If the query returns a row, it means we found a user with that ID and that password.
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    if (rs.next()) {
+                        passwordMatches = true;
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return passwordMatches;
     }
 }

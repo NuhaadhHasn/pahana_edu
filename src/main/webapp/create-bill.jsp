@@ -33,7 +33,7 @@
 
 </style>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <div class="mb-4">
         <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
             <i class="bi bi-arrow-left"></i> Back to Dashboard

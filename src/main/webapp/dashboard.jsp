@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Admin & Staff Dashboard</h1>
     </div>
@@ -70,18 +70,5 @@
         </c:if>
     </div>
 </div>
-<script>
-    // This script is now ONLY for the dashboard statistics cards
-    document.addEventListener('DOMContentLoaded', function () {
-        fetch('${pageContext.request.contextPath}/api/dashboard-stats')
-            .then(response => response.json())
-            .then(data => {
-                const stats = data.statistics;
-                document.getElementById('customer-count').textContent = stats.customerCount;
-                document.getElementById('total-stock').textContent = stats.totalStock;
-            })
-            .catch(error => console.error('Error fetching dashboard stats:', error));
-    });
-</script>
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 <%@ include file="/WEB-INF/jspf/notification.jspf" %>

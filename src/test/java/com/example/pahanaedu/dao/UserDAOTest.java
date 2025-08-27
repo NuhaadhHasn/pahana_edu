@@ -105,4 +105,18 @@ public class UserDAOTest {
         User deletedUser = userDAO.getUserById(userToDelete.getUserId());
         assertNull("Deleted user should not be found.", deletedUser);
     }
+
+    @Test
+    public void testVerifyPassword() {
+        UserDAO userDAO = new UserDAO();
+        // Test with the admin user (ID=1, password='admin123') from our sample data
+
+        // Test case 1: Correct password
+        boolean isCorrect = userDAO.verifyPassword(1, "admin123");
+        assertTrue("Verification should succeed for the correct password.", isCorrect);
+
+        // Test case 2: Incorrect password
+        boolean isIncorrect = userDAO.verifyPassword(1, "wrongpassword");
+        assertFalse("Verification should fail for the incorrect password.", isIncorrect);
+    }
 }

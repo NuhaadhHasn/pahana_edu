@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page Header --%>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -30,29 +30,30 @@
             </thead>
             <tbody>
             <c:forEach items="${promotionList}" var="promo">
-                <tr>
-                    <td><c:out value="${promo.promoId}"/></td>
-                    <td><code><c:out value="${promo.promoCode}"/></code></td>
-                    <td class="text-end"><fmt:formatNumber value="${promo.discountPercentage / 100}"
-                                                           type="percent"/></td>
-                    <td><c:out value="${promo.startDate}"/></td>
-                    <td><c:out value="${promo.endDate}"/></td>
-                    <td>
-                        <c:if test="${promo.active}">
-                            <span class="badge bg-success">Active</span>
-                        </c:if>
-                        <c:if test="${!promo.active}">
-                            <span class="badge bg-secondary">Inactive</span>
-                        </c:if>
-                    </td>
-                    <td class="text-end">
-                        <a href="${pageContext.request.contextPath}/promotions?action=edit&id=${promo.promoId}"
-                           class="btn btn-sm btn-outline-primary">Edit</a>
-                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                onclick="showDeleteConfirmation('${pageContext.request.contextPath}/promotions?action=delete&id=${promo.promoId}')">
-                            Delete
-                        </button>
-                    </td>
+                <trclass
+                ="animate-on-scroll">
+                <td><c:out value="${promo.promoId}"/></td>
+                <td><code><c:out value="${promo.promoCode}"/></code></td>
+                <td class="text-end"><fmt:formatNumber value="${promo.discountPercentage / 100}"
+                                                       type="percent"/></td>
+                <td><c:out value="${promo.startDate}"/></td>
+                <td><c:out value="${promo.endDate}"/></td>
+                <td>
+                    <c:if test="${promo.active}">
+                        <span class="badge bg-success">Active</span>
+                    </c:if>
+                    <c:if test="${!promo.active}">
+                        <span class="badge bg-secondary">Inactive</span>
+                    </c:if>
+                </td>
+                <td class="text-end">
+                    <a href="${pageContext.request.contextPath}/promotions?action=edit&id=${promo.promoId}"
+                       class="btn btn-sm btn-outline-primary">Edit</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger"
+                            onclick="showDeleteConfirmation('${pageContext.request.contextPath}/promotions?action=delete&id=${promo.promoId}')">
+                        Delete
+                    </button>
+                </td>
                 </tr>
             </c:forEach>
             </tbody>

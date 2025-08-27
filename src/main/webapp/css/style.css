@@ -247,3 +247,133 @@ body {
     }
 
 }
+
+/* --- Page Loader Animation --- */
+#page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #111; /* A solid dark background */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.75s ease, visibility 0.75s ease;
+}
+
+#page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* The spinning animation */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--bs-primary); /* Use Bootstrap's primary color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Scroll Animation --- */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- On-Load Content Animation --- */
+.fade-in-on-load {
+    opacity: 0;
+    transition: opacity 0.8s ease-in;
+}
+
+.fade-in-on-load.is-visible {
+    opacity: 1;
+}
+
+/* --- Dropdown Animation --- */
+
+
+.dropdown-menu {
+    animation: fadeInAnimation 0.3s ease-out forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- ENHANCED HOVER & BUTTON EFFECTS --- */
+
+/* General transition for all buttons and list items for smooth effects */
+.btn, .list-group-item {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Add a "lift" effect on hover for cards and action links */
+.stat-card:hover, .list-group-item-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a subtle glow effect to primary buttons on hover */
+.btn-primary:hover {
+    box-shadow: 0 0 7px 2px rgba(13, 110, 253, 0.4); /* Uses Bootstrap's primary blue color */
+}
+
+/* Add a subtle glow effect to danger buttons on hover */
+.btn-danger:hover {
+    box-shadow: 0 0 15px 5px rgba(220, 53, 69, 0.4); /* Uses Bootstrap's danger red color */
+}
+
+/* --- RIPPLE EFFECT ON CLICK --- */
+/* We will add the JavaScript for this in the next step */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+}
+
+@keyframes ripple-effect {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.navbar .dropdown .btn {
+    /* This ensures the button itself does not clip its children */
+    overflow: visible;
+}
+
+#notification-count {
+    z-index: 100; /* A high number to ensure it's on top */
+}

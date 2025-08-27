@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
 <%-- Page specific title and back link --%>
-<div class="main-content">
+<div class="main-content fade-in-on-load">
 
     <div class="row justify-content-center">
         <div class="col-lg-8 col-xl-7">

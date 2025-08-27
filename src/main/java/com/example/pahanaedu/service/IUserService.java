@@ -21,4 +21,6 @@ public interface IUserService {
     boolean changePassword(int userId, String newPassword);
 
     List<LoginHistory> getLoginHistory();
+
+    boolean verifyPassword(int userId, String password);
 }

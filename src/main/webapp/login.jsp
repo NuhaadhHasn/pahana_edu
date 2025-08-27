@@ -5,7 +5,7 @@
 <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
     <div class="col-md-6 col-lg-4">
         <%-- We use the 'main-content' class from our style.css to get the glass effect --%>
-        <div class="main-content shadow-lg">
+        <div class="main-content fade-in-on-load shadow-lg">
             <div class="text-center mb-4">
                 <i class="bi bi-book-half" style="font-size: 3rem;"></i>
                 <h1 class="h3">System Login</h1>

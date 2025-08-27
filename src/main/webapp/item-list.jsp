@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page Header --%>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <c:forEach items="${itemList}" var="item">
-                <tr>
+                <tr class="animate-on-scroll">
                     <td><c:out value="${item.itemId}"/></td>
                     <td><c:out value="${item.itemName}"/></td>
                     <td><c:out value="${item.description}"/></td>

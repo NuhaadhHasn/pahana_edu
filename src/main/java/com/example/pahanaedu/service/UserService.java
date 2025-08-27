@@ -105,4 +105,9 @@ public class UserService implements IUserService {
     public boolean changePassword(int userId, String newPassword) {
         return userDAO.changePassword(userId, newPassword);
     }
+
+    @Override
+    public boolean verifyPassword(int userId, String password) {
+        return userDAO.verifyPassword(userId, password);
+    }
 }

@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page specific title and action button --%>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <c:forEach items="${customerList}" var="customer">
-                <tr>
+                <tr class="animate-on-scroll">
                     <td><c:out value="${customer.customerId}"/></td>
                     <td><c:out value="${customer.accountNumber}"/></td>
                     <td><c:out value="${customer.fullName}"/></td>

@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page Header --%>
     <div class="mb-4">
         <a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-sm btn-outline-info mb-2">
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
             <c:forEach items="${historyList}" var="log">
-                <tr>
+                <tr class="animate-on-scroll">
                     <td><c_rt:out value="${log.logId}"/></td>
                     <td>
                         <c:if test="${log.userId > 0}">

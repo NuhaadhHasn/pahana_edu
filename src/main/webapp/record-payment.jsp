@@ -35,7 +35,7 @@
     }
 </style>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-xl-9">
 

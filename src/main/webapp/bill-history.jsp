@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div class="main-content">
+<div class="main-content fade-in-on-load">
     <%-- Page Header --%>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <c:forEach items="${billList}" var="bill">
-                <tr>
+                <tr class="animate-on-scroll">
                     <td>#<c:out value="${bill.billId}"/></td>
                     <td><fmt:formatDate value="${bill.billDateAsDate}" type="both" dateStyle="medium"
                                         timeStyle="short"/></td>
