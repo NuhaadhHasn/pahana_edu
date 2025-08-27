@@ -18,14 +18,6 @@
             }, 100);
         }
 
-        fetch('${pageContext.request.contextPath}/api/dashboard-stats')
-            .then(response => response.json())
-            .then(data => {
-                const stats = data.statistics;
-                document.getElementById('customer-count').textContent = stats.customerCount;
-                document.getElementById('total-stock').textContent = stats.totalStock;
-            })
-            .catch(error => console.error('Error fetching dashboard stats:', error));
     });
 
     window.addEventListener('load', function () {

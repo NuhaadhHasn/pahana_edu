@@ -70,5 +70,20 @@
         </c:if>
     </div>
 </div>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('${pageContext.request.contextPath}/api/dashboard-stats')
+            .then(response => response.json())
+            .then(data => {
+                const stats = data.statistics;
+                document.getElementById('customer-count').textContent = stats.customerCount;
+                document.getElementById('total-stock').textContent = stats.totalStock;
+            })
+            .catch(error => console.error('Error fetching dashboard stats:', error));
+    });
+
+
+</script>
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 <%@ include file="/WEB-INF/jspf/notification.jspf" %>
