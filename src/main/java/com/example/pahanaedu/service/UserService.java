@@ -110,4 +110,12 @@ public class UserService implements IUserService {
     public boolean verifyPassword(int userId, String password) {
         return userDAO.verifyPassword(userId, password);
     }
+    
+    @Override
+    public boolean usernameExists(String username) {
+        System.out.println("--- SERVICE CHECK: Checking if username exists: '" + username + "' ---"); // DEBUG
+        boolean result = userDAO.usernameExists(username);
+        System.out.println("--- SERVICE CHECK: DAO returned: " + result + " ---"); // DEBUG
+        return result;
+    }
 }

@@ -23,4 +23,6 @@ public interface IUserService {
     List<LoginHistory> getLoginHistory();
 
     boolean verifyPassword(int userId, String password);
+
+    boolean usernameExists(String username);
 }

@@ -24,6 +24,7 @@ public class UserDAO {
     private static final String DELETE_USER_SQL = "DELETE FROM users WHERE user_id = ?;";
     private static final String UPDATE_PASSWORD_SQL = "UPDATE users SET password = ? WHERE user_id = ?;";
     private static final String VERIFY_PASSWORD_SQL = "SELECT user_id FROM users WHERE user_id = ? AND password = ?;";
+    private static final String CHECK_USERNAME_EXISTS_SQL = "SELECT user_id FROM users WHERE username = ?;";
 
     /**
      * Validates a user's credentials against the database.
@@ -224,5 +225,27 @@ public class UserDAO {
             e.printStackTrace();
         }
         return passwordMatches;
+    }
+
+    public boolean usernameExists(String username) {
+        System.out.println("--- DAO CHECK: Executing SQL check for username: '" + username + "' ---");
+        boolean exists = false;
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(CHECK_USERNAME_EXISTS_SQL)) {
+                preparedStatement.setString(1, username);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    // If rs.next() is true, it means we found at least one row
+                    if (rs.next()) {
+                        exists = true;
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("--- DAO CHECK: SQL query result, exists = " + exists + " ---");
+        return exists;
     }
 }
