@@ -83,7 +83,7 @@ The text above is my own README, unchanged. Everything below was added later, wh
 | Compiler | JDK 20, `--release 17`, no Maven (a Maven build needs a download that was not allowed, so `mvn package` is **not verified**); the four libraries (`mysql-connector-j 8.4.0`, `jstl 1.2`, `json 20231013`, `protobuf-java 4.28.2`) came from the project's own `target/` folder |
 | Browser | headless Chromium, all addresses except `127.0.0.1` blocked |
 
-The pom asks for Servlet 4.0 / Tomcat 9; the code compiles and runs unchanged on Tomcat 8.5 (it uses nothing newer than Servlet 3.1). The program has 61 classes, 25 pages and about 5,200 lines of Java.
+The pom asks for Servlet 4.0 / Tomcat 9; the code compiles and runs unchanged on Tomcat 8.5 (it uses nothing newer than Servlet 3.1). The program has 61 classes, 23 JSP pages and about 5,200 lines of Java.
 
 Logins in the sample data (from the SQL script): `admin` / `admin123`, `staff` / `staff123`, `kamal` / `kamal123` (a customer). They are demo passwords stored in plain text.
 
