@@ -78,7 +78,8 @@
             <%-- THE FIX: This entire block is now wrapped in a C:IF --%>
             <c:if test="${not empty sessionScope.user}">
                 <div class="d-flex align-items-center">
-                        <%-- Notification Bell Placeholder --%>
+                        <%-- Notification bell: the low-stock alerts are for the shop staff, customers cannot read them --%>
+                    <c:if test="${sessionScope.user.role == 'ADMIN' || sessionScope.user.role == 'STAFF'}">
                     <div class="dropdown">
                         <button class="btn btn-dark position-relative me-2" type="button" id="notificationBell"
                                 data-bs-toggle="dropdown">
@@ -92,6 +93,7 @@
                                 <%-- Populated by JS --%>
                         </ul>
                     </div>
+                    </c:if>
 
                         <%-- User Profile Dropdown --%>
                     <div class="dropdown">
