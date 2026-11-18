@@ -64,6 +64,8 @@ CREATE TABLE bills (
     discount_amount DECIMAL(10, 2) DEFAULT 0.00,
     total_amount DECIMAL(10, 2) NOT NULL,
     status ENUM('DRAFT', 'ISSUED', 'PAID', 'CANCELLED') NOT NULL DEFAULT 'DRAFT',
+    tax_rate_applied DOUBLE DEFAULT 0.00,   -- moved up from the ALTER TABLE at the end of the file
+    service_charge DOUBLE DEFAULT 0.00,     -- (the view below needs these columns to exist)
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (promo_id) REFERENCES promotions(promo_id)
 );
@@ -160,7 +162,3 @@ INSERT INTO items (item_name, description, price, stock_quantity) VALUES
 
 INSERT INTO promotions (promo_code, discount_percentage, is_active) VALUES
 ('SAVE10', 10.00, TRUE);
-
--- -----------------
-ALTER TABLE bills ADD COLUMN tax_rate_applied DOUBLE DEFAULT 0.00;
-ALTER TABLE bills ADD COLUMN service_charge DOUBLE DEFAULT 0.00;

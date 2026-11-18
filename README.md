@@ -114,7 +114,7 @@ Found by running it with the three roles and by sending requests by hand. The "F
 
 | # | Problem | How it shows | Fixed in |
 |---|---|---|---|
-| 1 | The SQL script fails on an empty server | the view `v_bill_details` is created before the `ALTER TABLE` that adds `tax_rate_applied` and `service_charge`, so MariaDB stops with `Unknown column 'b.tax_rate_applied'` and none of the sample rows are inserted | open |
+| 1 | The SQL script fails on an empty server | the view `v_bill_details` is created before the `ALTER TABLE` that adds `tax_rate_applied` and `service_charge`, so MariaDB stops with `Unknown column 'b.tax_rate_applied'` and none of the sample rows are inserted | commit "Database script: create the columns before the view that uses them" |
 | 2 | Database address, user and password are written into `DBConnection.java`; the one shared connection is never replaced if it is closed or times out | to use another database the source has to be edited; after a database restart the whole site keeps failing until Tomcat is restarted | open |
 | 3 | **Anyone, without logging in, can open `/login-history`** | the filter treats every path that starts with `/login` as public, and `/login-history` starts with `/login` | open |
 | 4 | **A customer can add, edit and delete items** | `/items` is in the customers' list of allowed paths (they should only have `/view-items`); a POST of `action=add` from a customer session creates a book | open |
