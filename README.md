@@ -128,3 +128,32 @@ Found by running it with the three roles and by sending requests by hand. The "F
 | 12 | 7 of the 31 unit tests fail on a fresh database | they assume rows that only existed in my own database (customer 5, bill 2, promotion 8, ...) and depend on the order the tests run in | commit "Tests: every test makes the rows it needs (31 of 31 pass on an empty database, and again on the same one)" |
 | 13 | IDE state (`.idea/`) was committed in the original history | | commit "Stop tracking the IDE state" |
 | 14 | Left as they are (design limits, not fixed) | passwords are stored and compared in plain text; one shared JDBC connection is used by all requests while `saveBill` switches auto-commit off on it; stock is reduced after, not inside, the bill transaction; no CSRF protection; the Maven build is unverified (no download allowed) | not fixed |
+
+
+## What the fixes changed, and how each was checked
+
+All checks were repeated after the last fix with the three roles, against a freshly created database.
+
+| Problem | Check | Result before | Result after |
+|---|---|---|---|
+| 1 | run `database/pahana_edu.sql` on an empty server | stops with `Unknown column 'b.tax_rate_applied'`, no sample rows | runs to the end; 3 users, 1 customer, 1 item, 1 promotion |
+| 2 | start the program with `DB_URL=jdbc:mysql://127.0.0.1:3399/pahana_edu` | the setting did not exist | the program (and the tests) used that database; with nothing set it still uses `127.0.0.1:3306/pahana_edu`, user `root`, empty password |
+| 3 | open `/login-history` | 200 without logging in, and 200 for staff and customers | 302 to the login page without a session; 403 for staff and customers; 200 for the admin |
+| 4 | customer POSTs `action=add` to `/items`, opens `/items` | a book was created | 403, nothing created |
+| 5 | customer opens or pays another customer's bill | 200 / payment stored | 403 / nothing stored; own bills still open |
+| 6, 7 | staff open `/view-bill-details?id=1` and `/api/search-items?term=ja` | 403 / 403 | 200 / 200 |
+| 8 | bill page right after creating a bill | "Bill ID #0" | "Bill ID #1" (screenshot [22](docs/screenshots/22-after-fix-bill-number.jpg)) |
+| 9 | empty bill; service charge -500; 100 copies with 25 in stock; letters in a number; tax 150 | all saved (stock -75) or error 500 | each one stays on the form with a red message (screenshot [23](docs/screenshots/23-after-fix-validation-error.jpg)); nothing is saved; a walk-in customer is no longer created when the bill is refused |
+| 10 | pay Rs 1 on a Rs 9,000 bill; pay a paid bill again | bill became PAID; second payment stored | refused with a message on the bill history / my bills page; only a payment equal to the total of an unpaid bill is accepted |
+| 11 | type in "Filter Books" | the list did not change | the list is filtered while typing |
+| 12 | run the 31 tests on an empty database, then again on the same database | 7 failed on the first run | 31 of 31 pass both times |
+| 13 | | `.idea/` was in the repository | no longer tracked, listed in `.gitignore` (the old commits still contain it) |
+
+Things the fixes do **not** change: after a refused bill the form comes back empty, so the lines have to be added again; a payment must be the full bill total (the database has no "part paid" status); the passwords are still plain text (problem 14).
+
+## Settings and running
+
+- Database: `DB_URL`, `DB_USER`, `DB_PASSWORD` (environment variables) or `-Dpahana.db.url`, `-Dpahana.db.user`, `-Dpahana.db.password`. The defaults are the old values.
+- **Warning:** `database/pahana_edu.sql` starts with `DROP TABLE IF EXISTS` for every table of the `pahana_edu` database. Do not run it on a server whose `pahana_edu` you want to keep.
+- The tests (`src/test/java/.../dao`) are integration tests: they need the database from the script, and they now add their own rows with names that cannot clash, so they can be run again and again.
+- Build: `mvn clean package` (not run here, see above), then put `target/pahana-edu.war` into Tomcat 9.
