@@ -37,10 +37,16 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
 
-        String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
+        // Decide on the path the container really uses: servlet path + path info. Unlike the raw request URI,
+        // these are decoded and normalised and have path parameters (";x=y") removed. (The raw URI used to be
+        // matched with endsWith(".css"), so "/users;x.css" skipped the login check and still reached /users.)
+        String path = httpRequest.getServletPath();
+        if (httpRequest.getPathInfo() != null) {
+            path += httpRequest.getPathInfo();
+        }
 
-        // Allow public assets and the login page for everyone, always.
-        if (path.equals("/login") || path.equals("/login.jsp") || path.endsWith(".css") || path.endsWith(".js") || path.startsWith("/images/")) {
+        // Allow the login page and the static files (by folder, never by file ending) for everyone, always.
+        if (path.equals("/login") || path.equals("/login.jsp") || path.startsWith("/css/") || path.startsWith("/images/")) {
             chain.doFilter(request, response);
             return;
         }

@@ -72,7 +72,7 @@ The text above is my own README, unchanged. Everything below was added later, wh
 
 - The history of this repository is the real history of the project: 25 commits by me, 10 to 28 August 2025, which the report links to. Nothing was rewritten.
 - The `Assignment.rar` I submitted stops at commit `54dc14e` ("Bug fix in backend", 20 August 2025). Everything after that commit in this repository was added in November 2026 on top of your own five later commits (26 to 28 August 2025: notification update, print function, animations and loaders, charts for the reports, username check): the database script, the README, the screenshots and the bug fixes below, each in its own commit.
-- **What was checked on which code.** The browser run, the screenshots and the manual checks in this README were made on the 20 August code, before the five later commits were merged in. After the merge, the program compiles and all 32 unit tests pass twice in a row on an empty database (31 of the earlier tests plus the username test from 28 August). The pages added later (profile, print, charts) were not run in a browser again.
+- **What was checked on which code.** The browser run, the screenshots and the manual checks in this README were made on the 20 August code, before the five later commits were merged in. After the merge, the program compiles and all 32 database tests pass twice in a row on an empty database (31 of the earlier tests plus the username test from 28 August), and 5 new tests of the access filter pass (they need no database). The pages added later (profile, print, charts) were not run in a browser again.
 - `database/CreateDB&TableScripts.sql` is the SQL script that lay next to the project in `Assignment.rar` (it was never inside the Git repository). It was committed as received, then fixed (see below).
 
 ## Verified run (18 November 2026)
@@ -128,7 +128,8 @@ Found by running it with the three roles and by sending requests by hand. The "F
 | 11 | The "Filter Books" box on the create-bill page does nothing | the script looks for elements of class `result-item`, the list items have class `list-group-item` | commit "Billing: validate the bill on the server, show the new bill number, make the item filter work" |
 | 12 | 7 of the 31 unit tests (at that time) fail on a fresh database | they assume rows that only existed in my own database (customer 5, bill 2, promotion 8, ...) and depend on the order the tests run in | commit "Tests: every test makes the rows it needs (31 of 31 pass on an empty database, and again on the same one)" |
 | 13 | IDE state (`.idea/`) was committed in the original history | | commit "Stop tracking the IDE state" |
-| 14 | Left as they are (design limits, not fixed) | passwords are stored and compared in plain text; one shared JDBC connection is used by all requests while `saveBill` switches auto-commit off on it; stock is reduced after, not inside, the bill transaction; no CSRF protection; the Maven build is unverified (no download allowed) | not fixed |
+| 14 | **The login check could be skipped with a fake file ending** | the filter treated any address ending in `.css` or `.js` as a public file and looked at the raw address, so `/users;x.css` (a path parameter that Tomcat ignores) reached `/users` without logging in, and let staff and customers past their role checks (found by an automated security review of the merged code, November 2026) | commit "Access filter: decide on the servlet path, not on the raw address; static files only from /css and /images" |
+| 15 | Left as they are (design limits, not fixed) | passwords are stored and compared in plain text, and the demo logins in `database/pahana_edu.sql` (`admin/admin123`, `staff/staff123`, ...) are the project's demo data; one shared JDBC connection is used by all requests while `saveBill` switches auto-commit off on it; stock is reduced after, not inside, the bill transaction; no CSRF protection; the Maven build is unverified (no download allowed) | not fixed |
 
 
 ## What the fixes changed, and how each was checked
@@ -149,6 +150,7 @@ All checks were repeated after the last fix with the three roles, against a fres
 | 11 | type in "Filter Books" | the list did not change | the list is filtered while typing |
 | 12 | run the tests on an empty database, then again on the same database | 7 of 31 failed on the first run | all pass both times (32 of 32 after the later commits were merged in) |
 | 13 | | `.idea/` was in the repository | no longer tracked, listed in `.gitignore` (the old commits still contain it) |
+| 14 | try `/users;x.css`, `/users.js` and the same with a staff or customer login (new `AuthFilterTest`, 5 tests) | with the old filter: allowed without logging in, and role checks skipped (3 of the 5 tests fail) | redirect to the login page without a session, 403 for the wrong role; the 5 tests pass |
 
 Things the fixes do **not** change: after a refused bill the form comes back empty, so the lines have to be added again; a payment must be the full bill total (the database has no "part paid" status); the passwords are still plain text (problem 14).
 
