@@ -21,7 +21,7 @@ public class CustomerDAOTest {
         // 1. Setup
         CustomerDAO customerDAO = new CustomerDAO();
         Customer newCustomer = new Customer();
-        newCustomer.setAccountNumber("TEST-001");
+        newCustomer.setAccountNumber(TestData.unique("T"));
         newCustomer.setFullName("Test User");
         newCustomer.setAddress("123 Test Street");
         newCustomer.setPhoneNumber("0123456789");
@@ -98,7 +98,7 @@ public class CustomerDAOTest {
     @Test
     public void testDeletePromotion() {
         PromotionDAO promotionDAO = new PromotionDAO();
-        int promoIdToDelete = 8; // We will delete the promo with ID 1 from the sample data
+        int promoIdToDelete = TestData.newPromotion().getPromoId(); // a promotion made for this test
 
         // Execute the delete operation
         boolean result = promotionDAO.deletePromotion(promoIdToDelete);

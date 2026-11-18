@@ -13,7 +13,7 @@ public class PromotionDAOTest {
     public void testAddPromotion() {
         PromotionDAO promotionDAO = new PromotionDAO();
         Promotion newPromo = new Promotion();
-        newPromo.setPromoCode("SUMMER25");
+        newPromo.setPromoCode(TestData.unique("S"));
         newPromo.setDiscountPercentage(25.0);
         newPromo.setActive(true);
 
@@ -44,8 +44,9 @@ public class PromotionDAOTest {
         PromotionDAO promotionDAO = new PromotionDAO();
 
         // Step 1: Fetch the original promotion
-        Promotion promoToUpdate = promotionDAO.getPromotionById(1);
-        assertNotNull("Setup failed: Could not retrieve promo with ID 1 to update.", promoToUpdate);
+        int promoId = TestData.newPromotion().getPromoId(); // a promotion made for this test
+        Promotion promoToUpdate = promotionDAO.getPromotionById(promoId);
+        assertNotNull("Setup failed: Could not retrieve the promotion to update.", promoToUpdate);
 
         // Step 2: Change some details
         promoToUpdate.setDiscountPercentage(15.5); // Use a distinct value
@@ -56,7 +57,7 @@ public class PromotionDAOTest {
         assertTrue("DAO method should report that the update was successful.", result);
 
         // Step 4: Fetch the promotion again to verify the changes
-        Promotion updatedPromo = promotionDAO.getPromotionById(1);
+        Promotion updatedPromo = promotionDAO.getPromotionById(promoId);
 
         // THIS IS THE CRITICAL CHECK
         assertNotNull("Verification failed: getPromotionById returned null after update.", updatedPromo);
@@ -69,20 +70,13 @@ public class PromotionDAOTest {
     @Test
     public void testDeletePromotion() {
         PromotionDAO promotionDAO = new PromotionDAO();
-        // First add a temporary promo to delete
-        Promotion tempPromo = new Promotion();
-        tempPromo.setPromoCode("DELETE_ME");
-        tempPromo.setDiscountPercentage(50.0);
-        tempPromo.setActive(true);
-        promotionDAO.addPromotion(tempPromo);
+        // Add a temporary promo of our own and delete that one (not the sample promo 'SAVE10')
+        int tempId = TestData.newPromotion().getPromoId();
 
-        // A better way to get the ID would be ideal, but for testing we'll assume it's the last one.
-        // For this test, we'll delete a known ID, let's say a new one we add with ID 2.
-        // To make this test reliable, let's just delete the 'SAVE10' promo with ID 1.
-        boolean result = promotionDAO.deletePromotion(1);
+        boolean result = promotionDAO.deletePromotion(tempId);
         assertTrue("Promotion should be deleted successfully.", result);
 
-        Promotion deletedPromo = promotionDAO.getPromotionById(1);
+        Promotion deletedPromo = promotionDAO.getPromotionById(tempId);
         assertNull("Deleted promotion should not be found.", deletedPromo);
     }
 }

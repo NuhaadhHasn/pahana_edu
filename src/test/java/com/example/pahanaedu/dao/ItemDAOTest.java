@@ -94,7 +94,7 @@ public class ItemDAOTest {
     @Test
     public void testDeleteItem() {
         ItemDAO itemDAO = new ItemDAO();
-        int itemIdToDelete = 5; // Assuming an item with ID 1 exists.
+        int itemIdToDelete = TestData.newItem(5).getItemId(); // an item made for this test
 
         // Execute the delete operation
         boolean result = itemDAO.deleteItem(itemIdToDelete);

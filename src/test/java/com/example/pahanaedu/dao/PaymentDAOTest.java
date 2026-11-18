@@ -13,7 +13,7 @@ public class PaymentDAOTest {
     public void testRecordPayment() {
         PaymentDAO paymentDAO = new PaymentDAO();
         Payment payment = new Payment();
-        payment.setBillId(2); // Assuming bill with ID 2 exists
+        payment.setBillId(TestData.newBill("ISSUED").getBillId()); // a bill made for this test
         payment.setPaymentDate(LocalDateTime.now());
         payment.setAmount(1050.00);
         payment.setPaymentMethod("CASH");

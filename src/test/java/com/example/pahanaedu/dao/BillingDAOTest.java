@@ -21,7 +21,7 @@ public class BillingDAOTest {
     public void testSaveBill() {
         // 1. Setup: Create a complete bill object to save
         Bill billToSave = new Bill();
-        billToSave.setCustomerId(5);
+        billToSave.setCustomerId(TestData.newCustomer().getCustomerId()); // a customer made for this test
         billToSave.setBillDate(LocalDateTime.now());
         billToSave.setSubTotal(1000.00);
         billToSave.setTaxRateApplied(0.05);
@@ -32,7 +32,7 @@ public class BillingDAOTest {
         // Create some items for the bill
         List<BillItem> billItems = new ArrayList<>();
         BillItem item1 = new BillItem();
-        item1.setItemId(1); // Assuming item with ID 1 exists
+        item1.setItemId(TestData.newItem(10).getItemId()); // an item made for this test
         item1.setQuantity(1);
         item1.setPriceAtPurchase(1000.00);
         billItems.add(item1);
@@ -55,6 +55,7 @@ public class BillingDAOTest {
     public void testGetAllBills() {
         // 1. Setup
         BillingDAO billingDAO = new BillingDAO();
+        TestData.newBill("ISSUED"); // make sure there is at least one bill
 
         // 2. Execution
         List<Bill> allBills = billingDAO.getAllBills();
@@ -68,9 +69,9 @@ public class BillingDAOTest {
     @Test
     public void testGetBillById() {
         BillingDAO billingDAO = new BillingDAO();
-        // Assuming bill with ID 2 exists from our test setup / sql script
-        Bill bill = billingDAO.getBillById(2);
+        int billId = TestData.newBill("ISSUED").getBillId(); // a bill made for this test
+        Bill bill = billingDAO.getBillById(billId);
         assertNotNull("Bill should not be null for a valid ID.", bill);
-        assertEquals("The bill ID should be 2.", 2, bill.getBillId());
+        assertEquals("The bill ID should match.", billId, bill.getBillId());
     }
 }

@@ -37,7 +37,8 @@ public class UserDAOTest {
         // 1. Setup
         UserDAO userDAO = new UserDAO();
         User newUser = new User();
-        newUser.setUsername("newstaff");
+        String username = TestData.unique("staff");
+        newUser.setUsername(username);
         newUser.setPassword("staffpass");
         newUser.setFullName("New Staff Member");
         newUser.setRole("STAFF");
@@ -49,7 +50,7 @@ public class UserDAOTest {
         assertTrue("The new user should be added successfully.", result);
 
         // Optional: Verify by trying to log in as the new user
-        User createdUser = userDAO.validate("newstaff", "staffpass");
+        User createdUser = userDAO.validate(username, "staffpass");
         assertNotNull("Should be able to validate the newly created user.", createdUser);
     }
 
