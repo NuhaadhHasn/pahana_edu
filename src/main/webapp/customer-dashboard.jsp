@@ -14,7 +14,7 @@
         <a href="${pageContext.request.contextPath}/my-bills" class="list-group-item list-group-item-action">
             <i class="bi bi-receipt me-2"></i>View My Bill History
         </a>
-        <a href="${pageContext.request.contextPath}/items?action=view" class="list-group-item list-group-item-action">
+        <a href="${pageContext.request.contextPath}/view-items" class="list-group-item list-group-item-action">
             <i class="bi bi-book me-2"></i>View Available Items
         </a>
         <a href="${pageContext.request.contextPath}/make-payment" class="list-group-item list-group-item-action">
