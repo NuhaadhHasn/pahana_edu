@@ -23,7 +23,7 @@
             <tbody>
             <c:forEach items="${historyList}" var="log">
                 <tr class="animate-on-scroll">
-                    <td><c_rt:out value="${log.logId}"/></td>
+                    <td><c:out value="${log.logId}"/></td>
                     <td>
                         <c:if test="${log.userId > 0}">
                             <c:out value="${log.userId}"/>
