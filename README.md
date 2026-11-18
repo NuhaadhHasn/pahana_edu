@@ -70,8 +70,9 @@ The text above is my own README, unchanged. Everything below was added later, wh
 
 ## Where this code comes from
 
-- The history of this repository is the real history of the project: 20 commits by me, 10 to 20 August 2025, taken from the `.git` folder inside `Assignment.rar`. Nothing was rewritten.
-- The `Assignment.rar` snapshot stops at commit `54dc14e` ("Bug fix in backend", 20 August 2025). The public repository [`NuhaadhHasn/pahana_edu`](https://github.com/NuhaadhHasn/pahana_edu) that the report links to has five more commits on top (26 to 28 August 2025: notification update, print function, animations and loaders, charts for the reports, username check). **Those five commits are not in this private copy.**
+- The history of this repository is the real history of the project: 25 commits by me, 10 to 28 August 2025, which the report links to. Nothing was rewritten.
+- The `Assignment.rar` I submitted stops at commit `54dc14e` ("Bug fix in backend", 20 August 2025). Everything after that commit in this repository was added in November 2026 on top of your own five later commits (26 to 28 August 2025: notification update, print function, animations and loaders, charts for the reports, username check): the database script, the README, the screenshots and the bug fixes below, each in its own commit.
+- **What was checked on which code.** The browser run, the screenshots and the manual checks in this README were made on the 20 August code, before the five later commits were merged in. After the merge, the program compiles and all 32 unit tests pass twice in a row on an empty database (31 of the earlier tests plus the username test from 28 August). The pages added later (profile, print, charts) were not run in a browser again.
 - `database/CreateDB&TableScripts.sql` is the SQL script that lay next to the project in `Assignment.rar` (it was never inside the Git repository). It was committed as received, then fixed (see below).
 
 ## Verified run (18 November 2026)
@@ -83,7 +84,7 @@ The text above is my own README, unchanged. Everything below was added later, wh
 | Compiler | JDK 20, `--release 17`, no Maven (a Maven build needs a download that was not allowed, so `mvn package` is **not verified**); the four libraries (`mysql-connector-j 8.4.0`, `jstl 1.2`, `json 20231013`, `protobuf-java 4.28.2`) came from the project's own `target/` folder |
 | Browser | headless Chromium, all addresses except `127.0.0.1` blocked |
 
-The pom asks for Servlet 4.0 / Tomcat 9; the code compiles and runs unchanged on Tomcat 8.5 (it uses nothing newer than Servlet 3.1). The program has 61 classes, 23 JSP pages and about 5,200 lines of Java.
+The pom asks for Servlet 4.0 / Tomcat 9; the code compiles and runs unchanged on Tomcat 8.5 (it uses nothing newer than Servlet 3.1). The program (with the later commits) has 65 classes and 24 JSP pages.
 
 Logins in the sample data (from the SQL script): `admin` / `admin123`, `staff` / `staff123`, `kamal` / `kamal123` (a customer). They are demo passwords stored in plain text.
 
@@ -125,7 +126,7 @@ Found by running it with the three roles and by sending requests by hand. The "F
 | 9 | Bills are not validated on the server | an empty bill, a negative service charge (-500) and 100 copies of a book with 23 in stock were all accepted (stock became -75); letters in a number field give a 500 error page | commit "Billing: validate the bill on the server, show the new bill number, make the item filter work" |
 | 10 | Payments are not validated | paying Rs 1 on a bill of Rs 9,000 marked it PAID; an already paid bill can be paid again (a second payment row is stored) | commit "Customers can only open and pay their own bills; payments must match an unpaid bill" |
 | 11 | The "Filter Books" box on the create-bill page does nothing | the script looks for elements of class `result-item`, the list items have class `list-group-item` | commit "Billing: validate the bill on the server, show the new bill number, make the item filter work" |
-| 12 | 7 of the 31 unit tests fail on a fresh database | they assume rows that only existed in my own database (customer 5, bill 2, promotion 8, ...) and depend on the order the tests run in | commit "Tests: every test makes the rows it needs (31 of 31 pass on an empty database, and again on the same one)" |
+| 12 | 7 of the 31 unit tests (at that time) fail on a fresh database | they assume rows that only existed in my own database (customer 5, bill 2, promotion 8, ...) and depend on the order the tests run in | commit "Tests: every test makes the rows it needs (31 of 31 pass on an empty database, and again on the same one)" |
 | 13 | IDE state (`.idea/`) was committed in the original history | | commit "Stop tracking the IDE state" |
 | 14 | Left as they are (design limits, not fixed) | passwords are stored and compared in plain text; one shared JDBC connection is used by all requests while `saveBill` switches auto-commit off on it; stock is reduced after, not inside, the bill transaction; no CSRF protection; the Maven build is unverified (no download allowed) | not fixed |
 
@@ -146,7 +147,7 @@ All checks were repeated after the last fix with the three roles, against a fres
 | 9 | empty bill; service charge -500; 100 copies with 25 in stock; letters in a number; tax 150 | all saved (stock -75) or error 500 | each one stays on the form with a red message (screenshot [23](docs/screenshots/23-after-fix-validation-error.jpg)); nothing is saved; a walk-in customer is no longer created when the bill is refused |
 | 10 | pay Rs 1 on a Rs 9,000 bill; pay a paid bill again | bill became PAID; second payment stored | refused with a message on the bill history / my bills page; only a payment equal to the total of an unpaid bill is accepted |
 | 11 | type in "Filter Books" | the list did not change | the list is filtered while typing |
-| 12 | run the 31 tests on an empty database, then again on the same database | 7 failed on the first run | 31 of 31 pass both times |
+| 12 | run the tests on an empty database, then again on the same database | 7 of 31 failed on the first run | all pass both times (32 of 32 after the later commits were merged in) |
 | 13 | | `.idea/` was in the repository | no longer tracked, listed in `.gitignore` (the old commits still contain it) |
 
 Things the fixes do **not** change: after a refused bill the form comes back empty, so the lines have to be added again; a payment must be the full bill total (the database has no "part paid" status); the passwords are still plain text (problem 14).
