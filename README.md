@@ -8,6 +8,25 @@ The system allows Admins and Staff to manage users, customers, inventory, and pr
 
 ---
 
+## Screenshots
+
+The application as it looked when I submitted it (pictures from my assignment report, August 2025).
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/report-screenshots/01-login.png" alt="Login page"><br><sub>Login</sub></td>
+    <td width="50%"><img src="docs/report-screenshots/02-admin-dashboard.png" alt="Admin and staff dashboard"><br><sub>Admin and staff dashboard, with low-stock notices</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/report-screenshots/03-user-management.png" alt="User management"><br><sub>User management</sub></td>
+    <td width="50%"><img src="docs/report-screenshots/04-add-item.png" alt="Add new item"><br><sub>Add a new item</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/report-screenshots/05-create-bill.png" alt="Create new bill"><br><sub>Create a bill: customer, items, promotion, tax and service charge</sub></td>
+    <td width="50%"><img src="docs/report-screenshots/06-invoice.png" alt="Generated invoice"><br><sub>The generated invoice</sub></td>
+  </tr>
+</table>
+
 ## 🚀 Technology Stack
 
 This project utilizes a full-stack, industry-standard set of technologies:
@@ -89,6 +108,8 @@ The pom asks for Servlet 4.0 / Tomcat 9; the code compiles and runs unchanged on
 Logins in the sample data (from the SQL script): `admin` / `admin123`, `staff` / `staff123`, `kamal` / `kamal123` (a customer). They are demo passwords stored in plain text.
 
 ### Screenshots
+
+These pictures were taken in a run with no internet connection. The page style (Bootstrap) is loaded from a CDN, so it is missing and the pages look plain; the styled pictures are at the top of this page.
 
 Taken from the program exactly as received. **The pages look unstyled**: the program loads Bootstrap 5.3.3 and Bootstrap Icons from `cdn.jsdelivr.net` (about 0.5 MB), and no downloads were allowed, so the browser was not allowed to fetch them. The layout, the data and the behaviour are real; only the styling is missing. The styled screens are in my report (login, dashboard, user management, add item, create bill, bill view).
 
