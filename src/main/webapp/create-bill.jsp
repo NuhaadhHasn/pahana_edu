@@ -61,8 +61,8 @@
                         <label for="customerId" class="form-label">Select Existing Customer:</label>
                         <select class="form-select" id="customerId" name="customerId">
                             <c:forEach items="${customers}" var="customer">
-                                <option value="${customer.customerId}">${customer.fullName}
-                                    (${customer.accountNumber})
+                                <option value="${customer.customerId}"><c:out value="${customer.fullName}"/>
+                                    (<c:out value="${customer.accountNumber}"/>)
                                 </option>
                             </c:forEach>
                         </select>
@@ -100,9 +100,9 @@
                              style="max-height: 200px; overflow-y: auto;">
                             <c:forEach items="${items}" var="item">
                                 <a href="#" class="list-group-item list-group-item-action" data-item-id="${item.itemId}"
-                                   data-item-name="${item.itemName}" data-item-price="${item.price}"
+                                   data-item-name="<c:out value="${item.itemName}"/>" data-item-price="${item.price}"
                                    onclick="addItemToBill(this); return false;">
-                                        ${item.itemName} - <fmt:formatNumber value="${item.price}" type="currency"
+                                        <c:out value="${item.itemName}"/> - <fmt:formatNumber value="${item.price}" type="currency"
                                                                              currencySymbol="Rs."/>
                                 </a>
                             </c:forEach>
@@ -242,12 +242,13 @@
                 const lineTotal = item.price * quantity;
                 // THE FIX IS HERE: Escaping the dollar signs
                 row.innerHTML = `
-                    <td>\${item.name}</td>
+                    <td class="item-name-cell"></td>
                     <td class="text-right"><input type="number" value="\${quantity}" min="1" style="width: 60px;" onchange="updateQuantity(\${itemId}, this.value)"></td>
                     <td class="text-right">\${item.price.toFixed(2)}</td>
                     <td class="text-right">\${lineTotal.toFixed(2)}</td>
                     <td><span class="remove-btn" onclick="removeItem(\${itemId})">Remove</span></td>
                 `;
+                row.querySelector('.item-name-cell').textContent = item.name; // text, not HTML
                 billTableBody.appendChild(row);
             });
         }
