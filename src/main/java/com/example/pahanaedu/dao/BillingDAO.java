@@ -55,6 +55,7 @@ public class BillingDAO {
                 try (ResultSet generatedKeys = billStmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int billId = generatedKeys.getInt(1);
+                        bill.setBillId(billId); // so the caller (and the bill page) knows the new number
 
                         // --- Step 3: Insert into the 'bill_items' table ---
                         try (PreparedStatement billItemsStmt = connection.prepareStatement(INSERT_BILL_ITEMS_SQL)) {

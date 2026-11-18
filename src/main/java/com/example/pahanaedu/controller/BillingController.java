@@ -47,6 +47,13 @@ public class BillingController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        showForm(request, response, null);
+    }
+
+    /**
+     * Shows the "Create Bill" form, optionally with an error message above it.
+     */
+    private void showForm(HttpServletRequest request, HttpServletResponse response, String errorMessage) throws ServletException, IOException {
         // Fetch all customers to populate a dropdown list.
         List<Customer> customers = customerService.getAllCustomers();
         // Fetch all available items for the user to choose from.
@@ -56,6 +63,7 @@ public class BillingController extends HttpServlet {
         request.setAttribute("customers", customers);
         request.setAttribute("items", items);
         request.setAttribute("promotions", promotions);
+        request.setAttribute("errorMessage", errorMessage);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("create-bill.jsp");
         dispatcher.forward(request, response);
@@ -66,6 +74,68 @@ public class BillingController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // --- Validate the numbers and the items first, so a bad request creates nothing ---
+        double taxRate = 0.0; // Default to zero tax
+        double serviceCharge = 0.0;
+        List<BillItem> itemsToBill = new ArrayList<>();
+        try {
+            String taxRateParam = request.getParameter("taxRate");
+            if (taxRateParam != null && !taxRateParam.trim().isEmpty()) {
+                double taxPercentage = Double.parseDouble(taxRateParam.trim());
+                if (taxPercentage < 0 || taxPercentage > 100) {
+                    showForm(request, response, "The tax rate must be between 0 and 100 percent.");
+                    return;
+                }
+                // Convert the percentage typed in (e.g. 10) into a decimal for calculation (e.g. 0.10)
+                taxRate = taxPercentage / 100.0;
+            }
+
+            String serviceChargeParam = request.getParameter("serviceCharge");
+            if (serviceChargeParam != null && !serviceChargeParam.trim().isEmpty()) {
+                serviceCharge = Double.parseDouble(serviceChargeParam.trim());
+            }
+            if (serviceCharge < 0) {
+                showForm(request, response, "The service charge cannot be negative.");
+                return;
+            }
+
+            String[] itemIds = request.getParameterValues("itemIds");
+            String[] quantities = request.getParameterValues("quantities");
+            if (itemIds != null && quantities != null) {
+                java.util.Map<Integer, Integer> wanted = new java.util.LinkedHashMap<>();
+                for (int i = 0; i < itemIds.length && i < quantities.length; i++) {
+                    int quantity = Integer.parseInt(quantities[i].trim());
+                    if (quantity > 0) {
+                        wanted.merge(Integer.parseInt(itemIds[i].trim()), quantity, Integer::sum);
+                    }
+                }
+                for (java.util.Map.Entry<Integer, Integer> entry : wanted.entrySet()) {
+                    Item itemDetails = itemService.getItemById(entry.getKey());
+                    if (itemDetails == null) {
+                        showForm(request, response, "One of the items no longer exists.");
+                        return;
+                    }
+                    if (entry.getValue() > itemDetails.getStockQuantity()) {
+                        showForm(request, response, "Only " + itemDetails.getStockQuantity() + " of '" + itemDetails.getItemName() + "' in stock, but " + entry.getValue() + " were asked for.");
+                        return;
+                    }
+                    BillItem billItem = new BillItem();
+                    billItem.setItemId(entry.getKey());
+                    billItem.setItemName(itemDetails.getItemName());
+                    billItem.setQuantity(entry.getValue());
+                    billItem.setPriceAtPurchase(itemDetails.getPrice());
+                    itemsToBill.add(billItem);
+                }
+            }
+        } catch (NumberFormatException e) {
+            showForm(request, response, "A number in the form is not valid.");
+            return;
+        }
+        if (itemsToBill.isEmpty()) {
+            showForm(request, response, "Add at least one item to the bill.");
+            return;
+        }
+
         // ... (The customer selection logic is the same) ...
         String isWalkinParam = request.getParameter("isWalkin");
         boolean isWalkin = (isWalkinParam != null && isWalkinParam.equals("on"));
@@ -101,8 +171,13 @@ public class BillingController extends HttpServlet {
 
         } else {
             // --- HANDLE EXISTING CUSTOMER ---
-            int customerId = Integer.parseInt(request.getParameter("customerId"));
-            billCustomer = customerService.getCustomerById(customerId);
+            try {
+                int customerId = Integer.parseInt(request.getParameter("customerId"));
+                billCustomer = customerService.getCustomerById(customerId);
+            } catch (NumberFormatException e) {
+                showForm(request, response, "Please select a customer.");
+                return;
+            }
         }
 
         // If customer creation failed or wasn't found, stop here.
@@ -114,39 +189,11 @@ public class BillingController extends HttpServlet {
         String promoIdStr = request.getParameter("promoId");
         Promotion selectedPromotion = null; // Default to no promotion
         if (promoIdStr != null && !promoIdStr.equals("0")) {
-            int promoId = Integer.parseInt(promoIdStr);
-            selectedPromotion = promotionService.getPromotionById(promoId);
-        }
-
-        // --- NEW TAX LOGIC ---
-        double taxRate = 0.0; // Default to zero tax
-        String taxRateParam = request.getParameter("taxRate");
-        if (taxRateParam != null && !taxRateParam.isEmpty()) {
-            double taxPercentage = Double.parseDouble(taxRateParam);
-            if (taxPercentage > 0) {
-                // Convert the user's input (e.g., 10) into a decimal for calculation (e.g., 0.10)
-                taxRate = taxPercentage / 100.0;
-            }
-        }
-
-        double serviceCharge = Double.parseDouble(request.getParameter("serviceCharge"));
-
-        List<BillItem> itemsToBill = new ArrayList<>();
-        String[] itemIds = request.getParameterValues("itemIds");
-        String[] quantities = request.getParameterValues("quantities");
-        if (itemIds != null && quantities != null) {
-            for (int i = 0; i < itemIds.length; i++) {
-                int quantity = Integer.parseInt(quantities[i]);
-                if (quantity > 0) {
-                    int itemId = Integer.parseInt(itemIds[i]);
-                    Item itemDetails = itemService.getItemById(itemId);
-                    BillItem billItem = new BillItem();
-                    billItem.setItemId(itemId);
-                    billItem.setItemName(itemDetails.getItemName());
-                    billItem.setQuantity(quantity);
-                    billItem.setPriceAtPurchase(itemDetails.getPrice());
-                    itemsToBill.add(billItem);
-                }
+            try {
+                selectedPromotion = promotionService.getPromotionById(Integer.parseInt(promoIdStr));
+            } catch (NumberFormatException e) {
+                showForm(request, response, "The selected promotion is not valid.");
+                return;
             }
         }
 

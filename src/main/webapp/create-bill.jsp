@@ -41,6 +41,10 @@
         <h1 class="mb-0">Create New Bill</h1>
     </div>
 
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger"><c:out value="${errorMessage}"/></div>
+    </c:if>
+
     <form id="billing-form" action="${pageContext.request.contextPath}/billing" method="post">
         <div class="row g-4">
             <%-- Left Column: Customer and Item Selection --%>
@@ -187,7 +191,7 @@
     const currentBillItems = new Map();
     const searchInput = document.getElementById('item-search');
     const itemListContainer = document.getElementById('item-list-container');
-    const allItems = Array.from(itemListContainer.getElementsByClassName('result-item'));
+    const allItems = Array.from(itemListContainer.getElementsByClassName('list-group-item'));
     const billTableBody = document.querySelector('#bill-items-table tbody');
     const subtotalSpan = document.getElementById('subtotal');
     const taxAmountSpan = document.getElementById('tax-amount');
@@ -201,7 +205,7 @@
         const searchTerm = searchInput.value.toLowerCase();
         allItems.forEach(itemDiv => {
             const itemName = itemDiv.dataset.itemName.toLowerCase();
-            itemDiv.style.display = itemName.includes(searchTerm) ? 'block' : 'none';
+            itemDiv.style.display = itemName.includes(searchTerm) ? '' : 'none';
         });
     });
     form.addEventListener('submit', prepareFormForSubmission);
