@@ -43,13 +43,30 @@ public class ProfileController extends HttpServlet {
 
         if ("updateDetails".equals(action)) {
             // --- Handle Profile Detail Update ---
-            currentUser.setFullName(request.getParameter("fullName"));
-            currentUser.setUsername(request.getParameter("username"));
+            // Work on a copy, so the logged-in user object only changes when the database accepted the change
+            // (a username that is already taken makes the update fail; it used to be reported as a success).
+            String newFullName = request.getParameter("fullName");
+            String newUsername = request.getParameter("username");
+            if (newFullName == null || newFullName.trim().isEmpty() || newUsername == null || newUsername.trim().isEmpty()) {
+                session.setAttribute("errorMessage", "The full name and the username cannot be empty.");
+                response.sendRedirect(request.getContextPath() + "/profile");
+                return;
+            }
+            User changed = new User();
+            changed.setUserId(currentUser.getUserId());
+            changed.setRole(currentUser.getRole());
+            changed.setPassword(currentUser.getPassword());
+            changed.setFullName(newFullName.trim());
+            changed.setUsername(newUsername.trim());
 
-            userService.updateUser(currentUser);
-
-            // Set a success message and redirect
-            session.setAttribute("successMessage", "Your details have been updated successfully!");
+            if (userService.updateUser(changed)) {
+                currentUser.setFullName(changed.getFullName());
+                currentUser.setUsername(changed.getUsername());
+                // Set a success message and redirect
+                session.setAttribute("successMessage", "Your details have been updated successfully!");
+            } else {
+                session.setAttribute("errorMessage", "Your details were not saved. That username may already be taken.");
+            }
             response.sendRedirect(request.getContextPath() + "/profile");
 
         } else if ("changePassword".equals(action)) {
