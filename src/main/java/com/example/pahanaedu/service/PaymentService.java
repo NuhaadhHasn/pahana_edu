@@ -1,6 +1,7 @@
 package com.example.pahanaedu.service;
 
 import com.example.pahanaedu.dao.PaymentDAO;
+import com.example.pahanaedu.model.Bill;
 import com.example.pahanaedu.model.Payment;
 import com.example.pahanaedu.service.IBillingService;
 import com.example.pahanaedu.service.ServiceFactory;
@@ -18,6 +19,20 @@ public class PaymentService implements IPaymentService {
     @Override
     public boolean recordPayment(Payment payment) {
         if (payment.getAmount() <= 0) {
+            return false;
+        }
+
+        String method = payment.getPaymentMethod();
+        if (!"CASH".equals(method) && !"CREDIT_CARD".equals(method) && !"BANK_TRANSFER".equals(method)) {
+            return false;
+        }
+
+        // The bill must exist, still be waiting for payment, and be paid in full.
+        Bill bill = billingService.getBillById(payment.getBillId());
+        if (bill == null || !"ISSUED".equals(bill.getStatus())) {
+            return false;
+        }
+        if (Math.abs(payment.getAmount() - bill.getTotalAmount()) > 0.005) {
             return false;
         }
 

@@ -1,6 +1,8 @@
 package com.example.pahanaedu.controller;
 
 import com.example.pahanaedu.model.Bill;
+import com.example.pahanaedu.model.Customer;
+import com.example.pahanaedu.model.User;
 import com.example.pahanaedu.service.IBillingService;
 import com.example.pahanaedu.service.ServiceFactory;
 
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -34,8 +37,16 @@ public class ViewBillDetailsController extends HttpServlet {
             Bill bill = billingService.getBillById(billId);
 
             if (bill != null) {
-                // Note: A security check should be here to ensure the logged-in customer owns this bill.
-                // We will add this with the RBAC filter later.
+                // A customer may only open their own bills.
+                HttpSession session = request.getSession(false);
+                User currentUser = session != null ? (User) session.getAttribute("user") : null;
+                if (currentUser != null && "CUSTOMER".equals(currentUser.getRole())) {
+                    Customer own = ServiceFactory.getCustomerService().getCustomerByUserId(currentUser.getUserId());
+                    if (own == null || own.getCustomerId() != bill.getCustomerId()) {
+                        response.sendError(HttpServletResponse.SC_FORBIDDEN, "This bill belongs to another customer.");
+                        return;
+                    }
+                }
                 request.setAttribute("bill", bill);
                 request.setAttribute("customer", bill.getCustomer());
 

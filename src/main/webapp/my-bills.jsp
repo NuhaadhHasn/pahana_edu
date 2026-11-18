@@ -20,6 +20,11 @@
         <h1 class="mb-0">My Bill History</h1>
     </div>
 
+    <c:if test="${not empty sessionScope.paymentError}">
+        <div class="alert alert-danger"><c:out value="${sessionScope.paymentError}"/></div>
+        <c:remove var="paymentError" scope="session"/>
+    </c:if>
+
     <c:if test="${empty billList}">
         <div class="alert alert-info">You have no bills in your history yet.</div>
     </c:if>

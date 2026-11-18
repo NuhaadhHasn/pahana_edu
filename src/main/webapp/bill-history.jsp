@@ -11,6 +11,11 @@
         </div>
     </div>
 
+    <c:if test="${not empty sessionScope.paymentError}">
+        <div class="alert alert-danger"><c:out value="${sessionScope.paymentError}"/></div>
+        <c:remove var="paymentError" scope="session"/>
+    </c:if>
+
     <%-- Bill History Table --%>
     <div class="table-responsive">
         <table class="table table-hover align-middle">

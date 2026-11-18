@@ -24,8 +24,16 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int billId = Integer.parseInt(request.getParameter("billId"));
-        double amount = Double.parseDouble(request.getParameter("amount"));
+        int billId;
+        double amount;
+        try {
+            billId = Integer.parseInt(request.getParameter("billId"));
+            amount = Double.parseDouble(request.getParameter("amount"));
+        } catch (NumberFormatException | NullPointerException e) {
+            request.getSession().setAttribute("paymentError", "The payment was not recorded: the bill number or the amount is not a number.");
+            response.sendRedirect(request.getContextPath() + "/bill-history");
+            return;
+        }
         String paymentMethod = request.getParameter("paymentMethod");
 
         Payment payment = new Payment();
@@ -35,6 +43,9 @@ public class PaymentController extends HttpServlet {
         payment.setPaymentDate(LocalDateTime.now());
 
         boolean success = paymentService.recordPayment(payment);
+        if (!success) {
+            request.getSession().setAttribute("paymentError", "The payment was not recorded. The bill must exist, still be unpaid, and the amount must equal the bill total.");
+        }
 
         // After recording the payment, redirect back to the bill history page
         // to see the updated "PAID" status.
